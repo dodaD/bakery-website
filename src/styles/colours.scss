@@ -1,0 +1,13 @@
+@media (prefers-color-scheme: light) {
+  :root {
+    --background: rgba(242, 212, 208, 1);
+    --background-dark-accent: rgba(79, 96, 226, 1);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: rgba(230, 162, 153, 1);
+    --background-dark-accent: rgba(79, 96, 226, 1);
+  }
+}
