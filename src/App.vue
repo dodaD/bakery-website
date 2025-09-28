@@ -11,6 +11,7 @@ import MainPage from './components/MainPage.vue';
 
 <style lang="scss">
 @import "@/styles/colours.scss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 .main-wrapper {
   width: 100%;
@@ -24,5 +25,7 @@ html {
   margin: 0;
   padding: 0;
   height: 100%;
+  font-family: "Inter", sans-serif;
+
 }
 </style>

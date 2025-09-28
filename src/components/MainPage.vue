@@ -1,29 +1,13 @@
-<script setup></script>
+<script setup>
+import NavigationComponent from './NavigationComponent.vue'
+import HeroComponent from './HeroComponent.vue'
+</script>
 
 <template>
      <div class="content-wrapper">
-          <div class="navigation">
-               <div class="logo">
-                    <h1>Bakery</h1>
-               </div>
-               <div class="menu">
-                    <router-link to="/">Home</router-link>
-                    <router-link to="/about">About</router-link>
-                    <router-link to="/shop">Shop</router-link>
-                    <router-link to="/contact">Contact</router-link>
-               </div>
+          <NavigationComponent />
 
-               <div class="buttons-wrapper">
-                    <button>
-                         <font-awesome-icon :icon="['fas', 'magnifying-glass']" />
-                    </button>
-                    <button>
-                         <font-awesome-icon :icon="['fas', 'bag-shopping']" />
-                    </button>
-               </div>
-          </div>
-
-          <div class="hero"></div>
+          <HeroComponent />
 
           <div class="best-sellers"></div>
 
@@ -44,50 +28,12 @@
      transform: translateX(50%);
      width: 100%;
      background-color: var(--background);
-     height: 100%;
-     padding: 0 50px;
+     padding: 25px 50px;
      box-sizing: border-box;
-}
-
-.navigation {
-     display: flex;
-     width: 100%;
-     align-items: center;
-}
-
-.menu {
-     width: 60%;
-     display: flex;
-     align-items: center;
-     justify-content: center;
-
-     a {
-          margin: 0 15px;
-
-          &:first-of-type {
-               margin-left: 0;
-          }
-
-          &:last-of-type {
-               margin-right: 0;
-          }
-     }
-}
-
-.buttons-wrapper {
-     display: flex;
-     margin-left: 20%;
-
-     button {
-          background: none;
-          border: none;
-          margin-left: 20px;
-          font-size: 16px;
-          cursor: pointer;
-     }
-}
-
-.logo {
-     margin-right: 20%;
+     background-image: radial-gradient(circle 600px at center,
+               /* circle radius & position */
+               var(--background-dark-accent) 0%,
+               var(--background-accent) 70%,
+               var(--background) 100%);
 }
 </style>
