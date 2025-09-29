@@ -2,6 +2,8 @@
   :root {
     --background: rgba(242, 212, 208, 1);
     --background-accent: rgba(79, 96, 226, 1);
+    --glass-background: rgba(255, 255, 255, 0.2);
+    --glass-border: rgba(255, 255, 255, 0.5);
   }
 }
 
@@ -10,5 +12,8 @@
     --background: rgb(243 193 209);
     --background-accent: rgb(227 176 192);
     --background-dark-accent: rgb(214 143 156);
+    --glass-background: rgba(172, 172, 172, 0.2);
+    --glass-border: rgba(255, 255, 255, 0.3);
+    --font-colour: white;
   }
 }

@@ -4,9 +4,16 @@
 <template>
      <div class="hero-wrapper">
           <div class="hero-grid">
-               <div class="title glass-background">Delicious Baked Goods</div>
-               <div class="product-scroll-wrapper glass-background">Freshly made just for you</div>
-               <div class="review glass-background">
+               <div class="title-wrapper">
+                    <div class="title">Breath Natural</div>
+                    <div class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                         tempor incididunt ut labore et dolore magna aliqua.
+                    </div>
+                    <button class="explore-button">Explore</button>
+               </div>
+
+               <div class="product-scroll-wrapper ">Freshly made just for you</div>
+               <div class="review">
                     <p>⭐⭐⭐⭐⭐</p>
                </div>
           </div>
@@ -33,33 +40,49 @@
      z-index: 1;
 }
 
-.title {
+.title-wrapper {
      grid-column: 1;
      grid-row: 1;
      display: flex;
-     align-items: center;
-     justify-content: center;
+     padding-right: 100px;
+     flex-direction: column;
+}
+
+.title {
+     font-weight: 600;
+     font-size: 90px;
+}
+
+.description {
+     margin-bottom: 20px;
+}
+
+.explore-button {
+     background-color: unset;
+     border: 1px solid var(--font-colour);
+     border-radius: 8px;
+     cursor: pointer;
+     font-size: 15px;
+     font-weight: 350;
+     font-family: 'Inter';
+     width: fit-content;
+     padding: 5px 25px;
 }
 
 .product-scroll-wrapper {
      grid-column: 2;
      grid-row: 1 / 3;
      display: flex;
-     align-items: center;
-     justify-content: center;
-     text-align: center;
 }
 
 .glass-background {
      border-radius: 16px;
 
-     background: rgba(255, 255, 255, 0.2);
+     background: var(--glass-background);
      backdrop-filter: blur(12px);
      -webkit-backdrop-filter: blur(12px);
 
-     border: 1px solid rgba(255, 255, 255, 0.3);
-     color: white;
-     text-align: center;
+     border: 1px solid var(--glass-border);
 }
 
 .review {
