@@ -1,4 +1,5 @@
 <script setup>
+import { ref, computed } from 'vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Navigation, Pagination } from 'swiper/modules'
 import 'swiper/css'
@@ -6,6 +7,8 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 
 const modules = [Navigation, Pagination]
+const currentSlideIndex = ref(0)
+
 const swiperItems = [
      {
           title: 'Chocolate Cake',
@@ -13,38 +16,47 @@ const swiperItems = [
           image: '/Cake Slices/Chocolate Cake Slice.png'
      },
      {
-          title: 'Carrot Cake',
-          description: 'Moist carrot cake with cream cheese frosting and walnuts',
-          image: '/Cake Slices/Carrot Cake Slice.png'
+          title: 'Orange Cake',
+          description: 'Zesty orange cake with citrus glaze and fresh orange zest',
+          image: '/Cake Slices/Orange Cake Slice.png'
      },
      {
-          title: 'Strawberry Cake',
-          description: 'Fresh strawberry cake with light vanilla cream',
-          image: '/Cake Slices/Strawberry Cake slice.png'
+          title: 'Tiramisu Cake',
+          description: 'Classic Italian tiramisu cake with coffee and mascarpone',
+          image: '/Cake Slices/Tiramisu Cake Slice.png'
      }
+
 ]
 
+const currentItem = computed(() => {
+     return swiperItems[currentSlideIndex.value] || swiperItems[0]
+})
+
+const onSlideChange = (swiper) => {
+     currentSlideIndex.value = swiper.realIndex
+}
 </script>
 
 <template>
-     <Swiper :modules="modules" :slides-per-view="1" :loop="true" :navigation="true" direction="horizontal"
-          class="swiper-container glass-background">
-          <SwiperSlide v-for="item in swiperItems" :key="item.title" class="swiper-slide-content">
-               <img :src="item.image" :alt="item.title" class="cake-image" />
-               <div class="cake-info">
-                    <h3 class="cake-title">{{ item.title }}</h3>
-                    <p class="cake-description">{{ item.description }}</p>
-               </div>
-          </SwiperSlide>
-     </Swiper>
+     <div class="swiper-wrapper">
+          <Swiper :modules="modules" :slides-per-view="1" :navigation="true" direction="horizontal"
+               class="swiper-container" @slideChange="onSlideChange">
+               <SwiperSlide v-for="item in swiperItems" :key="item.title" class="swiper-slide-content glass-background">
+                    <div class="cake-title">Trendy Cake Slices</div>
+                    <div class="cake-description">{{ item.title }}</div>
+               </SwiperSlide>
+          </Swiper>
+          <img :src="currentItem.image" class="cake-image" />
+     </div>
 </template>
 
 <style lang="scss" scoped>
 @import "@/styles/colours.scss";
 
-.swiper-container {
-     height: 380px;
+.swiper-wrapper {
+     height: 360px;
      width: 290px;
+     position: relative;
 }
 
 .swiper-slide-content {
@@ -52,8 +64,10 @@ const swiperItems = [
      align-items: center;
      justify-content: center;
      text-align: center;
+     flex-direction: column;
      height: 100%;
 }
+
 
 .cake-slide {
      display: flex;
@@ -66,13 +80,15 @@ const swiperItems = [
 }
 
 .cake-image {
-     width: auto;
+     width: 150px;
      height: 250px;
-     object-fit: contain;
+     object-fit: fill;
      position: absolute;
      top: 0;
-
-     transform: translateY(-40%)
+     right: 50%;
+     z-index: 10;
+     transform: translateY(-100px) translateX(50%) rotate(242deg);
+     user-select: none;
 }
 
 .glass-background {
