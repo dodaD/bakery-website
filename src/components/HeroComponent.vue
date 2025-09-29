@@ -1,4 +1,5 @@
 <script setup>
+import ProductScrollComponent from './ProductScrollComponent.vue'
 </script>
 
 <template>
@@ -12,7 +13,9 @@
                     <button class="explore-button">Explore</button>
                </div>
 
-               <div class="product-scroll-wrapper ">Freshly made just for you</div>
+               <div class="product-scroll-wrapper">
+                    <ProductScrollComponent />
+               </div>
                <div class="review">
                     <p>⭐⭐⭐⭐⭐</p>
                </div>
@@ -28,7 +31,7 @@
      margin-top: 95px;
      position: relative;
      display: flex;
-     min-height: 600px;
+     min-height: 800px;
 }
 
 .hero-grid {
@@ -36,7 +39,8 @@
      grid-template-columns: 2fr 1fr;
      grid-template-rows: 2fr 1fr;
      width: 100%;
-     height: fit-content;
+     height: 600px;
+     gap: 20px;
      z-index: 1;
 }
 
@@ -73,16 +77,34 @@
      grid-column: 2;
      grid-row: 1 / 3;
      display: flex;
+     align-items: flex-start;
+     justify-content: center;
+     margin-left: auto;
+     margin-top: 50px;
 }
 
 .glass-background {
      border-radius: 16px;
-
      background: var(--glass-background);
      backdrop-filter: blur(12px);
      -webkit-backdrop-filter: blur(12px);
-
      border: 1px solid var(--glass-border);
+}
+
+/* Custom Swiper pagination styling */
+.product-scroll-wrapper :deep(.swiper-pagination) {
+     position: relative;
+     margin-top: 10px;
+}
+
+.product-scroll-wrapper :deep(.swiper-pagination-bullet) {
+     background: var(--glass-border);
+     opacity: 0.5;
+}
+
+.product-scroll-wrapper :deep(.swiper-pagination-bullet-active) {
+     background: var(--font-colour);
+     opacity: 1;
 }
 
 .review {
@@ -94,11 +116,12 @@
 }
 
 .photo {
-     width: 70%;
-     height: auto;
-     margin: 0 15%;
+     width: auto;
+     height: 800px;
      opacity: 0.85;
      position: absolute;
      top: 0;
+     right: 50%;
+     transform: translateX(50%);
 }
 </style>
