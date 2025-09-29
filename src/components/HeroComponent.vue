@@ -1,5 +1,6 @@
 <script setup>
 import ProductScrollComponent from './ProductScrollComponent.vue'
+import ReviewComponent from './ReviewComponent.vue'
 </script>
 
 <template>
@@ -16,8 +17,8 @@ import ProductScrollComponent from './ProductScrollComponent.vue'
                <div class="product-scroll-wrapper">
                     <ProductScrollComponent />
                </div>
-               <div class="review">
-                    <p>⭐⭐⭐⭐⭐</p>
+               <div class="review-container">
+                    <ReviewComponent />
                </div>
           </div>
           <img src="/CakePicture.jpg" class="photo">
@@ -40,7 +41,6 @@ import ProductScrollComponent from './ProductScrollComponent.vue'
      grid-template-rows: 2fr 1fr;
      width: 100%;
      height: 600px;
-     gap: 20px;
      z-index: 1;
 }
 
@@ -83,20 +83,9 @@ import ProductScrollComponent from './ProductScrollComponent.vue'
      margin-top: 50px;
 }
 
-.glass-background {
-     border-radius: 16px;
-     background: var(--glass-background);
-     backdrop-filter: blur(12px);
-     -webkit-backdrop-filter: blur(12px);
-     border: 1px solid var(--glass-border);
-}
-
-.review {
+.review-container {
      grid-column: 1;
      grid-row: 2;
-     display: flex;
-     align-items: center;
-     justify-content: center;
 }
 
 .photo {
