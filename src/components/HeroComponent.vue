@@ -91,22 +91,6 @@ import ProductScrollComponent from './ProductScrollComponent.vue'
      border: 1px solid var(--glass-border);
 }
 
-/* Custom Swiper pagination styling */
-.product-scroll-wrapper :deep(.swiper-pagination) {
-     position: relative;
-     margin-top: 10px;
-}
-
-.product-scroll-wrapper :deep(.swiper-pagination-bullet) {
-     background: var(--glass-border);
-     opacity: 0.5;
-}
-
-.product-scroll-wrapper :deep(.swiper-pagination-bullet-active) {
-     background: var(--font-colour);
-     opacity: 1;
-}
-
 .review {
      grid-column: 1;
      grid-row: 2;

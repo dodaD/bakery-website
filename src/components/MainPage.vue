@@ -28,7 +28,7 @@ import HeroComponent from './HeroComponent.vue'
      transform: translateX(50%);
      width: 100%;
      background-color: var(--background);
-     padding: 25px 30px;
+     padding: 25px 40px;
      box-sizing: border-box;
      background-image: radial-gradient(circle 600px at center,
                /* circle radius & position */
