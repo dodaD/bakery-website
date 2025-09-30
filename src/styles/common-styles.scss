@@ -1,0 +1,23 @@
+.explore-button {
+     background-color: unset;
+     border: 1px solid var(--font-colour);
+     border-radius: 8px;
+     cursor: pointer;
+     font-size: 15px;
+     font-weight: 350;
+     font-family: 'Inter';
+     width: fit-content;
+     padding: 5px 25px;
+}
+
+.explore-button:hover {
+          box-shadow: 0 0 10px rgba(255, 255, 255, 0.6),
+          0 0 20px rgba(255, 255, 255, 0.4),
+          inset 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+.glass-background {
+     background: var(--glass-background);
+     backdrop-filter: blur(12px);
+     -webkit-backdrop-filter: blur(12px);
+}

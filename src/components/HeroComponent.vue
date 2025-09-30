@@ -1,6 +1,7 @@
 <script setup>
 import ProductScrollComponent from './ProductScrollComponent.vue'
 import ReviewComponent from './ReviewComponent.vue'
+import TrendyCakesComponent from './TrendyCakesComponent.vue'
 </script>
 
 <template>
@@ -22,17 +23,22 @@ import ReviewComponent from './ReviewComponent.vue'
                </div>
           </div>
           <img src="/CakePicture.jpg" class="photo">
+
+          <div class="hero-title">Our Trendy Cakes</div>
+          <TrendyCakesComponent />
      </div>
 </template>
 
 <style lang="scss" scoped>
 @import "@/styles/colours.scss";
+@import "@/styles/common-styles.scss";
 
 .hero-wrapper {
      margin-top: 95px;
      position: relative;
      display: flex;
      min-height: 800px;
+     flex-direction: column;
 }
 
 .hero-grid {
@@ -50,6 +56,7 @@ import ReviewComponent from './ReviewComponent.vue'
      display: flex;
      padding-right: 100px;
      flex-direction: column;
+     max-width: 670px;
 }
 
 .title {
@@ -61,17 +68,6 @@ import ReviewComponent from './ReviewComponent.vue'
      margin-bottom: 20px;
 }
 
-.explore-button {
-     background-color: unset;
-     border: 1px solid var(--font-colour);
-     border-radius: 8px;
-     cursor: pointer;
-     font-size: 15px;
-     font-weight: 350;
-     font-family: 'Inter';
-     width: fit-content;
-     padding: 5px 25px;
-}
 
 .product-scroll-wrapper {
      grid-column: 2;
@@ -96,5 +92,15 @@ import ReviewComponent from './ReviewComponent.vue'
      top: 0;
      right: 50%;
      transform: translateX(50%);
+}
+
+.hero-title {
+     width: 100%;
+     text-align: center;
+     font-size: 50px;
+     font-weight: 600;
+     color: var(--font-colour);
+     z-index: 1;
+     margin: 40px 0;
 }
 </style>

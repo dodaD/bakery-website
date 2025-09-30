@@ -44,7 +44,7 @@ const onSlideChange = (swiper) => {
                <SwiperSlide v-for="item in swiperItems" :key="item.title" class="swiper-slide-content">
                     <div class="slide-title">Trendy Cake Slices</div>
                     <div class="cake-description">{{ item.title }}</div>
-                    <button class="buy-button">Buy now</button>
+                    <button class="explore-button buy-button">Buy now</button>
                </SwiperSlide>
           </Swiper>
           <img :src="currentItem.image" class="cake-image" />
@@ -53,6 +53,7 @@ const onSlideChange = (swiper) => {
 
 <style lang="scss" scoped>
 @import "@/styles/colours.scss";
+@import "@/styles/common-styles.scss";
 
 .swiper-wrapper {
      height: 370px;
@@ -120,15 +121,6 @@ const onSlideChange = (swiper) => {
 }
 
 .buy-button {
-     background-color: unset;
-     border: 1px solid var(--font-colour);
-     border-radius: 8px;
-     cursor: pointer;
-     font-size: 15px;
-     font-weight: 350;
-     font-family: 'Inter';
-     width: fit-content;
-     padding: 5px 25px;
      margin-bottom: 85px;
      transition: all 0.3s ease;
 }

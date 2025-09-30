@@ -1,6 +1,6 @@
 <template>
      <div class="review-wrapper">
-          <div class="review glass-background">
+          <div class="review glass-background review-border">
                <div class="review-content">
                     <div class="review-icon"></div>
                     <div class="review-info">
@@ -23,6 +23,7 @@
 
 <style lang="scss" scoped>
 @import "@/styles/colours.scss";
+@import "@/styles/common-styles.scss";
 
 .review-wrapper {
      display: flex;
@@ -96,11 +97,8 @@
      filter: drop-shadow(0 0 0 transparent);
 }
 
-.glass-background {
+.review-border {
      border-radius: 16px;
-     background: var(--glass-background);
-     backdrop-filter: blur(12px);
-     -webkit-backdrop-filter: blur(12px);
      border: 1px solid var(--glass-border);
 }
 </style>
