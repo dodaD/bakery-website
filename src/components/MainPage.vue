@@ -1,6 +1,7 @@
 <script setup>
 import NavigationComponent from './NavigationComponent.vue'
 import HeroComponent from './HeroComponent.vue'
+import BestSellersComponent from './BestSellersComponent.vue';
 </script>
 
 <template>
@@ -9,7 +10,7 @@ import HeroComponent from './HeroComponent.vue'
 
           <HeroComponent />
 
-          <div class="best-sellers"></div>
+          <BestSellersComponent />
 
           <div class="customer reviews"></div>
 
@@ -22,7 +23,7 @@ import HeroComponent from './HeroComponent.vue'
 @import "@/styles/colours.scss";
 
 .content-wrapper {
-     max-width: 2000px;
+     max-width: 1500px;
      position: absolute;
      right: 50%;
      transform: translateX(50%);
@@ -30,11 +31,7 @@ import HeroComponent from './HeroComponent.vue'
      background-color: var(--background);
      padding: 25px 40px;
      box-sizing: border-box;
-     background-image: radial-gradient(circle 600px at center,
-               /* circle radius & position */
-               var(--background-dark-accent) 0%,
-               var(--background-accent) 70%,
-               var(--background) 100%);
+
 
      min-height: 100%;
 }

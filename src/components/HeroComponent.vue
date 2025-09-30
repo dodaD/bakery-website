@@ -39,6 +39,11 @@ import TrendyCakesComponent from './TrendyCakesComponent.vue'
      display: flex;
      min-height: 800px;
      flex-direction: column;
+     background-image: radial-gradient(circle 600px at center,
+               /* circle radius & position */
+               var(--background-dark-accent) 0%,
+               var(--background-accent) 70%,
+               var(--background) 100%);
 }
 
 .hero-grid {

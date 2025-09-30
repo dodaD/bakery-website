@@ -35,7 +35,7 @@ const cakes = [
                <button class="explore-button">Buy now</button>
           </div>
 
-          <img v-if="index % 2 === 1" :src="cake.image" :alt="cake.title" class="cake-image" />
+          <img v-if="index % 2 === 1" :src="cake.image" :alt="cake.title" class="cake-image distance-on-right" />
      </div>
 </template>
 
@@ -74,5 +74,9 @@ const cakes = [
      margin: 10px 0;
      font-size: 27px;
      font-weight: 700;
+}
+
+.distance-on-right {
+     margin-left: auto;
 }
 </style>
