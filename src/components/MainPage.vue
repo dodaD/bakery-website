@@ -3,6 +3,7 @@ import NavigationComponent from './NavigationComponent.vue'
 import HeroComponent from './HeroComponent.vue'
 import BestSellersComponent from './BestSellersComponent.vue';
 import ReviewComponent from './ReviewComponent.vue';
+import TopPicksScrollComponent from './TopPicksScrollComponent.vue';
 </script>
 
 <template>
@@ -29,6 +30,7 @@ import ReviewComponent from './ReviewComponent.vue';
 
           <div class="our-pick-title">
                <div class="cornered-border">Our Top Picks</div>
+               <TopPicksScrollComponent />
           </div>
 
           <div class="footer"></div>
@@ -81,5 +83,6 @@ import ReviewComponent from './ReviewComponent.vue';
      display: flex;
      justify-content: center;
      align-items: center;
+     flex-direction: column;
 }
 </style>
