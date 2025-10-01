@@ -20,17 +20,25 @@ const currentItem = computed(() => {
 const onSlideChange = (swiper) => {
      currentSlideIndex.value = swiper.realIndex
 }
+
+// Computed property for slide counter
+const slideCounter = computed(() => {
+     return `${currentSlideIndex.value + 1}/${swiperItems.value.length}`
+})
 </script>
 
 <template>
      <div class="swiper-wrapper glass-background">
-          <Swiper :modules="modules" :slides-per-view="1" :navigation="true" direction="horizontal"
-               class="swiper-container" @slideChange="onSlideChange">
+          <Swiper :modules="modules" :slides-per-view="1" :navigation="true" direction="horizontal" :speed="300"
+               :allowTouchMove="false" class="swiper-container" @slideChange="onSlideChange">
                <SwiperSlide v-for="item in swiperItems" :key="item.title" class="swiper-slide-content">
                     <div class="pick-title">{{ item.title }}</div>
                     <div class="pick-description">{{ item.description }}</div>
                     <div class="pick-funny-part">{{ item.funnyPart }}</div>
-                    <button class="explore-button buy-button">Buy now</button>
+                    <div class="bottom-section">
+                         <button class="explore-button buy-button">Buy now</button>
+                         <div class="slide-counter">{{ slideCounter }}</div>
+                    </div>
                </SwiperSlide>
           </Swiper>
           <img :src="currentItem.image" class="pick-image" />
@@ -53,9 +61,9 @@ const onSlideChange = (swiper) => {
      margin-top: 20px;
      object-fit: fill;
      position: absolute;
-     left: 20px;
+     left: 50px;
      top: 0;
-     transform: translateY(-10%);
+     transform: translateY(-20%);
 }
 
 .swiper-container {
@@ -68,7 +76,33 @@ const onSlideChange = (swiper) => {
      align-items: flex-start;
      justify-content: space-evenly;
      height: 100%;
-     padding: 20px 50px 20px 310px;
+     padding: 20px 50px 20px 330px;
      box-sizing: border-box;
+}
+
+.bottom-section {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     width: 100%;
+}
+
+
+/* Bigger arrows for this component only */
+.swiper-container :deep(.swiper-button-next),
+.swiper-container :deep(.swiper-button-prev) {
+     color: var(--font-colour);
+     width: 30px;
+     height: 30px;
+     margin-top: -15px;
+     font-size: 18px;
+     font-weight: bold;
+     transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.swiper-container :deep(.swiper-button-next):after,
+.swiper-container :deep(.swiper-button-prev):after {
+     font-size: 18px;
+     font-weight: bold;
 }
 </style>
