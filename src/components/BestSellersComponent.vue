@@ -4,37 +4,43 @@ const cakeSlices = [
           id: 1,
           name: 'Carrot Cake',
           image: '/Cake Slices/Carrot Cake Slice.png',
-          description: 'Moist carrot cake with cream cheese frosting'
+          description: 'Moist carrot cake with cream cheese frosting',
+          price: '13.99'
      },
      {
           id: 2,
           name: 'Chocolate Cake',
           image: '/Cake Slices/Chocolate Cake Slice.png',
-          description: 'Rich chocolate cake with chocolate ganache'
+          description: 'Rich chocolate cake with chocolate ganache',
+          price: '14.99'
      },
      {
           id: 3,
           name: 'Coffee Cake',
           image: '/Cake Slices/Coffee Cake Slice.png',
-          description: 'Aromatic coffee-flavored sponge cake'
+          description: 'Aromatic coffee-flavored sponge cake',
+          price: '12.99'
      },
      {
           id: 4,
           name: 'Orange Cake',
           image: '/Cake Slices/Orange Cake Slice.png',
-          description: 'Fresh orange cake with citrus glaze'
+          description: 'Fresh orange cake with citrus glaze',
+          price: '12.99'
      },
      {
           id: 5,
           name: 'Pecan Cake',
           image: '/Cake Slices/Pecan cake slice.png',
-          description: 'Nutty pecan cake with caramel drizzle'
+          description: 'Nutty pecan cake with caramel drizzle',
+          price: '14.99'
      },
      {
           id: 6,
           name: 'Strawberry Cake',
           image: '/Cake Slices/Strawberry Cake slice.png',
-          description: 'Light strawberry cake with fresh berries'
+          description: 'Light strawberry cake with fresh berries',
+          price: '14.99'
      }
 ];
 </script>
@@ -46,12 +52,18 @@ const cakeSlices = [
 
      <div class="grid-container">
           <div v-for="cake in cakeSlices" :key="cake.id" class="cake-card">
-               <div class="cake-image-container">
-                    <img :src="cake.image" :alt="cake.name" class="cake-image" />
-               </div>
-               <div class="cake-info">
-                    <h3 class="cake-name">{{ cake.name }}</h3>
-                    <p class="cake-description">{{ cake.description }}</p>
+               <img :src="cake.image" :alt="cake.name" class="cake-image" />
+
+               <div class="cake-info glass-background">
+                    <div class="cake-name">{{ cake.name }}</div>
+                    <div class="cake-description">{{ cake.description }}</div>
+
+                    <div class="pay-button-container">
+                         <div class="cake-price">${{ cake.price }}</div>
+                         <button class="explore-button bag-button">
+                              <font-awesome-icon icon="fa-solid fa-bag-shopping" />
+                         </button>
+                    </div>
                </div>
           </div>
      </div>
@@ -121,16 +133,12 @@ const cakeSlices = [
 }
 
 .cake-card {
-     background: var(--glass-background);
-     border: 1px solid var(--glass-border);
-     backdrop-filter: blur(10px);
-     -webkit-backdrop-filter: blur(10px);
      border-radius: 15px;
-     padding: 20px;
      display: flex;
      flex-direction: column;
      justify-content: space-between;
      transition: transform 0.3s ease, box-shadow 0.3s ease;
+     position: relative;
 }
 
 .cake-card:hover {
@@ -138,37 +146,42 @@ const cakeSlices = [
      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
-.cake-image-container {
-     flex: 1;
-     display: flex;
-     align-items: center;
-     justify-content: center;
-     margin-bottom: 15px;
-}
 
 .cake-image {
      width: 250px;
      object-fit: contain;
      border-radius: 10px;
-     transform: translateY(-120px) rotate(182deg);
+     transform: translateY(-100px) rotate(182deg) translateX(-50%);
+     position: absolute;
+     right: 50%;
+     top: 0;
+     z-index: 1;
 }
 
 .cake-info {
-     text-align: center;
+     padding: 20px;
+     box-sizing: border-box;
+     border-radius: 15px;
+     height: 400px;
+     display: flex;
+     justify-content: flex-end;
+     align-items: flex-start;
+     flex-direction: column;
 }
 
 .cake-name {
-     font-size: 24px;
-     font-weight: 700;
-     color: var(--font-colour);
-     margin: 0 0 10px 0;
+     font-size: 22px;
+     margin: 10px 0;
 }
 
 .cake-description {
-     font-size: 16px;
-     color: var(--font-colour);
-     opacity: 0.8;
-     margin: 0;
-     line-height: 1.4;
+     margin-bottom: 10px;
+}
+
+.pay-button-container {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     width: 100%;
 }
 </style>
