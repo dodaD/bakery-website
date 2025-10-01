@@ -4,6 +4,7 @@ import HeroComponent from './HeroComponent.vue'
 import BestSellersComponent from './BestSellersComponent.vue';
 import ReviewComponent from './ReviewComponent.vue';
 import TopPicksScrollComponent from './TopPicksScrollComponent.vue';
+import FooterComponent from './FooterComponent.vue';
 </script>
 
 <template>
@@ -33,8 +34,11 @@ import TopPicksScrollComponent from './TopPicksScrollComponent.vue';
                <TopPicksScrollComponent />
           </div>
 
-          <div class="footer"></div>
+          <div class="footer-container">
+               <FooterComponent />
+          </div>
      </div>
+
 </template>
 
 
@@ -44,16 +48,14 @@ import TopPicksScrollComponent from './TopPicksScrollComponent.vue';
 
 .content-wrapper {
      max-width: 1500px;
-     position: absolute;
      right: 50%;
-     transform: translateX(50%);
      width: 100%;
      background-color: var(--background);
      padding: 25px 40px;
      box-sizing: border-box;
-
-
-     min-height: 100%;
+     position: absolute;
+     top: 0;
+     transform: translateX(50%);
 }
 
 .customer-reviews-container {
@@ -84,5 +86,12 @@ import TopPicksScrollComponent from './TopPicksScrollComponent.vue';
      justify-content: center;
      align-items: center;
      flex-direction: column;
+}
+
+.footer-container {
+     width: 100%;
+     height: 300px;
+     margin-top: 65px;
+     position: relative;
 }
 </style>

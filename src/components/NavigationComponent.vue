@@ -25,6 +25,7 @@
 
 <style lang="scss" scoped>
 @import "@/styles/colours.scss";
+@import "@/styles/common-styles.scss";
 
 .navigation {
      display: flex;
@@ -40,11 +41,6 @@
      justify-content: center;
 
      a {
-          margin: 0 15px;
-          text-decoration: none;
-          color: inherit;
-          font-weight: normal;
-
           &:first-of-type {
                margin-left: 0;
           }
