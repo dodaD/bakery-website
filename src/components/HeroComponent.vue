@@ -19,7 +19,9 @@ import TrendyCakesComponent from './TrendyCakesComponent.vue'
                     <ProductScrollComponent />
                </div>
                <div class="review-container">
-                    <ReviewComponent />
+                    <ReviewComponent name="Jane Doe"
+                         text="The cakes here are absolutely delicious! The chocolate cake is rich and moist, and the orange cake has the perfect balance of sweetness and citrus flavor. Highly recommend to anyone with a sweet tooth!"
+                         rating="4.5" />
                </div>
           </div>
           <img src="/CakePicture.jpg" class="photo">
@@ -87,6 +89,7 @@ import TrendyCakesComponent from './TrendyCakesComponent.vue'
 .review-container {
      grid-column: 1;
      grid-row: 2;
+     transform: translateY(-30%);
 }
 
 .photo {

@@ -1,21 +1,52 @@
+<script setup>
+defineProps({
+     name: {
+          type: String,
+          required: true
+     },
+     text: {
+          type: String,
+          required: true
+     },
+     rating: {
+          type: Number,
+          required: true,
+          validator: (value) => value >= 0 && value <= 5
+     }
+});
+
+// Generate array of 5 stars with their states
+const getStars = (rating) => {
+     const stars = [];
+     for (let i = 1; i <= 5; i++) {
+          if (i <= Math.floor(rating)) {
+               stars.push('filled');
+          } else if (i === Math.ceil(rating) && rating % 1 !== 0) {
+               stars.push('half');
+          } else {
+               stars.push('empty');
+          }
+     }
+     return stars;
+};
+</script>
+
 <template>
      <div class="review-wrapper">
           <div class="review glass-background review-border">
                <div class="review-content">
                     <div class="review-icon"></div>
-                    <div class="review-info">
-                         <div class="review-name">Jane Doe</div>
-                         <div class="review-text">The cakes here are absolutely delicious! The chocolate cake
-                              is rich and moist, and the orange cake has the perfect balance of sweetness and citrus
-                              flavor. Highly recommend to anyone with a sweet tooth!</div>
+                    <div class="review-header">
+                         <div class="review-name">{{ name }}</div>
+                         <div class="stars-rating">
+                              <font-awesome-icon v-for="(starType, index) in getStars(rating)" :key="index"
+                                   :icon="starType === 'half' ? 'fa-solid fa-star-half-stroke' : 'fa-solid fa-star'"
+                                   :class="['star', starType]" />
+                         </div>
                     </div>
                </div>
-               <div class="stars-rating">
-                    <font-awesome-icon icon="fa-solid fa-star" class="star filled" />
-                    <font-awesome-icon icon="fa-solid fa-star" class="star filled" />
-                    <font-awesome-icon icon="fa-solid fa-star" class="star filled" />
-                    <font-awesome-icon icon="fa-solid fa-star" class="star filled" />
-                    <font-awesome-icon icon="fa-solid fa-star-half-stroke" class="star half" />
+               <div class="review-text-container">
+                    <div class="review-text">{{ text }}</div>
                </div>
           </div>
      </div>
@@ -39,15 +70,13 @@
      display: flex;
      flex-direction: column;
      padding: 20px;
-     transform: translateY(-30%);
 }
 
 .review-content {
      display: flex;
      align-items: flex-start;
      gap: 15px;
-     margin-bottom: 20px;
-     flex: 1;
+     margin-bottom: 15px;
 }
 
 .review-icon {
@@ -58,8 +87,12 @@
      flex-shrink: 0;
 }
 
-.review-info {
+.review-header {
      flex: 1;
+     display: flex;
+     flex-direction: column;
+     align-items: flex-start;
+     text-align: left;
 }
 
 .review-name {
@@ -68,17 +101,20 @@
      font-size: 16px;
 }
 
+.review-text-container {
+     width: 100%;
+}
+
 .review-text {
      font-size: 14px;
      line-height: 1.4;
      opacity: 0.9;
+     width: 100%;
 }
 
 .stars-rating {
-     width: 100%;
-     text-align: center;
      display: flex;
-     justify-content: center;
+     justify-content: flex-end;
      gap: 3px;
      align-items: center;
 }
@@ -95,6 +131,10 @@
      color: var(--star-colour);
      -webkit-text-stroke: 0px transparent;
      filter: drop-shadow(0 0 0 transparent);
+}
+
+.star.empty {
+     color: rgba(255, 255, 255, 0.3);
 }
 
 .review-border {

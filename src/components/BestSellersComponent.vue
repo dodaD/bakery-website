@@ -47,7 +47,7 @@ const cakeSlices = [
 
 <template>
      <div class="best-sellers-container">
-          <div class="best-sellers-title">Best Sellers</div>
+          <div class="best-sellers-title cornered-border">Best Sellers</div>
      </div>
 
      <div class="grid-container">
@@ -91,35 +91,6 @@ const cakeSlices = [
      z-index: 2;
 }
 
-.best-sellers-title::before,
-.best-sellers-title::after {
-     content: '';
-     position: absolute;
-     width: 20px;
-     height: 30px;
-     border: 4px solid transparent;
-     background: linear-gradient(var(--background), var(--background)) padding-box,
-          linear-gradient(45deg,
-               rgb(255, 128, 171),
-               rgb(194, 24, 91),
-               rgb(255, 128, 171)) border-box;
-}
-
-.best-sellers-title::before {
-     top: 0;
-     left: 0;
-     border-right: none;
-     border-bottom: none;
-     border-top-left-radius: 8px;
-}
-
-.best-sellers-title::after {
-     bottom: 0;
-     right: 0;
-     border-left: none;
-     border-top: none;
-     border-bottom-right-radius: 8px;
-}
 
 .grid-container {
      display: grid;
@@ -130,6 +101,7 @@ const cakeSlices = [
      max-width: 100%;
      width: 100%;
      box-sizing: border-box;
+     margin-bottom: 70px;
 }
 
 .cake-card {
