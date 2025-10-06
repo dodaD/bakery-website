@@ -45,23 +45,26 @@ const slideCounter = computed(() => {
      <div class="swiper-wrapper glass-background">
           <Swiper :modules="modules" :slides-per-view="1" :navigation="false" direction="horizontal" :speed="300"
                :allowTouchMove="false" class="swiper-container" @slideChange="onSlideChange" ref="swiperRef">
-               <SwiperSlide v-for="item in swiperItems" :key="item.title" class="swiper-slide-content">
-                    <div class="pick-title">{{ item.title }}</div>
-                    <div class="pick-description">{{ item.description }}</div>
-                    <div class="pick-funny-part">{{ item.funnyPart }}</div>
+               <SwiperSlide v-for="item in swiperItems" :key="item.title" class="swiper-slide-content-wrapper">
+                    <div class="swiper-slide-content">
+                         <div class="pick-title">{{ item.title }}</div>
+                         <div class="pick-description">{{ item.description }}</div>
+                         <div class="pick-funny-part">{{ item.funnyPart }}</div>
 
 
-                    <div class="bottom-section">
-                         <button class="explore-button buy-button">Buy now</button>
-                         <div class="navigation-area">
-                              <button @click="goToPrevSlide" class="custom-nav-button prev-button">‹</button>
-                              <div class="slide-counter">{{ slideCounter }}</div>
-                              <button @click="goToNextSlide" class="custom-nav-button next-button">›</button>
+                         <div class="bottom-section">
+                              <button class="explore-button buy-button">Buy now</button>
+                              <div class="navigation-area">
+                                   <button @click="goToPrevSlide" class="custom-nav-button prev-button">‹</button>
+                                   <div class="slide-counter">{{ slideCounter }}</div>
+                                   <button @click="goToNextSlide" class="custom-nav-button next-button">›</button>
+                              </div>
                          </div>
+
+                         <img :src="currentItem.image" class="pick-image" />
                     </div>
                </SwiperSlide>
           </Swiper>
-          <img :src="currentItem.image" class="pick-image" />
      </div>
 </template>
 
@@ -70,7 +73,6 @@ const slideCounter = computed(() => {
 @import "@/styles/common-styles.scss";
 
 .swiper-wrapper {
-     position: relative;
      height: 350px;
      margin-top: 80px;
      border-radius: 50px;
@@ -104,6 +106,10 @@ const slideCounter = computed(() => {
      height: 100%;
      padding: 20px 50px 20px 330px;
      box-sizing: border-box;
+}
+
+.swiper-slide-content-wrapper {
+     margin-top: 50px;
 }
 
 .bottom-section {
