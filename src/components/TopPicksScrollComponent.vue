@@ -102,6 +102,10 @@ const slideCounter = computed(() => {
      border-radius: 50px;
 }
 
+.swiper-slide-content:hover {
+     box-shadow: inset 0 0 40px rgba(255, 255, 255, 0.5), 0 0 25px rgba(255, 255, 255, 0.2);
+     transition: all 0.3s ease;
+}
 .swiper-slide-content-wrapper {
      margin-top: 50px;
 }

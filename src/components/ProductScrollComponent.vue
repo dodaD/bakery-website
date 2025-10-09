@@ -67,7 +67,7 @@ const onSlideChange = (swiper) => {
     transition: all 0.3s ease;
     height: 370px;
     flex-direction: column-reverse;
-     margin-top: 80px;
+     margin-top: 60px;
      border-radius: 46px;
 
     border: 1px solid var(--glass-border);
@@ -81,8 +81,7 @@ const onSlideChange = (swiper) => {
 }
 
 .swiper-slide-content:hover {
-     box-shadow: 0 0 15px rgba(255, 255, 255, 0.3),
-          0 0 30px rgba(255, 255, 255, 0.2);
+     box-shadow: inset 0 -10px 20px rgba(255, 255, 255, 0.4), 0 0 15px rgba(255, 255, 255, 0.2);
      transition: all 0.3s ease;
 }
 

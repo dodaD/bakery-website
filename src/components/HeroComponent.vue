@@ -78,12 +78,11 @@ import TrendyCakesComponent from './TrendyCakesComponent.vue'
 
 .product-scroll-wrapper {
      grid-column: 2;
-     grid-row: 1 / 3;
+     grid-row: 1;
      display: flex;
      align-items: flex-start;
      justify-content: center;
      margin-left: auto;
-     margin-top: 50px;
 }
 
 .review-container {
