@@ -42,11 +42,10 @@ const slideCounter = computed(() => {
 </script>
 
 <template>
-     <div class="swiper-wrapper glass-background">
           <Swiper :modules="modules" :slides-per-view="1" :navigation="false" direction="horizontal" :speed="300"
-               :allowTouchMove="false" class="swiper-container" @slideChange="onSlideChange" ref="swiperRef">
+               :allowTouchMove="false" class="swiper-wrapper" @slideChange="onSlideChange" ref="swiperRef">
                <SwiperSlide v-for="item in swiperItems" :key="item.title" class="swiper-slide-content-wrapper">
-                    <div class="swiper-slide-content">
+                    <div class="swiper-slide-content  glass-background swiper-container">
                          <div class="pick-title">{{ item.title }}</div>
                          <div class="pick-description">{{ item.description }}</div>
                          <div class="pick-funny-part">{{ item.funnyPart }}</div>
@@ -65,21 +64,14 @@ const slideCounter = computed(() => {
                     </div>
                </SwiperSlide>
           </Swiper>
-     </div>
 </template>
 
 <style lang="scss" scoped>
 @import "@/styles/colours.scss";
 @import "@/styles/common-styles.scss";
 
-.swiper-wrapper {
-     height: 350px;
-     margin-top: 80px;
-     border-radius: 50px;
-}
-
 .pick-image {
-     width: 250px;
+     width: 320px;
      margin-top: 20px;
      object-fit: fill;
      position: absolute;
@@ -89,8 +81,10 @@ const slideCounter = computed(() => {
      z-index: 1;
 }
 
-.swiper-container {
+.swiper-wrapper {
      border-radius: 50px;
+     margin-top: 80px;
+     width: 100%;
 }
 
 .pick-title {
@@ -103,9 +97,9 @@ const slideCounter = computed(() => {
      flex-direction: column;
      align-items: flex-start;
      justify-content: space-evenly;
-     height: 100%;
-     padding: 20px 50px 20px 330px;
-     box-sizing: border-box;
+     padding: 20px 50px 20px 450px;
+     height: 350px;
+     border-radius: 50px;
 }
 
 .swiper-slide-content-wrapper {

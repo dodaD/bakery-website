@@ -38,43 +38,40 @@ const onSlideChange = (swiper) => {
 </script>
 
 <template>
-     <div class="swiper-wrapper">
-          <Swiper :modules="modules" :slides-per-view="1" :navigation="true" direction="horizontal"
-               class="swiper-container glass-background" @slideChange="onSlideChange">
-               <SwiperSlide v-for="item in swiperItems" :key="item.title" class="swiper-slide-content">
+     <Swiper :modules="modules" :slides-per-view="1" :navigation="true" direction="horizontal"
+          class="product-swiper" @slideChange="onSlideChange">
+          <SwiperSlide v-for="item in swiperItems" :key="item.title" class="swiper-slide-content glass-background">
+               <div>
                     <div class="slide-title">Trendy Cake Slices</div>
                     <div class="cake-description">{{ item.title }}</div>
                     <button class="explore-button buy-button">Buy now</button>
-               </SwiperSlide>
-          </Swiper>
-          <img :src="currentItem.image" class="cake-image" />
-     </div>
+               </div>
+
+               <img :src="currentItem.image" class="cake-image" />
+          </SwiperSlide>
+     </Swiper>
 </template>
 
 <style lang="scss" scoped>
 @import "@/styles/colours.scss";
 @import "@/styles/common-styles.scss";
 
-.swiper-wrapper {
-     height: 370px;
+.product-swiper :deep(.swiper-wrapper) {
      width: 310px;
-     position: relative;
-}
-
-.swiper-container {
      border-radius: 46px;
-     border: 1px solid var(--glass-border);
-     padding-left: 60px;
 }
 
 .swiper-slide-content {
-     display: flex;
-     align-items: flex-start;
-     justify-content: flex-end;
-     text-align: center;
-     flex-direction: column;
-     height: 100%;
-     transition: all 0.3s ease;
+    display: flex;
+    text-align: center;
+    transition: all 0.3s ease;
+    height: 370px;
+    flex-direction: column-reverse;
+     margin-top: 80px;
+     border-radius: 46px;
+
+    border: 1px solid var(--glass-border);
+     box-sizing: border-box;
 }
 
 .swiper-slide-content:hover .buy-button {
@@ -83,7 +80,7 @@ const onSlideChange = (swiper) => {
           inset 0 0 10px rgba(255, 255, 255, 0.2);
 }
 
-.swiper-container:hover {
+.swiper-slide-content:hover {
      box-shadow: 0 0 15px rgba(255, 255, 255, 0.3),
           0 0 30px rgba(255, 255, 255, 0.2);
      transition: all 0.3s ease;
@@ -103,15 +100,11 @@ const onSlideChange = (swiper) => {
 }
 
 .cake-image {
-     width: 150px;
-     height: 280px;
-     object-fit: fill;
-     position: absolute;
-     top: 0;
-     right: 50%;
-     z-index: 10;
-     transform: translateY(-65px) translateX(50%) rotate(242deg);
-     user-select: none;
+ width: 150px;
+    height: 280px;
+    object-fit: fill;
+    transform: translateY(-15px) translateX(50%) rotate(242deg);
+    user-select: none;
 }
 
 .glass-background {
@@ -126,8 +119,8 @@ const onSlideChange = (swiper) => {
 }
 
 /* Custom Swiper Navigation Arrows */
-.swiper-container :deep(.swiper-button-next),
-.swiper-container :deep(.swiper-button-prev) {
+.product-swiper :deep(.swiper-button-next),
+.product-swiper :deep(.swiper-button-prev) {
      color: var(--font-colour);
      width: 20px;
      height: 20px;
@@ -136,25 +129,25 @@ const onSlideChange = (swiper) => {
      font-weight: bold;
 }
 
-.swiper-container :deep(.swiper-button-next):after,
-.swiper-container :deep(.swiper-button-prev):after {
+.product-swiper :deep(.swiper-button-next):after,
+.product-swiper :deep(.swiper-button-prev):after {
      font-size: 12px;
      font-weight: bold;
 }
 
 /* Hide arrows when disabled */
-.swiper-container :deep(.swiper-button-disabled) {
+.product-swiper :deep(.swiper-button-disabled) {
      opacity: 0;
      visibility: hidden;
      transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 /* Position arrows */
-.swiper-container :deep(.swiper-button-next) {
+.product-swiper :deep(.swiper-button-next) {
      right: 10px;
 }
 
-.swiper-container :deep(.swiper-button-prev) {
+.product-swiper :deep(.swiper-button-prev) {
      left: 10px;
 }
 </style>
