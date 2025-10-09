@@ -5,6 +5,9 @@ import BestSellersComponent from './BestSellersComponent.vue';
 import ReviewComponent from './ReviewComponent.vue';
 import TopPicksScrollComponent from './TopPicksScrollComponent.vue';
 import FooterComponent from './FooterComponent.vue';
+import { useCommentsStore } from '@/stores/commentsStore.js'
+
+const { comments } = useCommentsStore()
 </script>
 
 <template>
@@ -19,14 +22,8 @@ import FooterComponent from './FooterComponent.vue';
                <div class="cornered-border">Customer Reviews</div>
           </div>
           <div class="customer-reviews-container">
-               <ReviewComponent name="John Smith"
-                    text="I absolutely loved the carrot cake! It was so moist and flavorful. The cream cheese frosting was the perfect touch."
-                    rating="5" />
-               <ReviewComponent name="Emily Johnson"
-                    text="The chocolate cake is to die for! Rich, decadent, and not too sweet. Highly recommend!"
-                    rating="4.8" />
-               <ReviewComponent name="Michael Brown"
-                    text="I wasn't a fan of the coffee cake. It was a bit too dry for my liking." rating="3.8" />
+               <ReviewComponent v-for="n in 3" :key="comments[n].id" :name="comments[n].author" :text="comments[n].text" :rating="comments[n].rating" class="review"
+                     />
           </div>
 
           <div class="our-pick-title">

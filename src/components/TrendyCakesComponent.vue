@@ -1,41 +1,21 @@
 <script setup>
-const cakes = [
-     {
-          id: 1,
-          title: 'Chocolate Cake Slice',
-          description: 'Rich and decadent chocolate cake with smooth chocolate ganache and a hint of espresso to enhance the chocolate flavor. Perfect for chocolate lovers!',
-          price: '15.99',
-          image: '/Cake Slices/Chocolate Cake Slice.png'
-     },
-     {
-          id: 2,
-          title: 'Orange Cake Slice',
-          description: 'Zesty orange cake with citrus glaze and fresh orange zest. A perfect balance of sweet and tangy flavors.',
-          price: '12.99',
-          image: '/Cake Slices/Orange Cake Slice.png'
-     },
-     {
-          id: 3,
-          title: 'Tiramisu Cake Slice',
-          description: 'Classic Italian tiramisu with layers of coffee-soaked ladyfingers and mascarpone cream. A delightful pick-me-up dessert!',
-          price: '14.99',
-          image: '/Cake Slices/Tiramisu Cake Slice.png'
-     }
-]
+import { useCakeSlicesStore } from '@/stores/cakeSlicesStore.js'
+
+const { cakeSlices } = useCakeSlicesStore()
 </script>
 
 <template>
-     <div v-for="(cake, index) in cakes" :key="cake.id" class="cake-container glass-background">
-          <img v-if="index % 2 === 0" :src="cake.image" :alt="cake.title" class="cake-image" />
+     <div v-for="n in 3" :key="n" class="cake-container glass-background">
+          <img v-if="n % 2 === 0" :src="cakeSlices[n].image" :alt="cakeSlices[n].title" class="cake-image" />
 
           <div class="cake-content">
-               <div class="cake-title">{{ cake.title }}</div>
-               <div class="cake-description">{{ cake.description }}</div>
-               <div class="cake-price">${{ cake.price }}</div>
+               <div class="cake-title">{{ cakeSlices[n].name }}</div>
+               <div class="cake-description">{{ cakeSlices[n].description }}</div>
+               <div class="cake-price">${{ cakeSlices[n].price }}</div>
                <button class="explore-button">Buy now</button>
           </div>
 
-          <img v-if="index % 2 === 1" :src="cake.image" :alt="cake.title" class="cake-image distance-on-right" />
+          <img v-if="n % 2 === 1" :src="cakeSlices[n].image" :alt="cakeSlices[n].title" class="cake-image distance-on-right" />
      </div>
 </template>
 

@@ -2,6 +2,9 @@
 import ProductScrollComponent from './ProductScrollComponent.vue'
 import ReviewComponent from './ReviewComponent.vue'
 import TrendyCakesComponent from './TrendyCakesComponent.vue'
+import { useCommentsStore } from '@/stores/commentsStore.js'
+
+const { comments } = useCommentsStore()
 </script>
 
 <template>
@@ -19,9 +22,9 @@ import TrendyCakesComponent from './TrendyCakesComponent.vue'
                     <ProductScrollComponent />
                </div>
                <div class="review-container">
-                    <ReviewComponent name="Jane Doe"
-                         text="The cakes here are absolutely delicious! The chocolate cake is rich and moist, and the orange cake has the perfect balance of sweetness and citrus flavor. Highly recommend to anyone with a sweet tooth!"
-                         rating="4.5" />
+                    <ReviewComponent :name="comments[0].author"
+                         :text="comments[0].text"
+                         :rating="comments[0].rating" />
                </div>
           </div>
           <img src="/CakePicture.jpg" class="photo">

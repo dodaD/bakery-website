@@ -1,48 +1,7 @@
 <script setup>
-const cakeSlices = [
-     {
-          id: 1,
-          name: 'Carrot Cake',
-          image: '/Cake Slices/Carrot Cake Slice.png',
-          description: 'Moist carrot cake with cream cheese frosting',
-          price: '13.99'
-     },
-     {
-          id: 2,
-          name: 'Chocolate Cake',
-          image: '/Cake Slices/Chocolate Cake Slice.png',
-          description: 'Rich chocolate cake with chocolate ganache',
-          price: '14.99'
-     },
-     {
-          id: 3,
-          name: 'Coffee Cake',
-          image: '/Cake Slices/Coffee Cake Slice.png',
-          description: 'Aromatic coffee-flavored sponge cake',
-          price: '12.99'
-     },
-     {
-          id: 4,
-          name: 'Orange Cake',
-          image: '/Cake Slices/Orange Cake Slice.png',
-          description: 'Fresh orange cake with citrus glaze',
-          price: '12.99'
-     },
-     {
-          id: 5,
-          name: 'Pecan Cake',
-          image: '/Cake Slices/Pecan cake slice.png',
-          description: 'Nutty pecan cake with caramel drizzle',
-          price: '14.99'
-     },
-     {
-          id: 6,
-          name: 'Strawberry Cake',
-          image: '/Cake Slices/Strawberry Cake slice.png',
-          description: 'Light strawberry cake with fresh berries',
-          price: '14.99'
-     }
-];
+import { useCakeSlicesStore } from '@/stores/cakeSlicesStore.js'
+
+const { cakeSlices } = useCakeSlicesStore()
 </script>
 
 <template>
@@ -144,6 +103,7 @@ const cakeSlices = [
 .cake-name {
      font-size: 22px;
      margin: 10px 0;
+     font-weight: 600;
 }
 
 .cake-description {

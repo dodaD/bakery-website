@@ -2,7 +2,7 @@
 import { ref, computed } from 'vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Navigation, Pagination } from 'swiper/modules'
-import { useSwiperItemsStore } from '@/stores/swiperItems.js'
+import { useTopPicksStore } from '@/stores/topPicksStore.js'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
@@ -12,10 +12,10 @@ const currentSlideIndex = ref(0)
 const swiperRef = ref(null)
 
 // Get items from store
-const { swiperItems } = useSwiperItemsStore()
+const { topPicks } = useTopPicksStore()
 
 const currentItem = computed(() => {
-     return swiperItems.value[currentSlideIndex.value] || swiperItems.value[0]
+     return topPicks[currentSlideIndex.value] || topPicks[0]
 })
 
 const onSlideChange = (swiper) => {
@@ -37,14 +37,14 @@ const goToPrevSlide = () => {
 
 // Computed property for slide counter
 const slideCounter = computed(() => {
-     return `${currentSlideIndex.value + 1}/${swiperItems.value.length}`
+     return `${currentSlideIndex.value + 1}/${topPicks.length}`
 })
 </script>
 
 <template>
           <Swiper :modules="modules" :slides-per-view="1" :navigation="false" direction="horizontal" :speed="300"
                :allowTouchMove="false" class="swiper-wrapper" @slideChange="onSlideChange" ref="swiperRef">
-               <SwiperSlide v-for="item in swiperItems" :key="item.title" class="swiper-slide-content-wrapper">
+               <SwiperSlide v-for="item in topPicks" :key="item.title" class="swiper-slide-content-wrapper">
                     <div class="swiper-slide-content  glass-background swiper-container">
                          <div class="pick-title">{{ item.title }}</div>
                          <div class="pick-description">{{ item.description }}</div>

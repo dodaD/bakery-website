@@ -65,7 +65,7 @@ const getStars = (rating) => {
 }
 
 .review {
-     width: 400px;
+     width: 300px;
      height: 155px;
      display: flex;
      flex-direction: column;

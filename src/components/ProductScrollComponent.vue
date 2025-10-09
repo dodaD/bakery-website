@@ -2,34 +2,18 @@
 import { ref, computed } from 'vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Navigation, Pagination } from 'swiper/modules'
+import { useCakeSlicesStore } from '@/stores/cakeSlicesStore.js'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 
 const modules = [Navigation, Pagination]
+
+const { cakeSlices } = useCakeSlicesStore()
 const currentSlideIndex = ref(0)
 
-const swiperItems = [
-     {
-          title: 'Chocolate Cake',
-          description: 'Rich and decadent chocolate cake with smooth chocolate ganache',
-          image: '/Cake Slices/Chocolate Cake Slice.png'
-     },
-     {
-          title: 'Orange Cake',
-          description: 'Zesty orange cake with citrus glaze and fresh orange zest',
-          image: '/Cake Slices/Orange Cake Slice.png'
-     },
-     {
-          title: 'Tiramisu Cake',
-          description: 'Classic Italian tiramisu cake with coffee and mascarpone',
-          image: '/Cake Slices/Tiramisu Cake Slice.png'
-     }
-
-]
-
 const currentItem = computed(() => {
-     return swiperItems[currentSlideIndex.value] || swiperItems[0]
+     return cakeSlices[currentSlideIndex.value] || cakeSlices[0]
 })
 
 const onSlideChange = (swiper) => {
@@ -40,10 +24,10 @@ const onSlideChange = (swiper) => {
 <template>
      <Swiper :modules="modules" :slides-per-view="1" :navigation="true" direction="horizontal"
           class="product-swiper" @slideChange="onSlideChange">
-          <SwiperSlide v-for="item in swiperItems" :key="item.title" class="swiper-slide-content glass-background">
+          <SwiperSlide v-for="n in 3" :key="n" class="swiper-slide-content glass-background">
                <div>
                     <div class="slide-title">Trendy Cake Slices</div>
-                    <div class="cake-description">{{ item.title }}</div>
+                    <div class="cake-description">{{ currentItem.name }}</div>
                     <button class="explore-button buy-button">Buy now</button>
                </div>
 
