@@ -1,64 +1,75 @@
 .explore-button {
-     background-color: unset;
-     border: 1px solid var(--font-colour);
-     border-radius: 8px;
-     cursor: pointer;
-     font-size: 15px;
-     font-weight: 350;
-     font-family: 'Inter';
-     width: fit-content;
-     padding: 5px 25px;
+  background-color: unset;
+  border: 1px solid var(--font-colour);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 350;
+  font-family: "Inter";
+  width: fit-content;
+  padding: 5px 25px;
 }
 
 .explore-button:hover {
-          box-shadow: 0 0 10px rgba(255, 255, 255, 0.6),
-          0 0 20px rgba(255, 255, 255, 0.4),
-          inset 0 0 10px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.6),
+    0 0 20px rgba(255, 255, 255, 0.4), inset 0 0 10px rgba(255, 255, 255, 0.2);
 }
 
 .glass-background {
-     background: var(--glass-background);
-     backdrop-filter: blur(12px);
-     -webkit-backdrop-filter: blur(12px);
+  background: var(--glass-background);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .bag-button {
-     padding: 5px;
+  padding: 5px;
 }
 
 .cornered-border::before,
 .cornered-border::after {
-     content: '';
-     position: absolute;
-     width: 20px;
-     height: 30px;
-     border: 4px solid transparent;
-     background: linear-gradient(var(--background), var(--background)) padding-box,
-          linear-gradient(45deg,
-               rgb(255, 128, 171),
-               rgb(194, 24, 91),
-               rgb(255, 128, 171)) border-box;
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 30px;
+  border: 4px solid transparent;
+  background: linear-gradient(var(--background), var(--background)) padding-box,
+    linear-gradient(
+        45deg,
+        rgb(255, 128, 171),
+        rgb(194, 24, 91),
+        rgb(255, 128, 171)
+      )
+      border-box;
+}
+
+.cornered-border {
+  position: relative;
+  display: inline-block;
 }
 
 .cornered-border::before {
-     top: 0;
-     left: 0;
-     border-right: none;
-     border-bottom: none;
-     border-top-left-radius: 8px;
+  top: 0;
+  left: 0;
+  border-right: none;
+  border-bottom: none;
+  border-top-left-radius: 8px;
 }
 
 .cornered-border::after {
-     bottom: 0;
-     right: 0;
-     border-left: none;
-     border-top: none;
-     border-bottom-right-radius: 8px;
+  bottom: 0;
+  right: 0;
+  border-left: none;
+  border-top: none;
+  border-bottom-right-radius: 8px;
 }
 
 a {
-     margin: 0 15px;
-     text-decoration: none;
-     color: inherit;
-     font-weight: normal;
+  margin: 0 15px;
+  text-decoration: none;
+  color: inherit;
+  font-weight: normal;
+}
+
+* {
+  color: var(--font-colour);
 }

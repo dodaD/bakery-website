@@ -1,24 +1,13 @@
 <script setup>
-import { ref, computed } from 'vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
-import { Navigation, Pagination } from 'swiper/modules'
+import { Navigation} from 'swiper/modules'
 import { useCakeSlicesStore } from '@/stores/cakeSlicesStore.js'
 import 'swiper/css'
-import 'swiper/css/navigation'
-import 'swiper/css/pagination'
 
-const modules = [Navigation, Pagination]
+const modules = [Navigation]
 
 const { cakeSlices } = useCakeSlicesStore()
-const currentSlideIndex = ref(0)
 
-const currentItem = computed(() => {
-     return cakeSlices[currentSlideIndex.value] || cakeSlices[0]
-})
-
-const onSlideChange = (swiper) => {
-     currentSlideIndex.value = swiper.realIndex
-}
 </script>
 
 <template>
@@ -27,11 +16,11 @@ const onSlideChange = (swiper) => {
           <SwiperSlide v-for="n in 3" :key="n" class="swiper-slide-content glass-background">
                <div>
                     <div class="slide-title">Trendy Cake Slices</div>
-                    <div class="cake-description">{{ currentItem.name }}</div>
+                    <div class="cake-description">{{ cakeSlices[n].name }}</div>
                     <button class="explore-button buy-button">Buy now</button>
                </div>
 
-               <img :src="currentItem.image" class="cake-image" />
+               <img :src="cakeSlices[n].image" class="cake-image" />
           </SwiperSlide>
      </Swiper>
 </template>
@@ -65,6 +54,9 @@ const onSlideChange = (swiper) => {
 }
 
 .swiper-slide-content:hover {
+     /* inset = inside the box,
+      offset-x(if both x and y 0, the shadow is right behind the box),
+      offset-y, blur-radius, spread-radius */
      box-shadow: inset 0 -10px 20px rgba(255, 255, 255, 0.4), 0 0 15px rgba(255, 255, 255, 0.2);
      transition: all 0.3s ease;
 }
@@ -110,6 +102,7 @@ const onSlideChange = (swiper) => {
      margin-top: -10px;
      font-size: 12px;
      font-weight: bold;
+     transform: translateY(50%);
 }
 
 .product-swiper :deep(.swiper-button-next):after,
