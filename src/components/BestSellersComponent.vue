@@ -45,7 +45,6 @@ const { cakeSlices } = useCakeSlicesStore();
   font-size: 36px;
   font-weight: 700;
   margin: 40px 0 20px;
-  /*position: relative;*/
   padding: 10px 25px;
 }
 

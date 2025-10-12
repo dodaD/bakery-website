@@ -3,20 +3,32 @@ import NavigationComponent from "./NavigationComponent.vue";
 import HeroComponent from "./HeroComponent.vue";
 import BestSellersComponent from "./BestSellersComponent.vue";
 import ReviewComponent from "./ReviewComponent.vue";
-import TopPicksScrollComponent from "./TopPicksScrollComponent.vue";
+import TopPicksScrollComponent from "./TopPicksSwiper.vue";
 import FooterComponent from "./FooterComponent.vue";
 import { useCommentsStore } from "@/stores/commentsStore.js";
+import { ref } from "vue";
 
 const { comments } = useCommentsStore();
+const bestSellers = ref(null);
+const scrollToBestSellers = () => {
+  bestSellers.value?.scrollIntoView({ behavior: "smooth" });
+};
+
+const footer = ref(null);
+const scrollToContacts = () => {
+  footer.value?.scrollIntoView({ behavior: "smooth" });
+};
 </script>
 
 <template>
   <div class="content-wrapper">
-    <NavigationComponent />
+    <NavigationComponent @scrollToContacts="scrollToContacts" />
 
-    <HeroComponent />
+    <HeroComponent @exploreClicked="scrollToBestSellers" />
 
-    <BestSellersComponent />
+    <div ref="bestSellers">
+      <BestSellersComponent />
+    </div>
 
     <div class="border-wrapper">
       <div class="reviews-title cornered-border">Customer Reviews</div>
@@ -37,7 +49,7 @@ const { comments } = useCommentsStore();
     </div>
     <TopPicksScrollComponent />
 
-    <div class="footer-container">
+    <div class="footer-container" ref="footer">
       <FooterComponent />
     </div>
   </div>
