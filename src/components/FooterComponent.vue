@@ -1,6 +1,27 @@
 <script setup>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 const email = ref("");
+const emailValidity = ref(true);
+const subscribedStatus = ref(false);
+
+const validateEmail = () => {
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  emailValidity.value = emailPattern.test(email.value);
+
+  if (emailValidity.value) {
+    subscribedStatus.value = true;
+    email.value = "";
+    setTimeout(() => {
+      subscribedStatus.value = false;
+    }, 3000);
+  }
+};
+
+watch(email, () => {
+  if (email.value == "") {
+    emailValidity.value = true;
+  }
+});
 </script>
 
 <template>
@@ -23,16 +44,29 @@ const email = ref("");
 
     <div class="footer-right-section section">
       <div class="section-title">For Every Update</div>
+      <div v-if="!emailValidity" class="invalid-message">
+        Please enter a valid email
+      </div>
       <div class="input-container">
         <input
           type="email"
           placeholder="Enter your email"
           class="subscribe-input"
           v-model="email"
+          :class="{ invalid: !emailValidity }"
         />
-        <button class="subscribe-button">Subscribe</button>
+        <button class="subscribe-button" @click="validateEmail">
+          Subscribe
+        </button>
       </div>
     </div>
+  </div>
+
+  <div
+    :class="{ 'hide-message': !subscribedStatus }"
+    class="subscribed-successfully-message glass-background"
+  >
+    Congratulations! You have successfully subscribed.
   </div>
 </template>
 
@@ -77,7 +111,6 @@ const email = ref("");
 
 .input-container {
   display: flex;
-  margin-top: 15px;
 }
 
 .subscribe-input {
@@ -94,6 +127,11 @@ const email = ref("");
   outline: none;
 }
 
+.invalid-message {
+  color: var(--error-colour);
+  font-size: 12px;
+}
+
 .subscribe-button {
   padding: 5px 10px;
   font-size: 16px;
@@ -101,5 +139,28 @@ const email = ref("");
   border: 2px solid var(--subscribe-button-colour);
   background-color: var(--subscribe-button-colour);
   cursor: pointer;
+}
+
+.subscribed-successfully-message {
+  height: 100px;
+  width: 500px;
+  padding: 5px 10px;
+  box-sizing: border-box;
+  border-radius: 20px;
+  position: fixed;
+  top: 10px;
+  right: 50%;
+  transform: translateX(50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s allow-discrete;
+  border: 1px solid var(--glass-border);
+}
+
+.hide-message {
+  opacity: 0;
+  pointer-events: none;
+  user-select: none;
 }
 </style>
