@@ -25,7 +25,7 @@ const { cakeSlices } = useCakeSlicesStore();
       <div>
         <div class="slide-title">Trendy Cake Slices</div>
         <div class="cake-description">{{ cakeSlices[n].name }}</div>
-        <button class="explore-button buy-button">Buy now</button>
+        <button class="rectangle-rounded-button buy-button">Buy now</button>
       </div>
 
       <img :src="cakeSlices[n].image" class="cake-image" />
@@ -65,7 +65,7 @@ const { cakeSlices } = useCakeSlicesStore();
       offset-x(if both x and y 0, the shadow is right behind the box),
       offset-y, blur-radius, spread-radius */
   box-shadow: inset 0 -10px 20px rgba(255, 255, 255, 0.4),
-    0 0 15px rgba(255, 255, 255, 0.2);
+    0 0 5px rgba(255, 255, 255, 0.2);
   transition: all 0.3s ease;
 }
 

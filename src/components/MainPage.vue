@@ -40,7 +40,7 @@ const scrollToContacts = () => {
         :name="comments[n].author"
         :text="comments[n].text"
         :rating="comments[n].rating"
-        class="review"
+        class="pseudo-glass-background"
       />
     </div>
 
@@ -71,7 +71,7 @@ const scrollToContacts = () => {
 .customer-reviews-container {
   display: flex;
   justify-content: space-between;
-  margin: 40px 0;
+  margin: 40px 0 80px;
 }
 
 .reviews-title,

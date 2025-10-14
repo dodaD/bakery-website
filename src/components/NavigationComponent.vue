@@ -40,16 +40,14 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
+}
 
-  a {
-    &:first-of-type {
-      margin-left: 0;
-    }
+.menu a:first-of-type {
+  margin-left: 0;
+}
 
-    &:last-of-type {
-      margin-right: 0;
-    }
-  }
+.menu a:last-of-type {
+  margin-right: 0;
 }
 
 .buttons-wrapper {

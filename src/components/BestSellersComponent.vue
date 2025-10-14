@@ -13,13 +13,13 @@ const { cakeSlices } = useCakeSlicesStore();
     <div v-for="cake in cakeSlices" :key="cake.id" class="cake-card">
       <img :src="cake.image" :alt="cake.name" class="cake-image" />
 
-      <div class="cake-info glass-background">
+      <div class="cake-info pseudo-glass-background">
         <div class="cake-name">{{ cake.name }}</div>
         <div class="cake-description">{{ cake.description }}</div>
 
         <div class="pay-button-container">
           <div class="cake-price">${{ cake.price }}</div>
-          <button class="explore-button bag-button">
+          <button class="rectangle-rounded-button bag-button">
             <font-awesome-icon icon="fa-solid fa-bag-shopping" />
           </button>
         </div>

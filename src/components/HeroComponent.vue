@@ -16,7 +16,10 @@ const { comments } = useCommentsStore();
           Discover our artisanal bakery, where every cake is crafted with
           passion, using premium ingredients for unforgettable flavors.
         </div>
-        <button class="explore-button" @click="$emit('exploreClicked')">
+        <button
+          class="rectangle-rounded-button"
+          @click="$emit('exploreClicked')"
+        >
           Explore
         </button>
       </div>

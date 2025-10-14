@@ -1,34 +1,36 @@
-<script setup></script>
+<script setup>
+import { ref } from "vue";
+const email = ref("");
+</script>
 
 <template>
   <div class="footer-container">
-    <div class="footer-content">
-      <div class="footer-left-section section">
-        <div class="logo section-title">Bakery</div>
-        <div>
-          We are a family-owned bakery dedicated to providing the freshest and
-          most delicious baked goods.
-        </div>
+    <div class="footer-left-section section">
+      <div class="logo section-title">Bakery</div>
+      <div>
+        We are a family-owned bakery dedicated to providing the freshest and
+        most delicious baked goods.
       </div>
+    </div>
 
-      <div class="footer-middle-section section">
-        <div class="section-title">Quick Links</div>
-        <router-link to="/">Home</router-link>
-        <router-link to="/about">About</router-link>
-        <router-link to="/shop">Shop</router-link>
-        <router-link to="/contact">Contact</router-link>
-      </div>
+    <div class="footer-middle-section section">
+      <div class="section-title">Quick Links</div>
+      <router-link to="/">Home</router-link>
+      <router-link to="/about">About</router-link>
+      <router-link to="/shop">Shop</router-link>
+      <a @click="$emit('scrollToContacts')">Contact</a>
+    </div>
 
-      <div class="footer-right-section section">
-        <div class="section-title">For Every Update</div>
-        <div class="subscribe-container">
-          <input
-            type="email"
-            placeholder="Enter your email"
-            class="subscribe-input"
-          />
-          <button class="subscribe-button">Subscribe</button>
-        </div>
+    <div class="footer-right-section section">
+      <div class="section-title">For Every Update</div>
+      <div class="input-container">
+        <input
+          type="email"
+          placeholder="Enter your email"
+          class="subscribe-input"
+          v-model="email"
+        />
+        <button class="subscribe-button">Subscribe</button>
       </div>
     </div>
   </div>
@@ -41,20 +43,12 @@
 .footer-container {
   width: 100%;
   background-color: var(--footer-accent);
-  margin-top: 40px;
   padding: 25px 40px;
   height: 250px;
   box-sizing: border-box;
   border-radius: 50px;
   margin-top: 65px;
-}
-
-.footer-content {
   display: flex;
-  flex-direction: row;
-  height: 100%;
-  width: 100%;
-  gap: 150px;
 }
 
 .section {
@@ -62,8 +56,7 @@
   flex-direction: column;
   height: 100%;
   flex: 1;
-  align-items: flex-start;
-  text-align: left;
+  margin: 0 20px;
 }
 
 .section-title {
@@ -77,33 +70,28 @@
   font-weight: 700;
 }
 
-a {
+.footer-middle-section a {
   margin: 5px 0;
+  cursor: pointer;
 }
 
-.subscribe-container {
+.input-container {
   display: flex;
-  align-items: stretch;
   margin-top: 15px;
 }
 
 .subscribe-input {
-  flex: 1;
   padding: 5px 10px;
   border: 2px solid var(--subscribe-button-colour);
   background: transparent;
+}
+
+.subscribe-input::placeholder {
+  color: var(--font-colour);
+}
+
+.subscribe-input:focus {
   outline: none;
-  width: 150px;
-
-  &::placeholder {
-    color: var(--font-colour);
-    opacity: 0.7;
-  }
-
-  &:focus {
-    border-color: var(--subscribe-button-colour);
-    box-shadow: 0 0 0 1px var(--subscribe-button-colour);
-  }
 }
 
 .subscribe-button {
