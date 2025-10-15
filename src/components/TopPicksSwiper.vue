@@ -31,7 +31,7 @@ function goToPrevSlide() {
     <SwiperSlide
       v-for="(item, index) in topPicks"
       :key="index"
-      class="slide-wrapper pseudo-glass-background"
+      class="slide-wrapper pseudo-glass-background glass-border"
     >
       <img :src="item.image" class="slide-image" />
 

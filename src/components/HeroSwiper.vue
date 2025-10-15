@@ -20,7 +20,7 @@ const { cakeSlices } = useCakeSlicesStore();
     <SwiperSlide
       v-for="n in 3"
       :key="n"
-      class="swiper-slide-content glass-background"
+      class="swiper-slide-content glass-background glass-border"
     >
       <div>
         <div class="slide-title">Trendy Cake Slices</div>
@@ -51,11 +51,10 @@ const { cakeSlices } = useCakeSlicesStore();
   margin-top: 60px;
   border-radius: 46px;
 
-  border: 1px solid var(--glass-border);
   box-sizing: border-box;
 }
 
-.swiper-slide-content:hover .buy-button {
+.glass-background .swiper-slide-content:hover .buy-button {
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.6),
     0 0 20px rgba(255, 255, 255, 0.4), inset 0 0 10px rgba(255, 255, 255, 0.2);
 }

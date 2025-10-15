@@ -10,7 +10,11 @@ const { cakeSlices } = useCakeSlicesStore();
   </div>
 
   <div class="grid-container">
-    <div v-for="cake in cakeSlices" :key="cake.id" class="cake-card">
+    <div
+      v-for="cake in cakeSlices"
+      :key="cake.id"
+      class="cake-card glass-border"
+    >
       <img :src="cake.image" :alt="cake.name" class="cake-image" />
 
       <div class="cake-info pseudo-glass-background">

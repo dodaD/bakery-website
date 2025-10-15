@@ -17,7 +17,7 @@ defineProps({
 </script>
 
 <template>
-  <div class="review glass-background review-border">
+  <div class="review glass-background review-border glass-border">
     <div class="review-header">
       <div class="review-icon"></div>
 
@@ -122,6 +122,5 @@ defineProps({
 
 .review-border {
   border-radius: 16px;
-  border: 1px solid var(--glass-border);
 }
 </style>

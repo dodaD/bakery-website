@@ -5,7 +5,11 @@ const { cakeSlices } = useCakeSlicesStore();
 </script>
 
 <template>
-  <div v-for="n in 3" :key="n" class="cake-container glass-background">
+  <div
+    v-for="n in 3"
+    :key="n"
+    class="cake-container glass-background glass-border"
+  >
     <img
       v-if="n % 2 == 0"
       :src="cakeSlices[n].image"
@@ -43,7 +47,6 @@ const { cakeSlices } = useCakeSlicesStore();
   box-sizing: border-box;
   align-items: center;
   border-radius: 50px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
