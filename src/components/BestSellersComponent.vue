@@ -14,6 +14,7 @@ const { cakeSlices } = useCakeSlicesStore();
       v-for="cake in cakeSlices"
       :key="cake.id"
       class="cake-card glass-border"
+      :id="`cake-${cake.id}`"
     >
       <img :src="cake.image" :alt="cake.name" class="cake-image" />
 

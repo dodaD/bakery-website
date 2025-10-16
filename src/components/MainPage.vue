@@ -10,19 +10,27 @@ import { ref } from "vue";
 
 const { comments } = useCommentsStore();
 const bestSellers = ref(null);
-const scrollToBestSellers = () => {
+function scrollToBestSellers() {
   bestSellers.value?.scrollIntoView({ behavior: "smooth" });
-};
+}
 
 const footer = ref(null);
-const scrollToContacts = () => {
+function scrollToContacts() {
   footer.value?.scrollIntoView({ behavior: "smooth" });
-};
+}
+
+function scrollToCake(id) {
+  const el = document.getElementById(`cake-${id}`);
+  if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
+}
 </script>
 
 <template>
   <div class="content-wrapper">
-    <NavigationComponent @scrollToContacts="scrollToContacts" />
+    <NavigationComponent
+      @scrollToContacts="scrollToContacts"
+      @showCake="scrollToCake"
+    />
 
     <HeroComponent @exploreClicked="scrollToBestSellers" />
 

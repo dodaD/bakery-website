@@ -46,7 +46,7 @@ const { cakeSlices } = useCakeSlicesStore();
   display: flex;
   text-align: center;
   transition: all 0.3s ease;
-  height: 370px;
+  height: 350px;
   flex-direction: column-reverse;
   margin-top: 60px;
   border-radius: 46px;

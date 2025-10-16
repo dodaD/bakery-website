@@ -4,7 +4,7 @@ const email = ref("");
 const emailValidity = ref(true);
 const subscribedStatus = ref(false);
 
-const validateEmail = () => {
+function validateEmail() {
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   emailValidity.value = emailPattern.test(email.value);
 
@@ -15,7 +15,7 @@ const validateEmail = () => {
       subscribedStatus.value = false;
     }, 3000);
   }
-};
+}
 
 watch(email, () => {
   if (email.value == "") {
@@ -64,7 +64,7 @@ watch(email, () => {
 
   <div
     :class="{ 'hide-message': !subscribedStatus }"
-    class="subscribed-successfully-message glass-background"
+    class="alert-message glass-background"
   >
     Congratulations! You have successfully subscribed.
   </div>
@@ -139,28 +139,5 @@ watch(email, () => {
   border: 2px solid var(--subscribe-button-colour);
   background-color: var(--subscribe-button-colour);
   cursor: pointer;
-}
-
-.subscribed-successfully-message {
-  height: 100px;
-  width: 500px;
-  padding: 5px 10px;
-  box-sizing: border-box;
-  border-radius: 20px;
-  position: fixed;
-  top: 10px;
-  right: 50%;
-  transform: translateX(50%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: all 0.3s allow-discrete;
-  border: 1px solid var(--glass-border);
-}
-
-.hide-message {
-  opacity: 0;
-  pointer-events: none;
-  user-select: none;
 }
 </style>
