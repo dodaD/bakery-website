@@ -3,7 +3,7 @@ import { ref } from "vue";
 import { useCakeSlicesStore } from "@/stores/cakeSlicesStore.js";
 
 const { cakeSlices } = useCakeSlicesStore();
-const emit = defineEmits(["showCake", "scrollToContacts"]);
+const emit = defineEmits(["showCake", "scrollToContacts", "openCart"]);
 
 const showSearchInput = ref(false);
 const searchValue = ref("");
@@ -38,8 +38,8 @@ function findCake() {
     </div>
     <div class="menu">
       <router-link to="/">Home</router-link>
-      <router-link to="/about">About</router-link>
-      <router-link to="/shop">Shop</router-link>
+      <router-link to="/">About</router-link>
+      <router-link to="/">Shop</router-link>
       <a @click="$emit('scrollToContacts')">Contact</a>
     </div>
 
@@ -52,8 +52,11 @@ function findCake() {
       <button @click="findCake">
         <font-awesome-icon :icon="['fas', 'magnifying-glass']" class="icon" />
       </button>
-      <button>
-        <font-awesome-icon :icon="['fas', 'bag-shopping']" class="icon" />
+      <button @click="$emit('openCart')">
+        <font-awesome-icon
+          :icon="['fas', 'bag-shopping']"
+          class="shopping-cart-icon icon"
+        />
       </button>
     </div>
   </div>
@@ -128,5 +131,9 @@ function findCake() {
 
 .show-search-input {
   opacity: 1;
+}
+
+.shopping-cart-icon {
+  z-index: 100;
 }
 </style>

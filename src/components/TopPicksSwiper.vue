@@ -107,16 +107,4 @@ function goToPrevSlide() {
 .buy-button {
   margin-right: auto;
 }
-
-.circle-button {
-  width: 25px;
-  height: 25px;
-  border-radius: 50px;
-  border: 1px solid var(--font-colour);
-  background: transparent;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 10px;
-}
 </style>

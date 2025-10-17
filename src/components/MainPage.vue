@@ -5,6 +5,7 @@ import BestSellersComponent from "./BestSellersComponent.vue";
 import ReviewComponent from "./ReviewComponent.vue";
 import TopPicksScrollComponent from "./TopPicksSwiper.vue";
 import FooterComponent from "./FooterComponent.vue";
+import ShoppingCart from "./ShoppingCart.vue";
 import { useCommentsStore } from "@/stores/commentsStore.js";
 import { ref } from "vue";
 
@@ -23,6 +24,13 @@ function scrollToCake(id) {
   const el = document.getElementById(`cake-${id}`);
   if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
 }
+
+const shoppingCart = ref(null);
+const showCart = ref(false);
+
+function addToCart(item) {
+  shoppingCart.value?.addItemToCart(item);
+}
 </script>
 
 <template>
@@ -30,12 +38,18 @@ function scrollToCake(id) {
     <NavigationComponent
       @scrollToContacts="scrollToContacts"
       @showCake="scrollToCake"
+      @openCart="showCart = true"
+    />
+    <ShoppingCart
+      :showCart="showCart"
+      @closeCart="showCart = false"
+      ref="shoppingCart"
     />
 
     <HeroComponent @exploreClicked="scrollToBestSellers" />
 
     <div ref="bestSellers">
-      <BestSellersComponent />
+      <BestSellersComponent @addToCart="addToCart" />
     </div>
 
     <div class="border-wrapper">

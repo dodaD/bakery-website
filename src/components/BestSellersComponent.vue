@@ -1,5 +1,6 @@
 <script setup>
 import { useCakeSlicesStore } from "@/stores/cakeSlicesStore.js";
+const emit = defineEmits(["addToCart"]);
 
 const { cakeSlices } = useCakeSlicesStore();
 </script>
@@ -24,7 +25,10 @@ const { cakeSlices } = useCakeSlicesStore();
 
         <div class="pay-button-container">
           <div class="cake-price">${{ cake.price }}</div>
-          <button class="rectangle-rounded-button bag-button">
+          <button
+            class="rectangle-rounded-button bag-button"
+            @click="$emit('addToCart', cake)"
+          >
             <font-awesome-icon icon="fa-solid fa-bag-shopping" />
           </button>
         </div>

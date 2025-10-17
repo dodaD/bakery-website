@@ -37,8 +37,8 @@ watch(email, () => {
     <div class="footer-middle-section section">
       <div class="section-title">Quick Links</div>
       <router-link to="/">Home</router-link>
-      <router-link to="/about">About</router-link>
-      <router-link to="/shop">Shop</router-link>
+      <router-link to="/">About</router-link>
+      <router-link to="/">Shop</router-link>
       <a @click="$emit('scrollToContacts')">Contact</a>
     </div>
 
