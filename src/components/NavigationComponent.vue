@@ -81,11 +81,10 @@ function findCake() {
 }
 
 .menu {
-  width: 60%;
+  width: fit-content;
   display: flex;
-  align-items: center;
-  justify-content: center;
   cursor: pointer;
+  margin: auto;
 }
 
 .menu a:first-of-type {
@@ -98,6 +97,7 @@ function findCake() {
 
 .buttons-wrapper {
   display: flex;
+  position: relative;
 
   button {
     background: none;
@@ -112,10 +112,6 @@ function findCake() {
   width: 20px;
 }
 
-.logo {
-  margin-right: 20%;
-}
-
 .search-input {
   transition: opacity 0.3s ease-in-out;
   background: transparent;
@@ -125,8 +121,10 @@ function findCake() {
   font-size: 18px;
   font-family: "Inter", sans-serif;
   padding-left: 15px;
-  transform: translateY(2px);
   opacity: 0;
+  position: absolute;
+  left: 0;
+  transform: translateX(-100%);
 }
 
 .show-search-input {

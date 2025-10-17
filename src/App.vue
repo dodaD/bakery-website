@@ -1,17 +1,16 @@
 <script setup>
-import MainPage from './components/MainPage.vue';
+import MainPage from "./components/MainPage.vue";
 </script>
 
 <template>
   <div class="main-wrapper">
     <MainPage />
   </div>
-
 </template>
 
 <style lang="scss">
 @import "@/styles/colours.scss";
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 
 .main-wrapper {
   width: 100%;
@@ -27,5 +26,9 @@ html {
   height: 100%;
   font-family: "Inter", sans-serif;
   background-color: var(--background);
+}
+
+.no-scroll {
+  overflow: hidden;
 }
 </style>

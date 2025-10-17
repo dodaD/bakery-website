@@ -7,7 +7,7 @@
   font-weight: 350;
   font-family: "Inter";
   width: fit-content;
-  padding: 5px 25px;
+  padding: 5px 20px;
 }
 
 .rectangle-rounded-button:hover {
@@ -112,6 +112,7 @@ a {
   align-items: center;
   transition: all 0.3s allow-discrete;
   border: 1px solid var(--glass-border);
+  z-index: 10;
 }
 
 .hide-message {

@@ -1,6 +1,7 @@
 <script setup>
-import { ref } from "vue";
+import { ref, computed, watch } from "vue";
 
+const showSuccessMessage = ref(false);
 const cartItems = ref([]);
 const props = defineProps({
   showCart: {
@@ -8,20 +9,58 @@ const props = defineProps({
   },
 });
 
+watch(
+  () => props.showCart,
+  (newVal) => {
+    if (newVal) {
+      document.body.classList.add("no-scroll");
+    } else {
+      document.body.classList.remove("no-scroll");
+    }
+  }
+);
+
 function addItemToCart(item) {
-  cartItems.value.push(item);
-  cartItems.value[cartItems.value.length - 1].quantity = 1;
-  console.log(cartItems.value[0]);
+  const existingCartItem = cartItems.value.find(
+    (cartItem) => cartItem.id === item.id
+  );
+
+  if (existingCartItem) {
+    existingCartItem.quantity++;
+  } else {
+    cartItems.value.push(item);
+    cartItems.value[cartItems.value.length - 1].quantity = 1;
+  }
+
+  showSuccessMessage.value = true;
+  setTimeout(() => {
+    showSuccessMessage.value = false;
+  }, 1500);
 }
 
+function substractQuantity(index) {
+  if (cartItems.value[index].quantity > 1) {
+    cartItems.value[index].quantity--;
+    return;
+  }
+  cartItems.value.splice(index, 1);
+}
+
+const totalPrice = computed(() => {
+  let total = 0;
+  for (let i = 0; i < cartItems.value.length; i++) {
+    const item = cartItems.value[i];
+    total += item.price * item.quantity;
+  }
+  return total.toFixed(2);
+});
 defineExpose({ addItemToCart });
 </script>
 
 <template>
-  <div
-    class="shopping-cart-container glass-border"
-    :class="{ 'show-cart': showCart }"
-  >
+  <div class="background-tint" v-if="showCart" />
+
+  <div class="shopping-cart-container" :class="{ 'show-cart': showCart }">
     <button class="close-cart-button" @click="$emit('closeCart')">
       <font-awesome-icon icon="fa-solid fa-circle-xmark" />
     </button>
@@ -33,7 +72,7 @@ defineExpose({ addItemToCart });
     <div
       class="cart-item"
       v-if="cartItems.length !== 0"
-      v-for="item in cartItems"
+      v-for="(item, index) in cartItems"
       :key="item.id"
     >
       <img :src="item.image" :alt="item.title" class="cake-cart-image" />
@@ -42,13 +81,39 @@ defineExpose({ addItemToCart });
         <div class="cake-cart-description">{{ item.description }}</div>
         <div class="cake-cart-price">${{ item.price }}</div>
 
-        <div class="quantity-selector">
-          <button class="quantity-button">-</button>
+        <div class="quantity-selector-wrapper">
+          <button
+            class="quantity-button circle-button"
+            @click="substractQuantity(index)"
+          >
+            <font-awesome-icon icon="fa-solid fa-minus" />
+          </button>
           <div class="quantity-number">{{ item.quantity }}</div>
-          <button class="quantity-button">+</button>
+          <button
+            class="quantity-button circle-button"
+            @click="item.quantity++"
+          >
+            <font-awesome-icon icon="fa-solid fa-plus" />
+          </button>
         </div>
       </div>
     </div>
+
+    <div v-if="cartItems.length !== 0" class="total-price-wrapper">
+      <div class="total-price-label">Total:</div>
+      <div>${{ totalPrice }}</div>
+    </div>
+
+    <button v-if="cartItems.length !== 0" class="rectangle-rounded-button">
+      Proceed to Checkout
+    </button>
+  </div>
+
+  <div
+    class="alert-message pseudo-glass-background glass-border"
+    :class="{ 'hide-message': !showSuccessMessage }"
+  >
+    Item added to cart!
   </div>
 </template>
 
@@ -69,6 +134,8 @@ defineExpose({ addItemToCart });
   padding: 50px 40px;
   box-sizing: border-box;
   transition: right 0.3s ease-in-out;
+  overflow-y: scroll;
+  border-left: 2px solid var(--glass-border);
 }
 
 .show-cart {
@@ -91,5 +158,60 @@ defineExpose({ addItemToCart });
   font-size: 25px;
   margin: 0 auto 30px;
   width: fit-content;
+}
+
+.cart-items-wrapper {
+  margin-left: 30px;
+}
+
+.cake-cart-title {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.cake-cart-image {
+  width: 100px;
+  object-fit: fill;
+  height: auto;
+}
+
+.cart-item {
+  display: flex;
+  margin-bottom: 30px;
+}
+
+.quantity-selector-wrapper {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.quantity-number {
+  margin: 0 10px;
+}
+
+.total-price-label {
+  font-weight: 700;
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+.total-price-wrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.background-tint {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  z-index: 10;
 }
 </style>
