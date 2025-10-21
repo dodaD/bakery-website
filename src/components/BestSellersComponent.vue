@@ -92,6 +92,7 @@ const { cakeSlices } = useCakeSlicesStore();
   width: 100%;
   box-sizing: border-box;
   margin-bottom: 70px;
+  justify-items: center;
 }
 
 .cake-card {
@@ -150,5 +151,9 @@ const { cakeSlices } = useCakeSlicesStore();
   justify-content: space-between;
   align-items: center;
   width: 100%;
+}
+
+.bag-button {
+  z-index: 2;
 }
 </style>

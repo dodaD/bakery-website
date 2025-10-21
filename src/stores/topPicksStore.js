@@ -2,6 +2,7 @@ export const useTopPicksStore = () => {
   const topPicks = [
     {
       id: 1,
+      cakeID: 2, // Matches Chocolate Cake
       title: "Heavenly Chocolate Delight",
       description:
         "Indulge in our rich, velvety chocolate cake with layers of dark chocolate ganache and a hint of espresso. Perfect for celebrations!",
@@ -10,6 +11,7 @@ export const useTopPicksStore = () => {
     },
     {
       id: 2,
+      cakeID: 6, // Matches Strawberry Cake
       title: "Strawberry Dream Cake",
       description:
         "Fresh strawberries dance with fluffy vanilla sponge and cream cheese frosting in this delightful summer treat. Pure bliss!",
@@ -18,6 +20,7 @@ export const useTopPicksStore = () => {
     },
     {
       id: 3,
+      cakeID: 1, // Matches Carrot Cake
       title: "Classic Carrot Temptation",
       description:
         "Moist carrot cake packed with warm spices, walnuts, and topped with our signature cream cheese frosting. A timeless favorite!",
@@ -26,6 +29,7 @@ export const useTopPicksStore = () => {
     },
     {
       id: 4,
+      cakeID: 3, // Matches Coffee Cake
       title: "Coffee Lover's Paradise",
       description:
         "Rich coffee-infused layers with mocha buttercream and a dusting of cocoa. The perfect pick-me-up for coffee enthusiasts!",

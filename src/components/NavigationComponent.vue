@@ -61,10 +61,7 @@ function findCake() {
     </div>
   </div>
 
-  <div
-    :class="{ 'hide-message': !searchFailedMessage }"
-    class="alert-message glass-background"
-  >
+  <div :class="{ 'hide-message': !searchFailedMessage }" class="alert-message">
     Cake not found. Please try again.
   </div>
 </template>

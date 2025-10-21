@@ -41,7 +41,12 @@ function goToPrevSlide() {
         <div class="slide-funny-part">{{ item.funnyPart }}</div>
 
         <div class="navigation-area">
-          <button class="rectangle-rounded-button buy-button">Buy now</button>
+          <button
+            class="rectangle-rounded-button buy-button"
+            @click="$emit('buyNow', item)"
+          >
+            Buy now
+          </button>
           <button @click="goToPrevSlide" class="prev-button circle-button">
             <font-awesome-icon icon="fa-solid fa-arrow-left" />
           </button>

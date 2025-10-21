@@ -112,6 +112,7 @@ a {
   align-items: center;
   transition: all 0.3s allow-discrete;
   border: 1px solid var(--glass-border);
+  background-color: rgba(0, 0, 0, 0.37);
   z-index: 10;
 }
 
@@ -131,4 +132,15 @@ a {
   justify-content: center;
   align-items: center;
   font-size: 10px;
+}
+
+.background-tint {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  z-index: 10;
 }

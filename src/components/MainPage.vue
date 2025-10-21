@@ -3,7 +3,7 @@ import NavigationComponent from "./NavigationComponent.vue";
 import HeroComponent from "./HeroComponent.vue";
 import BestSellersComponent from "./BestSellersComponent.vue";
 import ReviewComponent from "./ReviewComponent.vue";
-import TopPicksScrollComponent from "./TopPicksSwiper.vue";
+import TopPicksSwiper from "./TopPicksSwiper.vue";
 import FooterComponent from "./FooterComponent.vue";
 import ShoppingCart from "./ShoppingCart.vue";
 import { useCommentsStore } from "@/stores/commentsStore.js";
@@ -31,9 +31,40 @@ const showCart = ref(false);
 function addToCart(item) {
   shoppingCart.value?.addItemToCart(item);
 }
+
+const isBuyMessageShowing = ref(false);
+const boughtItem = ref(null);
+
+function showBuyMessage(item) {
+  if (item != null) {
+    boughtItem.value = item?.title || item?.name;
+  }
+  isBuyMessageShowing.value = true;
+}
+
+function closeBuyMessage() {
+  isBuyMessageShowing.value = false;
+  boughtItem.value = null;
+}
 </script>
 
 <template>
+  <div class="background-tint" v-if="isBuyMessageShowing" />
+  <div class="buy-message glass-border" v-if="isBuyMessageShowing">
+    This function is not available yet! The payment system is still in
+    development. Thank you for your your constant support and understanding!
+    <div class="bought-item" v-if="boughtItem != null">
+      The {{ boughtItem }} will be waiting for you once it's ready.
+    </div>
+  </div>
+  <button
+    class="close-cart-button"
+    @click="closeBuyMessage"
+    v-if="isBuyMessageShowing"
+  >
+    <font-awesome-icon icon="fa-solid fa-circle-xmark" />
+  </button>
+
   <div class="content-wrapper">
     <NavigationComponent
       @scrollToContacts="scrollToContacts"
@@ -43,10 +74,14 @@ function addToCart(item) {
     <ShoppingCart
       :showCart="showCart"
       @closeCart="showCart = false"
+      @buyNow="showBuyMessage"
       ref="shoppingCart"
     />
 
-    <HeroComponent @exploreClicked="scrollToBestSellers" />
+    <HeroComponent
+      @exploreClicked="scrollToBestSellers"
+      @buyNow="showBuyMessage"
+    />
 
     <div ref="bestSellers">
       <BestSellersComponent @addToCart="addToCart" />
@@ -69,7 +104,7 @@ function addToCart(item) {
     <div class="border-wrapper">
       <div class="our-pick-title cornered-border">Our Top Picks</div>
     </div>
-    <TopPicksScrollComponent />
+    <TopPicksSwiper @buyNow="showBuyMessage" />
 
     <div class="footer-container" ref="footer">
       <FooterComponent />
@@ -108,5 +143,44 @@ function addToCart(item) {
   display: flex;
   justify-content: center;
   margin: 40px 0;
+}
+
+.buy-message {
+  width: 600px;
+  height: 400px;
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%);
+  background-color: var(--background);
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-family: "Inter";
+  padding: 0 40px;
+  border-radius: 50px;
+  text-align: center;
+  line-height: 30px;
+}
+
+.bought-item {
+  margin: 30px 0;
+  font-weight: 300;
+  font-style: italic;
+  font-size: 24px;
+}
+
+.close-cart-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 25px;
+  z-index: 20;
 }
 </style>

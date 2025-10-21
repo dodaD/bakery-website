@@ -62,10 +62,7 @@ watch(email, () => {
     </div>
   </div>
 
-  <div
-    :class="{ 'hide-message': !subscribedStatus }"
-    class="alert-message glass-background"
-  >
+  <div :class="{ 'hide-message': !subscribedStatus }" class="alert-message">
     Congratulations! You have successfully subscribed.
   </div>
 </template>

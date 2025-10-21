@@ -21,7 +21,12 @@ const { cakeSlices } = useCakeSlicesStore();
       <div class="cake-title">{{ cakeSlices[n].name }}</div>
       <div class="cake-description">{{ cakeSlices[n].description }}</div>
       <div class="cake-price">${{ cakeSlices[n].price }}</div>
-      <button class="rectangle-rounded-button">Buy now</button>
+      <button
+        class="rectangle-rounded-button"
+        @click="$emit('buyNow', cakeSlices[n])"
+      >
+        Buy now
+      </button>
     </div>
 
     <img

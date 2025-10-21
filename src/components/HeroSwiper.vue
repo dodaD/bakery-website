@@ -2,6 +2,7 @@
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { Navigation } from "swiper/modules";
 import { useCakeSlicesStore } from "@/stores/cakeSlicesStore.js";
+const emit = defineEmits(["buyNow"]);
 import "swiper/css";
 
 const modules = [Navigation];
@@ -21,7 +22,12 @@ const { cakeSlices } = useCakeSlicesStore();
       <div class="glass-background cut-out-border swiper-slide">
         <div class="slide-title">Trendy Cake Slices</div>
         <div class="cake-description">{{ cakeSlices[n].name }}</div>
-        <button class="rectangle-rounded-button buy-button">Buy now</button>
+        <button
+          class="rectangle-rounded-button buy-button"
+          @click="$emit('buyNow', cakeSlices[n])"
+        >
+          Buy now
+        </button>
       </div>
 
       <img :src="cakeSlices[n].image" class="cake-image" />
@@ -84,6 +90,10 @@ const { cakeSlices } = useCakeSlicesStore();
 .swiper-slide:hover .buy-button {
   box-shadow: 0 0 5px rgba(255, 255, 255, 0.6),
     0 0 10px rgba(255, 255, 255, 0.4), inset 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+.buy-button {
+  z-index: 2;
 }
 
 .swiper-slide:hover {

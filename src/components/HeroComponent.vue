@@ -1,10 +1,11 @@
 <script setup>
-import ProductScrollComponent from "./HeroSwiper.vue";
+import HeroSwiper from "./HeroSwiper.vue";
 import ReviewComponent from "./ReviewComponent.vue";
 import TrendyCakesComponent from "./TrendyCakesComponent.vue";
 import { useCommentsStore } from "@/stores/commentsStore.js";
 
 const { comments } = useCommentsStore();
+const emit = defineEmits(["exploreClicked", "buyNow"]);
 </script>
 
 <template>
@@ -18,14 +19,14 @@ const { comments } = useCommentsStore();
         </div>
         <button
           class="rectangle-rounded-button"
-          @click="$emit('exploreClicked')"
+          @click="emit('exploreClicked')"
         >
           Explore
         </button>
       </div>
 
       <div class="product-scroll-wrapper">
-        <ProductScrollComponent />
+        <HeroSwiper @buyNow="emit('buyNow', $event)" />
       </div>
       <div class="review-container">
         <ReviewComponent
@@ -38,7 +39,7 @@ const { comments } = useCommentsStore();
     <img src="/CakePicture.jpg" class="photo" />
 
     <div class="hero-title">Our Trendy Cakes</div>
-    <TrendyCakesComponent />
+    <TrendyCakesComponent @buyNow="emit('buyNow', $event)" />
   </div>
 </template>
 

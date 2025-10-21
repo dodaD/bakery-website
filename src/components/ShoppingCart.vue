@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed, watch } from "vue";
 
+const emit = defineEmits(["closeCart", "buyNow"]);
 const showSuccessMessage = ref(false);
 const cartItems = ref([]);
 const props = defineProps({
@@ -54,6 +55,12 @@ const totalPrice = computed(() => {
   }
   return total.toFixed(2);
 });
+
+function buyCart() {
+  emit("closeCart");
+  cartItems.value = [];
+  emit("buyNow");
+}
 defineExpose({ addItemToCart });
 </script>
 
@@ -104,15 +111,16 @@ defineExpose({ addItemToCart });
       <div>${{ totalPrice }}</div>
     </div>
 
-    <button v-if="cartItems.length !== 0" class="rectangle-rounded-button">
+    <button
+      v-if="cartItems.length !== 0"
+      class="rectangle-rounded-button"
+      @click="buyCart"
+    >
       Proceed to Checkout
     </button>
   </div>
 
-  <div
-    class="alert-message pseudo-glass-background glass-border"
-    :class="{ 'hide-message': !showSuccessMessage }"
-  >
+  <div class="alert-message" :class="{ 'hide-message': !showSuccessMessage }">
     Item added to cart!
   </div>
 </template>
@@ -202,16 +210,5 @@ defineExpose({ addItemToCart });
   display: flex;
   align-items: center;
   margin-bottom: 20px;
-}
-
-.background-tint {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(10px);
-  z-index: 10;
 }
 </style>
