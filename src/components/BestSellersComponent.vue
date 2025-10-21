@@ -14,12 +14,12 @@ const { cakeSlices } = useCakeSlicesStore();
     <div
       v-for="cake in cakeSlices"
       :key="cake.id"
-      class="cake-card glass-border"
+      class="cake-card"
       :id="`cake-${cake.id}`"
     >
       <img :src="cake.image" :alt="cake.name" class="cake-image" />
 
-      <div class="cake-info pseudo-glass-background">
+      <div class="cake-info pseudo-glass-background cut-out-border">
         <div class="cake-name">{{ cake.name }}</div>
         <div class="cake-description">{{ cake.description }}</div>
 
@@ -41,6 +41,30 @@ const { cakeSlices } = useCakeSlicesStore();
 @import "@/styles/colours.scss";
 @import "@/styles/common-styles.scss";
 
+.cut-out-border {
+  -webkit-mask-image: url("/productSolid.svg");
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: cover;
+  mask-repeat: no-repeat;
+}
+
+.cut-out-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    12deg,
+    var(--glass-border),
+    rgba(var(--glass-border-in-normal-way), 0.1),
+    var(--glass-border)
+  );
+  -webkit-mask-image: url("/productSolid.svg"), url("/productBorder.svg");
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: cover;
+  -webkit-mask-composite: xor;
+  mask-composite: intersect;
+}
+
 .best-sellers-container {
   width: 100%;
   display: flex;
@@ -61,7 +85,8 @@ const { cakeSlices } = useCakeSlicesStore();
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(2, 2fr);
-  gap: 95px;
+  row-gap: 95px;
+  column-gap: 10px;
   margin-top: 130px;
   max-width: 100%;
   width: 100%;
@@ -76,18 +101,18 @@ const { cakeSlices } = useCakeSlicesStore();
   justify-content: space-between;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   position: relative;
+  width: 350px;
 }
 
 .cake-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transform: translateY(-25px);
 }
 
 .cake-image {
   width: 250px;
   object-fit: contain;
   border-radius: 10px;
-  transform: translateY(-100px) rotate(182deg) translateX(-50%);
+  transform: translateY(-200px) rotate(219deg) translateX(-60%);
   position: absolute;
   right: 50%;
   top: 0;
@@ -95,7 +120,7 @@ const { cakeSlices } = useCakeSlicesStore();
 }
 
 .cake-info {
-  padding: 20px;
+  padding: 60px;
   box-sizing: border-box;
   border-radius: 15px;
   height: 400px;
@@ -103,6 +128,11 @@ const { cakeSlices } = useCakeSlicesStore();
   justify-content: flex-end;
   align-items: flex-start;
   flex-direction: column;
+}
+
+.cake-info:hover {
+  box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.4),
+    0 0 5px rgba(255, 255, 255, 0.2);
 }
 
 .cake-name {

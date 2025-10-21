@@ -17,7 +17,7 @@ defineProps({
 </script>
 
 <template>
-  <div class="review glass-background review-border glass-border">
+  <div class="review glass-background review-border cut-out-border">
     <div class="review-header">
       <div class="review-icon"></div>
 
@@ -47,12 +47,36 @@ defineProps({
 @import "@/styles/colours.scss";
 @import "@/styles/common-styles.scss";
 
+.cut-out-border {
+  -webkit-mask-image: url("/commentSolid.svg");
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-repeat: no-repeat;
+}
+
+.cut-out-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    12deg,
+    var(--glass-border),
+    rgba(var(--glass-border-in-normal-way), 0.1),
+    var(--glass-border)
+  );
+  -webkit-mask-image: url("/commentSolid.svg"), url("/commentBorder.svg");
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  -webkit-mask-composite: xor;
+  mask-composite: intersect;
+}
+
 .review {
   width: 375px;
-  height: 195px;
+  height: 200px;
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: 50px 30px;
   box-sizing: border-box;
 }
 
