@@ -3,6 +3,7 @@ import { ref } from "vue";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { Navigation } from "swiper/modules";
 import { useTopPicksStore } from "@/stores/topPicksStore.js";
+import { useMobileStore } from "@/stores/isMobileStore.js";
 import "swiper/css";
 import "swiper/css/navigation";
 
@@ -10,6 +11,7 @@ const modules = [Navigation];
 const swiperRef = ref(null);
 
 const { topPicks } = useTopPicksStore();
+const mobileStore = useMobileStore();
 
 function goToNextSlide() {
   swiperRef.value?.$el.swiper.slideNext();

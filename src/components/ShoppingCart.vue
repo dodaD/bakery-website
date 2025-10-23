@@ -1,6 +1,8 @@
 <script setup>
 import { ref, computed, watch } from "vue";
+import { useMobileStore } from "@/stores/isMobileStore.js";
 
+const mobileStore = useMobileStore();
 const emit = defineEmits(["closeCart", "buyNow"]);
 const showSuccessMessage = ref(false);
 const cartItems = ref([]);
@@ -67,7 +69,13 @@ defineExpose({ addItemToCart });
 <template>
   <div class="background-tint" v-if="showCart" />
 
-  <div class="shopping-cart-container" :class="{ 'show-cart': showCart }">
+  <div
+    class="shopping-cart-container"
+    :class="{
+      'show-cart': showCart,
+      'shopping-cart-container-mobile': mobileStore.getIsMobile,
+    }"
+  >
     <button class="close-cart-button" @click="$emit('closeCart')">
       <font-awesome-icon icon="fa-solid fa-circle-xmark" />
     </button>
@@ -144,6 +152,11 @@ defineExpose({ addItemToCart });
   transition: right 0.3s ease-in-out;
   overflow-y: scroll;
   border-left: 2px solid var(--glass-border);
+}
+
+.shopping-cart-container-mobile {
+  width: 100%;
+  right: -300%;
 }
 
 .show-cart {

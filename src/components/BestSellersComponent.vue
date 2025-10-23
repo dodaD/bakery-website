@@ -1,8 +1,10 @@
 <script setup>
 import { useCakeSlicesStore } from "@/stores/cakeSlicesStore.js";
+import { useMobileStore } from "@/stores/isMobileStore.js";
 const emit = defineEmits(["addToCart"]);
 
 const { cakeSlices } = useCakeSlicesStore();
+const mobileStore = useMobileStore();
 </script>
 
 <template>
@@ -10,7 +12,10 @@ const { cakeSlices } = useCakeSlicesStore();
     <div class="best-sellers-title cornered-border">Best Sellers</div>
   </div>
 
-  <div class="grid-container">
+  <div
+    class="grid-container"
+    :class="{ 'grid-mobile': mobileStore.getIsMobile }"
+  >
     <div
       v-for="cake in cakeSlices"
       :key="cake.id"
@@ -84,7 +89,7 @@ const { cakeSlices } = useCakeSlicesStore();
 .grid-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 2fr);
+  grid-template-rows: repeat(2, 1fr);
   row-gap: 95px;
   column-gap: 10px;
   margin-top: 130px;
@@ -93,6 +98,10 @@ const { cakeSlices } = useCakeSlicesStore();
   box-sizing: border-box;
   margin-bottom: 70px;
   justify-items: center;
+}
+
+.grid-mobile {
+  grid-template-columns: repeat(1, 1fr);
 }
 
 .cake-card {

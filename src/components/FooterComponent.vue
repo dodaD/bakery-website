@@ -1,5 +1,8 @@
 <script setup>
 import { ref, watch } from "vue";
+import { useMobileStore } from "@/stores/isMobileStore.js";
+
+const mobileStore = useMobileStore();
 const email = ref("");
 const emailValidity = ref(true);
 const subscribedStatus = ref(false);

@@ -1,9 +1,7 @@
-make a buy now message
+- start working on mob version
 
-fix the alert message style in a sense of text readability and transparency
+- make a computed for isMobile and vbind classes for mobile with that
 
-start working on mob version
+\*\* fix the background image on the hero section
 
-** fix the background image on the hero section
-
-** make all images same ratio
+\*\* make all images same ratio

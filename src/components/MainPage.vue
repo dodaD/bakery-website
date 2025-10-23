@@ -1,4 +1,5 @@
 <script setup>
+import { ref } from "vue";
 import NavigationComponent from "./NavigationComponent.vue";
 import HeroComponent from "./HeroComponent.vue";
 import BestSellersComponent from "./BestSellersComponent.vue";
@@ -6,8 +7,10 @@ import ReviewComponent from "./ReviewComponent.vue";
 import TopPicksSwiper from "./TopPicksSwiper.vue";
 import FooterComponent from "./FooterComponent.vue";
 import ShoppingCart from "./ShoppingCart.vue";
+import { useMobileStore } from "@/stores/isMobileStore.js";
 import { useCommentsStore } from "@/stores/commentsStore.js";
-import { ref } from "vue";
+
+const mobileStore = useMobileStore();
 
 const { comments } = useCommentsStore();
 const bestSellers = ref(null);
@@ -65,7 +68,10 @@ function closeBuyMessage() {
     <font-awesome-icon icon="fa-solid fa-circle-xmark" />
   </button>
 
-  <div class="content-wrapper">
+  <div
+    class="content-wrapper"
+    :class="{ 'content-wrapper-mobile': mobileStore.getIsMobile }"
+  >
     <NavigationComponent
       @scrollToContacts="scrollToContacts"
       @showCake="scrollToCake"
@@ -90,7 +96,10 @@ function closeBuyMessage() {
     <div class="border-wrapper">
       <div class="reviews-title cornered-border">Customer Reviews</div>
     </div>
-    <div class="customer-reviews-container">
+    <div
+      class="customer-reviews-container"
+      :class="{ 'customer-reviews-container-mobile': mobileStore.getIsMobile }"
+    >
       <ReviewComponent
         v-for="n in 3"
         :key="comments[n].id"
@@ -125,11 +134,20 @@ function closeBuyMessage() {
   margin: 0 auto;
 }
 
+.content-wrapper-mobile {
+  overflow: hidden;
+}
+
 .customer-reviews-container {
   display: flex;
   justify-content: space-between;
   margin: 40px 0 80px;
   gap: 30px;
+}
+
+.customer-reviews-container-mobile {
+  flex-direction: column;
+  align-items: center;
 }
 
 .reviews-title,

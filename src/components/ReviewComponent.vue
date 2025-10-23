@@ -1,4 +1,8 @@
 <script setup>
+import { useMobileStore } from "@/stores/isMobileStore.js";
+
+const mobileStore = useMobileStore();
+
 defineProps({
   name: {
     type: String,

@@ -3,17 +3,28 @@ import HeroSwiper from "./HeroSwiper.vue";
 import ReviewComponent from "./ReviewComponent.vue";
 import TrendyCakesComponent from "./TrendyCakesComponent.vue";
 import { useCommentsStore } from "@/stores/commentsStore.js";
+import { useMobileStore } from "@/stores/isMobileStore.js";
 
 const { comments } = useCommentsStore();
+const mobileStore = useMobileStore();
 const emit = defineEmits(["exploreClicked", "buyNow"]);
 </script>
 
 <template>
   <div class="hero-wrapper">
-    <div class="hero-grid">
-      <div class="title-wrapper">
+    <div
+      class="hero-grid"
+      :class="{ 'hero-grid-mobile': mobileStore.getIsMobile }"
+    >
+      <div
+        class="title-wrapper"
+        :class="{ 'title-wrapper-mobile': mobileStore.getIsMobile }"
+      >
         <div class="title">Buy Local</div>
-        <div class="description">
+        <div
+          class="description"
+          :class="{ 'description-mobile': mobileStore.getIsMobile }"
+        >
           Discover our artisanal bakery, where every cake is crafted with
           passion, using premium ingredients for unforgettable flavors.
         </div>
@@ -25,10 +36,14 @@ const emit = defineEmits(["exploreClicked", "buyNow"]);
         </button>
       </div>
 
-      <div class="product-scroll-wrapper">
+      <div class="product-scroll-wrapper" v-if="!mobileStore.getIsMobile">
         <HeroSwiper @buyNow="emit('buyNow', $event)" />
       </div>
-      <div class="review-container">
+
+      <div
+        class="review-container"
+        :class="{ 'review-container-mobile': mobileStore.getIsMobile }"
+      >
         <ReviewComponent
           :name="comments[0].author"
           :text="comments[0].text"
@@ -70,6 +85,13 @@ const emit = defineEmits(["exploreClicked", "buyNow"]);
   z-index: 1;
 }
 
+.hero-grid-mobile {
+  display: flex;
+  flex-direction: column;
+  height: unset;
+  margin-bottom: 50px;
+}
+
 .title-wrapper {
   grid-column: 1;
   grid-row: 1;
@@ -79,6 +101,10 @@ const emit = defineEmits(["exploreClicked", "buyNow"]);
   max-width: 670px;
 }
 
+.title-wrapper-mobile {
+  padding: 0;
+}
+
 .title {
   font-weight: 600;
   font-size: 90px;
@@ -86,6 +112,14 @@ const emit = defineEmits(["exploreClicked", "buyNow"]);
 
 .description {
   margin-bottom: 20px;
+}
+
+.description-mobile {
+  box-shadow: var(--footer-accent) -10px 15px 0px;
+  backdrop-filter: blur(6px);
+  padding: 15px;
+  border-radius: 10px;
+  margin: 25px 0;
 }
 
 .product-scroll-wrapper {
@@ -103,11 +137,17 @@ const emit = defineEmits(["exploreClicked", "buyNow"]);
   transform: translateY(-30%);
 }
 
+.review-container-mobile {
+  transform: translateY(0%);
+  margin-top: 40px;
+}
+
 .photo {
   width: auto;
   height: 800px;
   opacity: 0.85;
   position: absolute;
+  overflow: hidden;
   top: 0;
   right: 50%;
   transform: translateX(50%);

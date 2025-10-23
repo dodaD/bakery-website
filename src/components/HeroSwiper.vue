@@ -2,6 +2,9 @@
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { Navigation } from "swiper/modules";
 import { useCakeSlicesStore } from "@/stores/cakeSlicesStore.js";
+import { useMobileStore } from "@/stores/isMobileStore.js";
+
+const mobileStore = useMobileStore();
 const emit = defineEmits(["buyNow"]);
 import "swiper/css";
 

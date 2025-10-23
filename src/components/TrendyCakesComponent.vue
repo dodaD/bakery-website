@@ -1,6 +1,8 @@
 <script setup>
 import { useCakeSlicesStore } from "@/stores/cakeSlicesStore.js";
+import { useMobileStore } from "@/stores/isMobileStore.js";
 
+const mobileStore = useMobileStore();
 const { cakeSlices } = useCakeSlicesStore();
 </script>
 

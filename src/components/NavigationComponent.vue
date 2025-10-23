@@ -1,9 +1,11 @@
 <script setup>
 import { ref } from "vue";
 import { useCakeSlicesStore } from "@/stores/cakeSlicesStore.js";
+import { useMobileStore } from "@/stores/isMobileStore.js";
 
-const { cakeSlices } = useCakeSlicesStore();
 const emit = defineEmits(["showCake", "scrollToContacts", "openCart"]);
+const mobileStore = useMobileStore();
+const { cakeSlices } = useCakeSlicesStore();
 
 const showSearchInput = ref(false);
 const searchValue = ref("");
@@ -32,11 +34,14 @@ function findCake() {
 </script>
 
 <template>
-  <div class="navigation">
-    <div class="logo">
+  <div
+    class="navigation"
+    :class="{ 'navigation-mobile': mobileStore.getIsMobile }"
+  >
+    <div class="logo" :class="{ 'logo-mobile': mobileStore.getIsMobile }">
       <div>Bakery</div>
     </div>
-    <div class="menu">
+    <div class="menu" :class="{ 'menu-mobile': mobileStore.getIsMobile }">
       <router-link to="/">Home</router-link>
       <router-link to="/">About</router-link>
       <router-link to="/">Shop</router-link>
@@ -72,14 +77,25 @@ function findCake() {
 
 .navigation {
   display: flex;
+  flex-wrap: wrap;
   width: 100%;
   align-items: center;
   font-size: 20px;
 }
 
+.navigation-mobile {
+  justify-content: flex-end;
+}
+
+.logo-mobile {
+  margin-bottom: 10px;
+  display: none;
+}
+
 .menu {
   width: fit-content;
   display: flex;
+  flex-wrap: wrap;
   cursor: pointer;
   margin: auto;
 }
@@ -90,6 +106,19 @@ function findCake() {
 
 .menu a:last-of-type {
   margin-right: 0;
+}
+
+.menu-mobile {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.menu-mobile a {
+  margin: auto;
+}
+
+.menu-mobile a:last-of-type {
+  margin-left: 0;
 }
 
 .buttons-wrapper {
