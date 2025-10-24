@@ -28,7 +28,10 @@ watch(email, () => {
 </script>
 
 <template>
-  <div class="footer-container">
+  <div
+    class="footer-container"
+    :class="{ 'footer-container-mobile': mobileStore.isMobile }"
+  >
     <div class="footer-left-section section">
       <div class="logo section-title">Bakery</div>
       <div>
@@ -83,6 +86,17 @@ watch(email, () => {
   border-radius: 50px;
   margin-top: 65px;
   display: flex;
+}
+
+.footer-container-mobile {
+  flex-direction: column;
+  height: auto;
+  padding: 30px;
+  gap: 30px;
+  box-sizing: content-box;
+  transform: translateX(-30px);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 .section {

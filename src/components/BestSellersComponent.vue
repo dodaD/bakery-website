@@ -12,19 +12,24 @@ const mobileStore = useMobileStore();
     <div class="best-sellers-title cornered-border">Best Sellers</div>
   </div>
 
-  <div
-    class="grid-container"
-    :class="{ 'grid-mobile': mobileStore.getIsMobile }"
-  >
+  <div class="grid-container" :class="{ 'grid-mobile': mobileStore.isMobile }">
     <div
       v-for="cake in cakeSlices"
       :key="cake.id"
       class="cake-card"
       :id="`cake-${cake.id}`"
     >
-      <img :src="cake.image" :alt="cake.name" class="cake-image" />
+      <img
+        :src="cake.image"
+        :alt="cake.name"
+        class="cake-image"
+        :class="{ 'cake-image-mobile': mobileStore.isMobile }"
+      />
 
-      <div class="cake-info pseudo-glass-background cut-out-border">
+      <div
+        class="cake-info pseudo-glass-background cut-out-border"
+        :class="{ 'cake-info-mobile': mobileStore.isMobile }"
+      >
         <div class="cake-name">{{ cake.name }}</div>
         <div class="cake-description">{{ cake.description }}</div>
 
@@ -49,7 +54,7 @@ const mobileStore = useMobileStore();
 .cut-out-border {
   -webkit-mask-image: url("/productSolid.svg");
   -webkit-mask-repeat: no-repeat;
-  -webkit-mask-size: cover;
+  -webkit-mask-size: contain;
   mask-repeat: no-repeat;
 }
 
@@ -65,7 +70,7 @@ const mobileStore = useMobileStore();
   );
   -webkit-mask-image: url("/productSolid.svg"), url("/productBorder.svg");
   -webkit-mask-repeat: no-repeat;
-  -webkit-mask-size: cover;
+  -webkit-mask-size: contain;
   -webkit-mask-composite: xor;
   mask-composite: intersect;
 }
@@ -102,6 +107,7 @@ const mobileStore = useMobileStore();
 
 .grid-mobile {
   grid-template-columns: repeat(1, 1fr);
+  row-gap: 35px;
 }
 
 .cake-card {
@@ -111,7 +117,8 @@ const mobileStore = useMobileStore();
   justify-content: space-between;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   position: relative;
-  width: 350px;
+  width: 100%;
+  max-width: 350px;
 }
 
 .cake-card:hover {
@@ -129,6 +136,11 @@ const mobileStore = useMobileStore();
   z-index: 1;
 }
 
+.cake-image-mobile {
+  width: 220px;
+  transform: translateY(-80%) rotate(240deg) translateX(-100%);
+}
+
 .cake-info {
   padding: 60px;
   box-sizing: border-box;
@@ -138,6 +150,10 @@ const mobileStore = useMobileStore();
   justify-content: flex-end;
   align-items: flex-start;
   flex-direction: column;
+}
+
+.cake-info-mobile {
+  padding: 70px 60px;
 }
 
 .cake-info:hover {

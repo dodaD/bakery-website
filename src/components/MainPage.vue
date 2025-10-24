@@ -70,7 +70,7 @@ function closeBuyMessage() {
 
   <div
     class="content-wrapper"
-    :class="{ 'content-wrapper-mobile': mobileStore.getIsMobile }"
+    :class="{ 'content-wrapper-mobile': mobileStore.isMobile }"
   >
     <NavigationComponent
       @scrollToContacts="scrollToContacts"
@@ -98,7 +98,7 @@ function closeBuyMessage() {
     </div>
     <div
       class="customer-reviews-container"
-      :class="{ 'customer-reviews-container-mobile': mobileStore.getIsMobile }"
+      :class="{ 'customer-reviews-container-mobile': mobileStore.isMobile }"
     >
       <ReviewComponent
         v-for="n in 3"
@@ -136,6 +136,7 @@ function closeBuyMessage() {
 
 .content-wrapper-mobile {
   overflow: hidden;
+  padding: 25px 30px 0;
 }
 
 .customer-reviews-container {

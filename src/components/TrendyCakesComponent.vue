@@ -11,12 +11,20 @@ const { cakeSlices } = useCakeSlicesStore();
     v-for="n in 3"
     :key="n"
     class="cake-container glass-background glass-border"
+    :class="{
+      'cake-container-mobile': mobileStore.isMobile,
+      'reverse-column': n % 2 == 1 && mobileStore.isMobile,
+    }"
   >
     <img
       v-if="n % 2 == 0"
       :src="cakeSlices[n].image"
       :alt="cakeSlices[n].title"
       class="cake-image cake-on-the-left"
+      :class="{
+        'cake-on-the-left-mobile': mobileStore.isMobile,
+        'cake-image-mobile': mobileStore.isMobile,
+      }"
     />
 
     <div class="cake-content">
@@ -36,6 +44,10 @@ const { cakeSlices } = useCakeSlicesStore();
       :src="cakeSlices[n].image"
       :alt="cakeSlices[n].title"
       class="cake-image cake-on-the-right"
+      :class="{
+        'cake-on-the-right-mobile': mobileStore.isMobile,
+        'cake-image-mobile': mobileStore.isMobile,
+      }"
     />
   </div>
 </template>
@@ -58,10 +70,24 @@ const { cakeSlices } = useCakeSlicesStore();
   -webkit-backdrop-filter: blur(12px);
 }
 
+.cake-container-mobile {
+  flex-direction: column;
+  height: auto;
+  padding: 10px 25px 40px;
+}
+
+.reverse-column {
+  flex-direction: column-reverse;
+}
+
 .cake-image {
   width: 200px;
   transform: translateY(-25px);
   margin: 0 50px;
+}
+
+.cake-image-mobile {
+  transform: rotate(240deg);
 }
 
 .cake-title {
@@ -82,5 +108,10 @@ const { cakeSlices } = useCakeSlicesStore();
 
 .cake-on-the-left {
   margin-left: 0;
+}
+
+.cake-on-the-left-mobile,
+.cake-on-the-right-mobile {
+  margin: 0;
 }
 </style>

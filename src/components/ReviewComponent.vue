@@ -21,7 +21,10 @@ defineProps({
 </script>
 
 <template>
-  <div class="review glass-background review-border cut-out-border">
+  <div
+    class="review glass-background review-border cut-out-border"
+    :class="{ 'review-mobile': mobileStore.isMobile }"
+  >
     <div class="review-header">
       <div class="review-icon"></div>
 
@@ -84,6 +87,11 @@ defineProps({
   box-sizing: border-box;
 }
 
+.review-mobile {
+  width: 100%;
+  padding: 40px 30px;
+}
+
 .review-name-container {
   display: flex;
   flex-direction: column;
@@ -111,6 +119,7 @@ defineProps({
   flex-direction: row;
   align-items: flex-start;
   text-align: left;
+  margin-bottom: 10px;
 }
 
 .review-name {

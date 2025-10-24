@@ -36,12 +36,12 @@ function findCake() {
 <template>
   <div
     class="navigation"
-    :class="{ 'navigation-mobile': mobileStore.getIsMobile }"
+    :class="{ 'navigation-mobile': mobileStore.isMobile }"
   >
-    <div class="logo" :class="{ 'logo-mobile': mobileStore.getIsMobile }">
+    <div class="logo" :class="{ 'logo-mobile': mobileStore.isMobile }">
       <div>Bakery</div>
     </div>
-    <div class="menu" :class="{ 'menu-mobile': mobileStore.getIsMobile }">
+    <div class="menu" :class="{ 'menu-mobile': mobileStore.isMobile }">
       <router-link to="/">Home</router-link>
       <router-link to="/">About</router-link>
       <router-link to="/">Shop</router-link>

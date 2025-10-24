@@ -11,19 +11,22 @@ const emit = defineEmits(["exploreClicked", "buyNow"]);
 </script>
 
 <template>
-  <div class="hero-wrapper">
+  <div
+    class="hero-wrapper"
+    :class="{ 'hero-wrapper-mobile': mobileStore.isMobile }"
+  >
     <div
       class="hero-grid"
-      :class="{ 'hero-grid-mobile': mobileStore.getIsMobile }"
+      :class="{ 'hero-grid-mobile': mobileStore.isMobile }"
     >
       <div
         class="title-wrapper"
-        :class="{ 'title-wrapper-mobile': mobileStore.getIsMobile }"
+        :class="{ 'title-wrapper-mobile': mobileStore.isMobile }"
       >
         <div class="title">Buy Local</div>
         <div
           class="description"
-          :class="{ 'description-mobile': mobileStore.getIsMobile }"
+          :class="{ 'description-mobile': mobileStore.isMobile }"
         >
           Discover our artisanal bakery, where every cake is crafted with
           passion, using premium ingredients for unforgettable flavors.
@@ -36,13 +39,13 @@ const emit = defineEmits(["exploreClicked", "buyNow"]);
         </button>
       </div>
 
-      <div class="product-scroll-wrapper" v-if="!mobileStore.getIsMobile">
+      <div class="product-scroll-wrapper" v-if="!mobileStore.isMobile">
         <HeroSwiper @buyNow="emit('buyNow', $event)" />
       </div>
 
       <div
         class="review-container"
-        :class="{ 'review-container-mobile': mobileStore.getIsMobile }"
+        :class="{ 'review-container-mobile': mobileStore.isMobile }"
       >
         <ReviewComponent
           :name="comments[0].author"
@@ -74,6 +77,10 @@ const emit = defineEmits(["exploreClicked", "buyNow"]);
     var(--background-accent) 70%,
     var(--background) 100%
   );
+}
+
+.hero-wrapper-mobile {
+  background-image: unset;
 }
 
 .hero-grid {

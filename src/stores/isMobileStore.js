@@ -1,15 +1,8 @@
 import { defineStore } from "pinia";
+import { ref } from "vue";
 
-export const useMobileStore = defineStore("isMobile", {
-  state: () => ({
-    isMobile: window.screen.width < 500,
-  }),
-  getters: {
-    getIsMobile: (state) => state.isMobile,
-  },
-  actions: {
-    setIsMobile(value) {
-      this.isMobile = value;
-    },
-  },
+export const useMobileStore = defineStore("isMobile", () => {
+  const isMobile = ref(window.screen.width < 500);
+
+  return { isMobile };
 });

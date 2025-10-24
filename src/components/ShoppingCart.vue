@@ -73,7 +73,7 @@ defineExpose({ addItemToCart });
     class="shopping-cart-container"
     :class="{
       'show-cart': showCart,
-      'shopping-cart-container-mobile': mobileStore.getIsMobile,
+      'shopping-cart-container-mobile': mobileStore.isMobile,
     }"
   >
     <button class="close-cart-button" @click="$emit('closeCart')">

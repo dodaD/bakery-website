@@ -3,10 +3,10 @@ import { onMounted, onBeforeUnmount } from "vue";
 import MainPage from "./components/MainPage.vue";
 import { useMobileStore } from "@/stores/isMobileStore.js";
 
-const { setIsMobile } = useMobileStore();
+const mobileStore = useMobileStore();
 
 const handleResize = () => {
-  setIsMobile(window.screen.width < 500);
+  mobileStore.isMobile = window.screen.width < 500;
 };
 
 onMounted(() => {

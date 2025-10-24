@@ -33,11 +33,27 @@ function goToPrevSlide() {
     <SwiperSlide
       v-for="(item, index) in topPicks"
       :key="index"
-      class="slide-wrapper pseudo-glass-background glass-border"
+      class="slide-wrapper"
+      :class="{
+        'slide-wrapper-mobile': mobileStore.isMobile,
+        'pseudo-glass-background': !mobileStore.isMobile,
+        'glass-border': !mobileStore.isMobile,
+      }"
     >
-      <img :src="item.image" class="slide-image" />
+      <img
+        :src="item.image"
+        class="slide-image"
+        :class="{ 'slide-image-mobile': mobileStore.isMobile }"
+      />
 
-      <div class="slide-content">
+      <div
+        class="slide-content"
+        :class="{
+          'slide-content-mobile': mobileStore.isMobile,
+          'pseudo-glass-background': mobileStore.isMobile,
+          'glass-border': mobileStore.isMobile,
+        }"
+      >
         <div class="slide-title">{{ item.title }}</div>
         <div class="slide-description">{{ item.description }}</div>
         <div class="slide-funny-part">{{ item.funnyPart }}</div>
@@ -76,11 +92,27 @@ function goToPrevSlide() {
   box-sizing: border-box;
 }
 
+.slide-wrapper-mobile {
+  height: auto;
+  flex-direction: column;
+  padding: 0;
+  justify-content: center;
+  margin-top: 170px;
+}
+
 .slide-content {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   width: 100%;
+}
+
+.slide-content-mobile {
+  position: relative;
+  border-radius: 50px;
+  padding: 90px 30px 25px;
+  box-sizing: border-box;
+  min-height: 380px;
 }
 
 .slide-image {
@@ -90,9 +122,29 @@ function goToPrevSlide() {
   margin-right: 80px;
 }
 
+.slide-image-mobile {
+  height: auto;
+  width: 65%;
+  transform: translateX(50%) translateY(-50%) rotate(240deg);
+  margin: auto;
+  margin-bottom: 10px;
+  z-index: 3;
+  position: absolute;
+  top: 0;
+  right: 50%;
+}
+
 .slide-title {
   font-size: 28px;
   font-weight: 700;
+}
+
+.slide-description {
+  margin-top: 20px;
+}
+
+.slide-funny-part {
+  margin-bottom: 20px;
 }
 
 .slide-wrapper:hover {
