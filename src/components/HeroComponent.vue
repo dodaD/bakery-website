@@ -5,7 +5,7 @@ import TrendyCakesComponent from "./TrendyCakesComponent.vue";
 import { useCommentsStore } from "@/stores/commentsStore.js";
 import { useMobileStore } from "@/stores/isMobileStore.js";
 
-const { comments } = useCommentsStore();
+const commentsStore = useCommentsStore();
 const mobileStore = useMobileStore();
 const emit = defineEmits(["exploreClicked", "buyNow"]);
 </script>
@@ -48,9 +48,9 @@ const emit = defineEmits(["exploreClicked", "buyNow"]);
         :class="{ 'review-container-mobile': mobileStore.isMobile }"
       >
         <ReviewComponent
-          :name="comments[0].author"
-          :text="comments[0].text"
-          :rating="comments[0].rating"
+          :name="commentsStore.comments[0].author"
+          :text="commentsStore.comments[0].text"
+          :rating="commentsStore.comments[0].rating"
         />
       </div>
     </div>

@@ -5,7 +5,7 @@ import { useMobileStore } from "@/stores/isMobileStore.js";
 
 const emit = defineEmits(["showCake", "scrollToContacts", "openCart"]);
 const mobileStore = useMobileStore();
-const { cakeSlices } = useCakeSlicesStore();
+const cakeSlicesStore = useCakeSlicesStore();
 
 const showSearchInput = ref(false);
 const searchValue = ref("");
@@ -15,7 +15,7 @@ function findCake() {
   showSearchInput.value = !showSearchInput.value;
 
   if (searchValue.value !== "") {
-    const result = cakeSlices.filter(({ name }) =>
+    const result = cakeSlicesStore.cakeSlices.filter(({ name }) =>
       name.toLowerCase().includes(searchValue.value.toLowerCase())
     );
 
@@ -66,7 +66,13 @@ function findCake() {
     </div>
   </div>
 
-  <div :class="{ 'hide-message': !searchFailedMessage }" class="alert-message">
+  <div
+    :class="{
+      'hide-message': !searchFailedMessage,
+      'alert-message-mobile': mobileStore.isMobile,
+    }"
+    class="alert-message"
+  >
     Cake not found. Please try again.
   </div>
 </template>

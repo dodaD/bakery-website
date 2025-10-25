@@ -3,7 +3,7 @@ import { useCakeSlicesStore } from "@/stores/cakeSlicesStore.js";
 import { useMobileStore } from "@/stores/isMobileStore.js";
 
 const mobileStore = useMobileStore();
-const { cakeSlices } = useCakeSlicesStore();
+const cakeSlicesStore = useCakeSlicesStore();
 </script>
 
 <template>
@@ -18,8 +18,8 @@ const { cakeSlices } = useCakeSlicesStore();
   >
     <img
       v-if="n % 2 == 0"
-      :src="cakeSlices[n].image"
-      :alt="cakeSlices[n].title"
+      :src="cakeSlicesStore.cakeSlices[n].image"
+      :alt="cakeSlicesStore.cakeSlices[n].title"
       class="cake-image cake-on-the-left"
       :class="{
         'cake-on-the-left-mobile': mobileStore.isMobile,
@@ -28,12 +28,14 @@ const { cakeSlices } = useCakeSlicesStore();
     />
 
     <div class="cake-content">
-      <div class="cake-title">{{ cakeSlices[n].name }}</div>
-      <div class="cake-description">{{ cakeSlices[n].description }}</div>
-      <div class="cake-price">${{ cakeSlices[n].price }}</div>
+      <div class="cake-title">{{ cakeSlicesStore.cakeSlices[n].name }}</div>
+      <div class="cake-description">
+        {{ cakeSlicesStore.cakeSlices[n].description }}
+      </div>
+      <div class="cake-price">${{ cakeSlicesStore.cakeSlices[n].price }}</div>
       <button
         class="rectangle-rounded-button"
-        @click="$emit('buyNow', cakeSlices[n])"
+        @click="$emit('buyNow', cakeSlicesStore.cakeSlices[n])"
       >
         Buy now
       </button>
@@ -41,8 +43,8 @@ const { cakeSlices } = useCakeSlicesStore();
 
     <img
       v-if="n % 2 == 1"
-      :src="cakeSlices[n].image"
-      :alt="cakeSlices[n].title"
+      :src="cakeSlicesStore.cakeSlices[n].image"
+      :alt="cakeSlicesStore.cakeSlices[n].title"
       class="cake-image cake-on-the-right"
       :class="{
         'cake-on-the-right-mobile': mobileStore.isMobile,

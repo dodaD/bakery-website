@@ -2,15 +2,13 @@
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { Navigation } from "swiper/modules";
 import { useCakeSlicesStore } from "@/stores/cakeSlicesStore.js";
-import { useMobileStore } from "@/stores/isMobileStore.js";
 
-const mobileStore = useMobileStore();
 const emit = defineEmits(["buyNow"]);
 import "swiper/css";
 
 const modules = [Navigation];
 
-const { cakeSlices } = useCakeSlicesStore();
+const cakeSlicesStore = useCakeSlicesStore();
 </script>
 
 <template>
@@ -24,16 +22,18 @@ const { cakeSlices } = useCakeSlicesStore();
     <SwiperSlide v-for="n in 3" :key="n" class="swiper-slide-wrapper">
       <div class="glass-background cut-out-border swiper-slide">
         <div class="slide-title">Trendy Cake Slices</div>
-        <div class="cake-description">{{ cakeSlices[n].name }}</div>
+        <div class="cake-description">
+          {{ cakeSlicesStore.cakeSlices[n].name }}
+        </div>
         <button
           class="rectangle-rounded-button buy-button"
-          @click="$emit('buyNow', cakeSlices[n])"
+          @click="$emit('buyNow', cakeSlicesStore.cakeSlices[n])"
         >
           Buy now
         </button>
       </div>
 
-      <img :src="cakeSlices[n].image" class="cake-image" />
+      <img :src="cakeSlicesStore.cakeSlices[n].image" class="cake-image" />
     </SwiperSlide>
   </Swiper>
 </template>

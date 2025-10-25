@@ -11,8 +11,8 @@ import { useMobileStore } from "@/stores/isMobileStore.js";
 import { useCommentsStore } from "@/stores/commentsStore.js";
 
 const mobileStore = useMobileStore();
+const commentsStore = useCommentsStore();
 
-const { comments } = useCommentsStore();
 const bestSellers = ref(null);
 function scrollToBestSellers() {
   bestSellers.value?.scrollIntoView({ behavior: "smooth" });
@@ -43,11 +43,13 @@ function showBuyMessage(item) {
     boughtItem.value = item?.title || item?.name;
   }
   isBuyMessageShowing.value = true;
+  document.body.classList.add("no-scroll");
 }
 
 function closeBuyMessage() {
   isBuyMessageShowing.value = false;
   boughtItem.value = null;
+  document.body.classList.remove("no-scroll");
 }
 </script>
 
@@ -102,10 +104,10 @@ function closeBuyMessage() {
     >
       <ReviewComponent
         v-for="n in 3"
-        :key="comments[n].id"
-        :name="comments[n].author"
-        :text="comments[n].text"
-        :rating="comments[n].rating"
+        :key="commentsStore.comments[n].id"
+        :name="commentsStore.comments[n].author"
+        :text="commentsStore.comments[n].text"
+        :rating="commentsStore.comments[n].rating"
         class="pseudo--backgroundr"
       />
     </div>
@@ -167,7 +169,7 @@ function closeBuyMessage() {
 .buy-message {
   width: 600px;
   height: 400px;
-  position: absolute;
+  position: fixed;
   top: 50%;
   right: 50%;
   transform: translate(50%, -50%);
@@ -185,6 +187,12 @@ function closeBuyMessage() {
   line-height: 30px;
 }
 
+.buy-message-mobile {
+  width: 90%;
+  box-sizing: border-box;
+  text-align: left;
+}
+
 .bought-item {
   margin: 30px 0;
   font-weight: 300;
@@ -193,7 +201,7 @@ function closeBuyMessage() {
 }
 
 .close-cart-button {
-  position: absolute;
+  position: fixed;
   top: 20px;
   right: 20px;
   background: none;

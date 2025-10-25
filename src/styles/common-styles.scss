@@ -116,6 +116,15 @@ a {
   z-index: 10;
 }
 
+.alert-message-mobile {
+  width: 80%;
+  height: 80px;
+  font-size: 14px;
+  padding: 10px 15px;
+  text-align: center;
+  background-color: var(--footer-accent);
+}
+
 .hide-message {
   opacity: 0;
   pointer-events: none;

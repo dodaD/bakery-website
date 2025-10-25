@@ -3,7 +3,7 @@ import { useCakeSlicesStore } from "@/stores/cakeSlicesStore.js";
 import { useMobileStore } from "@/stores/isMobileStore.js";
 const emit = defineEmits(["addToCart"]);
 
-const { cakeSlices } = useCakeSlicesStore();
+const cakeSlicesStore = useCakeSlicesStore();
 const mobileStore = useMobileStore();
 </script>
 
@@ -14,7 +14,7 @@ const mobileStore = useMobileStore();
 
   <div class="grid-container" :class="{ 'grid-mobile': mobileStore.isMobile }">
     <div
-      v-for="cake in cakeSlices"
+      v-for="cake in cakeSlicesStore.cakeSlices"
       :key="cake.id"
       class="cake-card"
       :id="`cake-${cake.id}`"

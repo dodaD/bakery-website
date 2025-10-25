@@ -10,7 +10,7 @@ import "swiper/css/navigation";
 const modules = [Navigation];
 const swiperRef = ref(null);
 
-const { topPicks } = useTopPicksStore();
+const topPicksStore = useTopPicksStore();
 const mobileStore = useMobileStore();
 
 function goToNextSlide() {
@@ -31,7 +31,7 @@ function goToPrevSlide() {
     :loop="true"
   >
     <SwiperSlide
-      v-for="(item, index) in topPicks"
+      v-for="(item, index) in topPicksStore.topPicks"
       :key="index"
       class="slide-wrapper"
       :class="{

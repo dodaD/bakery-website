@@ -128,7 +128,13 @@ defineExpose({ addItemToCart });
     </button>
   </div>
 
-  <div class="alert-message" :class="{ 'hide-message': !showSuccessMessage }">
+  <div
+    class="alert-message"
+    :class="{
+      'hide-message': !showSuccessMessage,
+      'alert-message-mobile': mobileStore.isMobile,
+    }"
+  >
     Item added to cart!
   </div>
 </template>

@@ -68,7 +68,13 @@ watch(email, () => {
     </div>
   </div>
 
-  <div :class="{ 'hide-message': !subscribedStatus }" class="alert-message">
+  <div
+    :class="{
+      'hide-message': !subscribedStatus,
+      'alert-message-mobile': mobileStore.isMobile,
+    }"
+    class="alert-message"
+  >
     Congratulations! You have successfully subscribed.
   </div>
 </template>
