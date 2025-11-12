@@ -1,10 +1,33 @@
 <script setup>
+import { ref } from "vue";
 import { useCakeSlicesStore } from "@/stores/cakeSlicesStore.js";
 import { useMobileStore } from "@/stores/isMobileStore.js";
-const emit = defineEmits(["addToCart"]);
+import { useShoppingCartStore } from "@/stores/shoppingCartStore.js";
 
 const cakeSlicesStore = useCakeSlicesStore();
 const mobileStore = useMobileStore();
+const shoppingCart = useShoppingCartStore();
+
+const showAddedToCartMessage = ref(false);
+
+function addItemToCart(item) {
+  shoppingCart.cartItems.push(item);
+  shoppingCart.cartItems[shoppingCart.cartItems.length - 1].quantity = 1;
+
+  showAddedToCartMessage.value = true;
+  setTimeout(() => {
+    showAddedToCartMessage.value = false;
+  }, 1500);
+}
+
+function checkIfItemInCart(itemId) {
+  return shoppingCart.cartItems.some((item) => item.id === itemId);
+}
+
+function quantityInCart(itemId) {
+  const item = shoppingCart.cartItems.find((item) => item.id === itemId);
+  return item ? item.quantity : 0;
+}
 </script>
 
 <template>
@@ -37,13 +60,43 @@ const mobileStore = useMobileStore();
           <div class="cake-price">${{ cake.price }}</div>
           <button
             class="rectangle-rounded-button bag-button"
-            @click="$emit('addToCart', cake)"
+            @click="addItemToCart(cake)"
+            v-if="!checkIfItemInCart(cake.id)"
           >
             <font-awesome-icon icon="fa-solid fa-bag-shopping" />
           </button>
+
+          <div
+            v-if="checkIfItemInCart(cake.id)"
+            class="quantity-selector-wrapper"
+          >
+            <button
+              class="quantity-button circle-button"
+              @click="shoppingCart.decreaseQuantity(cake.id)"
+            >
+              <font-awesome-icon icon="fa-solid fa-minus" />
+            </button>
+            <div class="quantity-number">{{ quantityInCart(cake.id) }}</div>
+            <button
+              class="quantity-button circle-button"
+              @click="shoppingCart.increaseQuantity(cake.id)"
+            >
+              <font-awesome-icon icon="fa-solid fa-plus" />
+            </button>
+          </div>
         </div>
       </div>
     </div>
+  </div>
+
+  <div
+    class="alert-message"
+    :class="{
+      'hide-message': !showAddedToCartMessage,
+      'alert-message-mobile': mobileStore.isMobile,
+    }"
+  >
+    Item added to cart!
   </div>
 </template>
 
@@ -179,6 +232,13 @@ const mobileStore = useMobileStore();
 }
 
 .bag-button {
+  z-index: 2;
+}
+
+.quantity-selector-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 15px;
   z-index: 2;
 }
 </style>

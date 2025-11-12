@@ -10,21 +10,23 @@ const cakeSlicesStore = useCakeSlicesStore();
 const showSearchInput = ref(false);
 const searchValue = ref("");
 const searchFailedMessage = ref(false);
+const searchInput = ref(null);
 
 function findCake() {
   showSearchInput.value = !showSearchInput.value;
+  searchInput.value.focus();
 
   if (searchValue.value !== "") {
     const result = cakeSlicesStore.cakeSlices.filter(({ name }) =>
       name.toLowerCase().includes(searchValue.value.toLowerCase())
     );
 
+    searchValue.value = "";
     if (result[0] != undefined) {
       emit("showCake", result[0].id);
       return;
     }
 
-    searchValue.value = "";
     searchFailedMessage.value = true;
     setTimeout(() => {
       searchFailedMessage.value = false;
@@ -53,15 +55,11 @@ function findCake() {
         v-model="searchValue"
         class="search-input"
         :class="{ 'show-search-input': showSearchInput }"
+        ref="searchInput"
+        @keyup.enter="findCake"
       />
       <button @click="findCake">
         <font-awesome-icon :icon="['fas', 'magnifying-glass']" class="icon" />
-      </button>
-      <button @click="$emit('openCart')">
-        <font-awesome-icon
-          :icon="['fas', 'bag-shopping']"
-          class="shopping-cart-icon icon"
-        />
       </button>
     </div>
   </div>

@@ -28,13 +28,6 @@ function scrollToCake(id) {
   if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
 }
 
-const shoppingCart = ref(null);
-const showCart = ref(false);
-
-function addToCart(item) {
-  shoppingCart.value?.addItemToCart(item);
-}
-
 const isBuyMessageShowing = ref(false);
 const boughtItem = ref(null);
 
@@ -55,7 +48,11 @@ function closeBuyMessage() {
 
 <template>
   <div class="background-tint" v-if="isBuyMessageShowing" />
-  <div class="buy-message glass-border" v-if="isBuyMessageShowing">
+  <div
+    class="buy-message glass-border"
+    v-if="isBuyMessageShowing"
+    :class="{ 'buy-message-mobile': mobileStore.isMobile }"
+  >
     This function is not available yet! The payment system is still in
     development. Thank you for your your constant support and understanding!
     <div class="bought-item" v-if="boughtItem != null">
@@ -77,14 +74,8 @@ function closeBuyMessage() {
     <NavigationComponent
       @scrollToContacts="scrollToContacts"
       @showCake="scrollToCake"
-      @openCart="showCart = true"
     />
-    <ShoppingCart
-      :showCart="showCart"
-      @closeCart="showCart = false"
-      @buyNow="showBuyMessage"
-      ref="shoppingCart"
-    />
+    <ShoppingCart ref="shoppingCart" />
 
     <HeroComponent
       @exploreClicked="scrollToBestSellers"
@@ -92,7 +83,7 @@ function closeBuyMessage() {
     />
 
     <div ref="bestSellers">
-      <BestSellersComponent @addToCart="addToCart" />
+      <BestSellersComponent />
     </div>
 
     <div class="border-wrapper">

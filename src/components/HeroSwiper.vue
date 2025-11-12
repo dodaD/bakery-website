@@ -1,12 +1,12 @@
 <script setup>
 import { Swiper, SwiperSlide } from "swiper/vue";
-import { Navigation } from "swiper/modules";
+import { Navigation, Autoplay } from "swiper/modules";
 import { useCakeSlicesStore } from "@/stores/cakeSlicesStore.js";
 
 const emit = defineEmits(["buyNow"]);
 import "swiper/css";
 
-const modules = [Navigation];
+const modules = [Navigation, Autoplay];
 
 const cakeSlicesStore = useCakeSlicesStore();
 </script>
@@ -18,6 +18,10 @@ const cakeSlicesStore = useCakeSlicesStore();
     :navigation="true"
     direction="horizontal"
     class="product-swiper"
+    :autoplay="{
+      delay: 4500,
+      disableOnInteraction: false,
+    }"
   >
     <SwiperSlide v-for="n in 3" :key="n" class="swiper-slide-wrapper">
       <div class="glass-background cut-out-border swiper-slide">

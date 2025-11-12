@@ -1,19 +1,14 @@
 <script setup>
 import { ref, computed, watch } from "vue";
 import { useMobileStore } from "@/stores/isMobileStore.js";
+import { useShoppingCartStore } from "@/stores/shoppingCartStore.js";
 
 const mobileStore = useMobileStore();
-const emit = defineEmits(["closeCart", "buyNow"]);
-const showSuccessMessage = ref(false);
-const cartItems = ref([]);
-const props = defineProps({
-  showCart: {
-    type: Boolean,
-  },
-});
+const shoppingCart = useShoppingCartStore();
+const showCart = ref(false);
 
 watch(
-  () => props.showCart,
+  () => showCart.value,
   (newVal) => {
     if (newVal) {
       document.body.classList.add("no-scroll");
@@ -23,51 +18,35 @@ watch(
   }
 );
 
-function addItemToCart(item) {
-  const existingCartItem = cartItems.value.find(
-    (cartItem) => cartItem.id === item.id
-  );
-
-  if (existingCartItem) {
-    existingCartItem.quantity++;
-  } else {
-    cartItems.value.push(item);
-    cartItems.value[cartItems.value.length - 1].quantity = 1;
-  }
-
-  showSuccessMessage.value = true;
-  setTimeout(() => {
-    showSuccessMessage.value = false;
-  }, 1500);
-}
-
-function substractQuantity(index) {
-  if (cartItems.value[index].quantity > 1) {
-    cartItems.value[index].quantity--;
-    return;
-  }
-  cartItems.value.splice(index, 1);
-}
-
 const totalPrice = computed(() => {
   let total = 0;
-  for (let i = 0; i < cartItems.value.length; i++) {
-    const item = cartItems.value[i];
+  for (let i = 0; i < shoppingCart.cartItems.length; i++) {
+    const item = shoppingCart.cartItems[i];
     total += item.price * item.quantity;
   }
   return total.toFixed(2);
 });
 
 function buyCart() {
-  emit("closeCart");
-  cartItems.value = [];
-  emit("buyNow");
+  showCart.value = false;
+  shoppingCart.cartItems = [];
+  //emit("buyNow");
 }
-defineExpose({ addItemToCart });
 </script>
 
 <template>
   <div class="background-tint" v-if="showCart" />
+
+  <button
+    @click="showCart = true"
+    v-if="!showCart"
+    class="shopping-cart-button"
+  >
+    <font-awesome-icon
+      :icon="['fas', 'bag-shopping']"
+      class="shopping-cart-icon"
+    />
+  </button>
 
   <div
     class="shopping-cart-container"
@@ -76,18 +55,18 @@ defineExpose({ addItemToCart });
       'shopping-cart-container-mobile': mobileStore.isMobile,
     }"
   >
-    <button class="close-cart-button" @click="$emit('closeCart')">
+    <button class="close-cart-button" @click="showCart = false">
       <font-awesome-icon icon="fa-solid fa-circle-xmark" />
     </button>
     <div class="cart-title">Your shopping Cart</div>
-    <div v-if="cartItems.length === 0" class="empty-cart-message">
+    <div v-if="shoppingCart.cartItems.length === 0" class="empty-cart-message">
       There is nothing yet...
     </div>
 
     <div
       class="cart-item"
-      v-if="cartItems.length !== 0"
-      v-for="(item, index) in cartItems"
+      v-if="shoppingCart.cartItems.length !== 0"
+      v-for="(item, index) in shoppingCart.cartItems"
       :key="item.id"
     >
       <img :src="item.image" :alt="item.title" class="cake-cart-image" />
@@ -99,14 +78,14 @@ defineExpose({ addItemToCart });
         <div class="quantity-selector-wrapper">
           <button
             class="quantity-button circle-button"
-            @click="substractQuantity(index)"
+            @click="shoppingCart.decreaseQuantity(item.id)"
           >
             <font-awesome-icon icon="fa-solid fa-minus" />
           </button>
           <div class="quantity-number">{{ item.quantity }}</div>
           <button
             class="quantity-button circle-button"
-            @click="item.quantity++"
+            @click="shoppingCart.increaseQuantity(item.id)"
           >
             <font-awesome-icon icon="fa-solid fa-plus" />
           </button>
@@ -114,28 +93,18 @@ defineExpose({ addItemToCart });
       </div>
     </div>
 
-    <div v-if="cartItems.length !== 0" class="total-price-wrapper">
+    <div v-if="shoppingCart.cartItems.length !== 0" class="total-price-wrapper">
       <div class="total-price-label">Total:</div>
       <div>${{ totalPrice }}</div>
     </div>
 
     <button
-      v-if="cartItems.length !== 0"
+      v-if="shoppingCart.cartItems.length !== 0"
       class="rectangle-rounded-button"
       @click="buyCart"
     >
       Proceed to Checkout
     </button>
-  </div>
-
-  <div
-    class="alert-message"
-    :class="{
-      'hide-message': !showSuccessMessage,
-      'alert-message-mobile': mobileStore.isMobile,
-    }"
-  >
-    Item added to cart!
   </div>
 </template>
 
@@ -229,5 +198,17 @@ defineExpose({ addItemToCart });
   display: flex;
   align-items: center;
   margin-bottom: 20px;
+}
+
+.shopping-cart-icon {
+  height: 20px;
+  width: 20px;
+}
+
+.shopping-cart-button {
+  background: none;
+  border: none;
+  margin-left: 20px;
+  cursor: pointer;
 }
 </style>
