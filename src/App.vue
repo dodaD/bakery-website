@@ -1,7 +1,8 @@
 <script setup>
 import { onMounted } from "vue";
-import MainPage from "./components/MainPage.vue";
+import MainPage from "./views/MainPage.vue";
 import { useMobileStore } from "@/stores/isMobileStore.js";
+import router from "./router";
 
 const mobileStore = useMobileStore();
 
@@ -13,7 +14,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <MainPage />
+  <router-view />
 </template>
 
 <style lang="scss">

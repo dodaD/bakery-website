@@ -1,6 +1,8 @@
 <script setup>
+import SearchComponent from "./SearchComponent.vue";
+import ShoppingCart from "./ShoppingCart.vue";
 import { useMobileStore } from "@/stores/isMobileStore.js";
-import { scrollUtils } from "@/scrollToSection.js";
+import { scrollUtils } from "@/globalObjects/scrollToSection.js";
 
 const mobileStore = useMobileStore();
 </script>
@@ -18,6 +20,10 @@ const mobileStore = useMobileStore();
       <router-link to="/">About</router-link>
       <router-link to="/">Shop</router-link>
       <a @click="scrollUtils.scrollToSection('footer')">Contact</a>
+    </div>
+    <div class="search-wrapper">
+      <SearchComponent />
+      <ShoppingCart />
     </div>
   </div>
 </template>
@@ -38,6 +44,10 @@ const mobileStore = useMobileStore();
   justify-content: flex-end;
 }
 
+.logo {
+  flex: 1;
+}
+
 .logo-mobile {
   margin-bottom: 10px;
   display: none;
@@ -48,7 +58,8 @@ const mobileStore = useMobileStore();
   display: flex;
   flex-wrap: wrap;
   cursor: pointer;
-  margin: auto;
+  flex: 1;
+  justify-content: center;
 }
 
 .menu a:first-of-type {
@@ -72,16 +83,10 @@ const mobileStore = useMobileStore();
   margin-left: 0;
 }
 
-.buttons-wrapper {
+.search-wrapper {
+  flex: 1;
   display: flex;
-  position: relative;
-
-  button {
-    background: none;
-    border: none;
-    margin-left: 20px;
-    cursor: pointer;
-  }
+  justify-content: flex-end;
 }
 
 .icon {

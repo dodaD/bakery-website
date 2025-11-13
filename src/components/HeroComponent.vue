@@ -3,7 +3,7 @@ import HeroSwiper from "./HeroSwiper.vue";
 import ReviewComponent from "./ReviewComponent.vue";
 import { useCommentsStore } from "@/stores/commentsStore.js";
 import { useMobileStore } from "@/stores/isMobileStore.js";
-import { scrollUtils } from "@/scrollToSection.js";
+import { scrollUtils } from "@/globalObjects/scrollToSection.js";
 
 const commentsStore = useCommentsStore();
 const mobileStore = useMobileStore();

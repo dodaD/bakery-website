@@ -3,14 +3,14 @@ import { ref, computed, watch } from "vue";
 import { useMobileStore } from "@/stores/isMobileStore.js";
 import { useShoppingCartStore } from "@/stores/shoppingCartStore.js";
 import { useBoughtItemStore } from "@/stores/boughtItem.js";
+import CartItemComponent from "./CartItemComponent.vue";
 const boughtItemStore = useBoughtItemStore();
 
 const mobileStore = useMobileStore();
 const shoppingCart = useShoppingCartStore();
-const showCart = ref(false);
 
 watch(
-  () => showCart.value,
+  () => shoppingCart.showCart,
   (newVal) => {
     if (newVal) {
       document.body.classList.add("no-scroll");
@@ -30,18 +30,18 @@ const totalPrice = computed(() => {
 });
 
 function buyCart() {
-  showCart.value = false;
+  shoppingCart.showCart = false;
   shoppingCart.cartItems = [];
   boughtItemStore.boughtItem = "";
 }
 </script>
 
 <template>
-  <div class="background-tint" v-if="showCart" />
+  <div class="background-tint" v-if="shoppingCart.showCart" />
 
   <button
-    @click="showCart = true"
-    v-if="!showCart"
+    @click="shoppingCart.showCart = true"
+    v-if="!shoppingCart.showCart"
     class="shopping-cart-button"
   >
     <font-awesome-icon
@@ -53,11 +53,11 @@ function buyCart() {
   <div
     class="shopping-cart-container"
     :class="{
-      'show-cart': showCart,
+      'show-cart': shoppingCart.showCart,
       'shopping-cart-container-mobile': mobileStore.isMobile,
     }"
   >
-    <button class="close-cart-button" @click="showCart = false">
+    <button class="close-cart-button" @click="shoppingCart.showCart = false">
       <font-awesome-icon icon="fa-solid fa-circle-xmark" />
     </button>
     <div class="cart-title">Your shopping Cart</div>
@@ -71,28 +71,7 @@ function buyCart() {
       v-for="item in shoppingCart.cartItems"
       :key="item.id"
     >
-      <img :src="item.image" :alt="item.title" class="cake-cart-image" />
-      <div class="cart-items-wrapper">
-        <div class="cake-cart-title">{{ item.title }}</div>
-        <div class="cake-cart-description">{{ item.description }}</div>
-        <div class="cake-cart-price">${{ item.price }}</div>
-
-        <div class="quantity-selector-wrapper">
-          <button
-            class="quantity-button circle-button"
-            @click="shoppingCart.decreaseQuantity(item.id)"
-          >
-            <font-awesome-icon icon="fa-solid fa-minus" />
-          </button>
-          <div class="quantity-number">{{ item.quantity }}</div>
-          <button
-            class="quantity-button circle-button"
-            @click="shoppingCart.increaseQuantity(item.id)"
-          >
-            <font-awesome-icon icon="fa-solid fa-plus" />
-          </button>
-        </div>
-      </div>
+      <CartItemComponent :cartItem="item" />
     </div>
 
     <div v-if="shoppingCart.cartItems.length !== 0" class="total-price-wrapper">
@@ -158,36 +137,8 @@ function buyCart() {
   width: fit-content;
 }
 
-.cart-items-wrapper {
-  margin-left: 30px;
-}
-
-.cake-cart-title {
-  font-size: 22px;
-  font-weight: 700;
-  margin-bottom: 10px;
-}
-
-.cake-cart-image {
-  width: 100px;
-  object-fit: fill;
-  height: auto;
-}
-
 .cart-item {
   display: flex;
-  margin-bottom: 30px;
-}
-
-.quantity-selector-wrapper {
-  display: flex;
-  align-items: center;
-  font-size: 14px;
-  margin-top: 10px;
-}
-
-.quantity-number {
-  margin: 0 10px;
 }
 
 .total-price-label {

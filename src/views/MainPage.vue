@@ -1,17 +1,16 @@
 <script setup>
-import { ref } from "vue";
-import NavigationComponent from "./NavigationComponent.vue";
-import HeroComponent from "./HeroComponent.vue";
-import BestSellersComponent from "./BestSellersComponent.vue";
-import ReviewComponent from "./ReviewComponent.vue";
-import TopPicksSwiper from "./TopPicksSwiper.vue";
-import FooterComponent from "./FooterComponent.vue";
-import ShoppingCart from "./ShoppingCart.vue";
-import SearchComponent from "./SearchComponent.vue";
-import TrendyCakesComponent from "./TrendyCakesComponent.vue";
+import NavigationComponent from "../components/NavigationComponent.vue";
+import HeroComponent from "../components/HeroComponent.vue";
+import BestSellersComponent from "../components/BestSellersComponent.vue";
+import ReviewComponent from "../components/ReviewComponent.vue";
+import TopPicksSwiper from "../components/TopPicksSwiper.vue";
+import FooterComponent from "../components/FooterComponent.vue";
+import ShoppingCart from "../components/ShoppingCart.vue";
+import SearchComponent from "../components/SearchComponent.vue";
+import TrendyCakesComponent from "../components/TrendyCakesComponent.vue";
 import { useMobileStore } from "@/stores/isMobileStore.js";
 import { useCommentsStore } from "@/stores/commentsStore.js";
-import BuyNowMessage from "./BuyNowMessage.vue";
+import BuyNowMessage from "../components/BuyNowMessage.vue";
 
 const mobileStore = useMobileStore();
 const commentsStore = useCommentsStore();
@@ -24,11 +23,9 @@ const commentsStore = useCommentsStore();
     class="content-wrapper"
     :class="{ 'content-wrapper-mobile': mobileStore.isMobile }"
   >
-    <NavigationComponent @showCake="scrollToCake" />
-    <ShoppingCart />
-    <SearchComponent />
+    <NavigationComponent />
 
-    <HeroComponent @exploreClicked="" />
+    <HeroComponent />
     <TrendyCakesComponent />
 
     <div id="bestSellers">

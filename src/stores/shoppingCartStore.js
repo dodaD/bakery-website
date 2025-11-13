@@ -3,6 +3,7 @@ import { ref } from "vue";
 
 export const useShoppingCartStore = defineStore("shoppingCart", () => {
   const cartItems = ref([]);
+  const showCart = ref(false);
 
   function decreaseQuantity(itemId) {
     const cartId = cartItems.value.findIndex((item) => item.id === itemId);
@@ -26,5 +27,9 @@ export const useShoppingCartStore = defineStore("shoppingCart", () => {
     cartItems.value[cartId].quantity++;
   }
 
-  return { cartItems, decreaseQuantity, increaseQuantity };
+  function removeItem(itemId) {
+    cartItems.value = cartItems.value.filter((item) => item.id !== itemId);
+  }
+
+  return { cartItems, decreaseQuantity, increaseQuantity, removeItem };
 });
