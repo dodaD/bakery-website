@@ -2,13 +2,13 @@
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { Navigation, Autoplay } from "swiper/modules";
 import { useCakeSlicesStore } from "@/stores/cakeSlicesStore.js";
-
-const emit = defineEmits(["buyNow"]);
+import { useBoughtItemStore } from "@/stores/boughtItem";
 import "swiper/css";
 
 const modules = [Navigation, Autoplay];
 
 const cakeSlicesStore = useCakeSlicesStore();
+const boughtItemStore = useBoughtItemStore();
 </script>
 
 <template>
@@ -31,7 +31,9 @@ const cakeSlicesStore = useCakeSlicesStore();
         </div>
         <button
           class="rectangle-rounded-button buy-button"
-          @click="$emit('buyNow', cakeSlicesStore.cakeSlices[n])"
+          @click="
+            boughtItemStore.boughtItem = cakeSlicesStore.cakeSlices[n].title
+          "
         >
           Buy now
         </button>

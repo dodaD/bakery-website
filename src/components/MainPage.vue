@@ -7,82 +7,31 @@ import ReviewComponent from "./ReviewComponent.vue";
 import TopPicksSwiper from "./TopPicksSwiper.vue";
 import FooterComponent from "./FooterComponent.vue";
 import ShoppingCart from "./ShoppingCart.vue";
+import SearchComponent from "./SearchComponent.vue";
+import TrendyCakesComponent from "./TrendyCakesComponent.vue";
 import { useMobileStore } from "@/stores/isMobileStore.js";
 import { useCommentsStore } from "@/stores/commentsStore.js";
+import BuyNowMessage from "./BuyNowMessage.vue";
 
 const mobileStore = useMobileStore();
 const commentsStore = useCommentsStore();
-
-const bestSellers = ref(null);
-function scrollToBestSellers() {
-  bestSellers.value?.scrollIntoView({ behavior: "smooth" });
-}
-
-const footer = ref(null);
-function scrollToContacts() {
-  footer.value?.scrollIntoView({ behavior: "smooth" });
-}
-
-function scrollToCake(id) {
-  const el = document.getElementById(`cake-${id}`);
-  if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
-}
-
-const isBuyMessageShowing = ref(false);
-const boughtItem = ref(null);
-
-function showBuyMessage(item) {
-  if (item != null) {
-    boughtItem.value = item?.title || item?.name;
-  }
-  isBuyMessageShowing.value = true;
-  document.body.classList.add("no-scroll");
-}
-
-function closeBuyMessage() {
-  isBuyMessageShowing.value = false;
-  boughtItem.value = null;
-  document.body.classList.remove("no-scroll");
-}
 </script>
 
 <template>
-  <div class="background-tint" v-if="isBuyMessageShowing" />
-  <div
-    class="buy-message glass-border"
-    v-if="isBuyMessageShowing"
-    :class="{ 'buy-message-mobile': mobileStore.isMobile }"
-  >
-    This function is not available yet! The payment system is still in
-    development. Thank you for your your constant support and understanding!
-    <div class="bought-item" v-if="boughtItem != null">
-      The {{ boughtItem }} will be waiting for you once it's ready.
-    </div>
-  </div>
-  <button
-    class="close-cart-button"
-    @click="closeBuyMessage"
-    v-if="isBuyMessageShowing"
-  >
-    <font-awesome-icon icon="fa-solid fa-circle-xmark" />
-  </button>
+  <BuyNowMessage />
 
   <div
     class="content-wrapper"
     :class="{ 'content-wrapper-mobile': mobileStore.isMobile }"
   >
-    <NavigationComponent
-      @scrollToContacts="scrollToContacts"
-      @showCake="scrollToCake"
-    />
-    <ShoppingCart ref="shoppingCart" />
+    <NavigationComponent @showCake="scrollToCake" />
+    <ShoppingCart />
+    <SearchComponent />
 
-    <HeroComponent
-      @exploreClicked="scrollToBestSellers"
-      @buyNow="showBuyMessage"
-    />
+    <HeroComponent @exploreClicked="" />
+    <TrendyCakesComponent />
 
-    <div ref="bestSellers">
+    <div id="bestSellers">
       <BestSellersComponent />
     </div>
 
@@ -106,9 +55,9 @@ function closeBuyMessage() {
     <div class="border-wrapper">
       <div class="our-pick-title cornered-border">Our Top Picks</div>
     </div>
-    <TopPicksSwiper @buyNow="showBuyMessage" />
+    <TopPicksSwiper />
 
-    <div class="footer-container" ref="footer">
+    <div class="footer-container" id="footer">
       <FooterComponent />
     </div>
   </div>
@@ -155,40 +104,6 @@ function closeBuyMessage() {
   display: flex;
   justify-content: center;
   margin: 40px 0;
-}
-
-.buy-message {
-  width: 600px;
-  height: 400px;
-  position: fixed;
-  top: 50%;
-  right: 50%;
-  transform: translate(50%, -50%);
-  background-color: var(--background);
-  z-index: 20;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-size: 20px;
-  font-family: "Inter";
-  padding: 0 40px;
-  border-radius: 50px;
-  text-align: center;
-  line-height: 30px;
-}
-
-.buy-message-mobile {
-  width: 90%;
-  box-sizing: border-box;
-  text-align: left;
-}
-
-.bought-item {
-  margin: 30px 0;
-  font-weight: 300;
-  font-style: italic;
-  font-size: 24px;
 }
 
 .close-cart-button {

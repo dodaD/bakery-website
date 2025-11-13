@@ -45,7 +45,7 @@ watch(email, () => {
       <router-link to="/">Home</router-link>
       <router-link to="/">About</router-link>
       <router-link to="/">Shop</router-link>
-      <a @click="$emit('scrollToContacts')">Contact</a>
+      <div>Contact</div>
     </div>
 
     <div class="footer-right-section section">

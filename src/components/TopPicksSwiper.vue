@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import { Navigation } from "swiper/modules";
 import { useTopPicksStore } from "@/stores/topPicksStore.js";
 import { useMobileStore } from "@/stores/isMobileStore.js";
+import { useBoughtItemStore } from "@/stores/boughtItem.js";
 import "swiper/css";
 import "swiper/css/navigation";
 
@@ -12,6 +13,7 @@ const swiperRef = ref(null);
 
 const topPicksStore = useTopPicksStore();
 const mobileStore = useMobileStore();
+const boughtItemStore = useBoughtItemStore();
 
 function goToNextSlide() {
   swiperRef.value?.$el.swiper.slideNext();
@@ -61,7 +63,7 @@ function goToPrevSlide() {
         <div class="navigation-area">
           <button
             class="rectangle-rounded-button buy-button"
-            @click="$emit('buyNow', item)"
+            @click="boughtItemStore.boughtItem = item.title"
           >
             Buy now
           </button>

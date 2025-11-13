@@ -1,38 +1,8 @@
 <script setup>
-import { ref } from "vue";
-import { useCakeSlicesStore } from "@/stores/cakeSlicesStore.js";
 import { useMobileStore } from "@/stores/isMobileStore.js";
+import { scrollUtils } from "@/scrollToSection.js";
 
-const emit = defineEmits(["showCake", "scrollToContacts", "openCart"]);
 const mobileStore = useMobileStore();
-const cakeSlicesStore = useCakeSlicesStore();
-
-const showSearchInput = ref(false);
-const searchValue = ref("");
-const searchFailedMessage = ref(false);
-const searchInput = ref(null);
-
-function findCake() {
-  showSearchInput.value = !showSearchInput.value;
-  searchInput.value.focus();
-
-  if (searchValue.value !== "") {
-    const result = cakeSlicesStore.cakeSlices.filter(({ name }) =>
-      name.toLowerCase().includes(searchValue.value.toLowerCase())
-    );
-
-    searchValue.value = "";
-    if (result[0] != undefined) {
-      emit("showCake", result[0].id);
-      return;
-    }
-
-    searchFailedMessage.value = true;
-    setTimeout(() => {
-      searchFailedMessage.value = false;
-    }, 1500);
-  }
-}
 </script>
 
 <template>
@@ -47,31 +17,8 @@ function findCake() {
       <router-link to="/">Home</router-link>
       <router-link to="/">About</router-link>
       <router-link to="/">Shop</router-link>
-      <a @click="$emit('scrollToContacts')">Contact</a>
+      <a @click="scrollUtils.scrollToSection('footer')">Contact</a>
     </div>
-
-    <div class="buttons-wrapper">
-      <input
-        v-model="searchValue"
-        class="search-input"
-        :class="{ 'show-search-input': showSearchInput }"
-        ref="searchInput"
-        @keyup.enter="findCake"
-      />
-      <button @click="findCake">
-        <font-awesome-icon :icon="['fas', 'magnifying-glass']" class="icon" />
-      </button>
-    </div>
-  </div>
-
-  <div
-    :class="{
-      'hide-message': !searchFailedMessage,
-      'alert-message-mobile': mobileStore.isMobile,
-    }"
-    class="alert-message"
-  >
-    Cake not found. Please try again.
   </div>
 </template>
 
@@ -140,25 +87,6 @@ function findCake() {
 .icon {
   height: 20px;
   width: 20px;
-}
-
-.search-input {
-  transition: opacity 0.3s ease-in-out;
-  background: transparent;
-  border: none;
-  border-bottom: 2px solid var(--font-colour);
-  outline: none;
-  font-size: 18px;
-  font-family: "Inter", sans-serif;
-  padding-left: 15px;
-  opacity: 0;
-  position: absolute;
-  left: 0;
-  transform: translateX(-100%);
-}
-
-.show-search-input {
-  opacity: 1;
 }
 
 .shopping-cart-icon {

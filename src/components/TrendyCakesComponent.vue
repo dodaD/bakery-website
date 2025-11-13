@@ -1,12 +1,17 @@
 <script setup>
 import { useCakeSlicesStore } from "@/stores/cakeSlicesStore.js";
 import { useMobileStore } from "@/stores/isMobileStore.js";
+import { useBoughtItemStore } from "@/stores/boughtItem.js";
 
 const mobileStore = useMobileStore();
 const cakeSlicesStore = useCakeSlicesStore();
+const boughtItemStore = useBoughtItemStore();
+
+//TODO ask if changing the value of boughtItemStore.boughtItem in template is okay
 </script>
 
 <template>
+  <div class="trendy-cakes-title">Our Trendy Cakes</div>
   <div
     v-for="n in 3"
     :key="n"
@@ -28,14 +33,16 @@ const cakeSlicesStore = useCakeSlicesStore();
     />
 
     <div class="cake-content">
-      <div class="cake-title">{{ cakeSlicesStore.cakeSlices[n].name }}</div>
+      <div class="cake-title">{{ cakeSlicesStore.cakeSlices[n].title }}</div>
       <div class="cake-description">
         {{ cakeSlicesStore.cakeSlices[n].description }}
       </div>
       <div class="cake-price">${{ cakeSlicesStore.cakeSlices[n].price }}</div>
       <button
         class="rectangle-rounded-button"
-        @click="$emit('buyNow', cakeSlicesStore.cakeSlices[n])"
+        @click="
+          boughtItemStore.boughtItem = cakeSlicesStore.cakeSlices[n].title
+        "
       >
         Buy now
       </button>
@@ -115,5 +122,15 @@ const cakeSlicesStore = useCakeSlicesStore();
 .cake-on-the-left-mobile,
 .cake-on-the-right-mobile {
   margin: 0;
+}
+
+.trendy-cakes-title {
+  width: 100%;
+  text-align: center;
+  font-size: 50px;
+  font-weight: 600;
+  color: var(--font-colour);
+  z-index: 1;
+  margin: 40px 0;
 }
 </style>

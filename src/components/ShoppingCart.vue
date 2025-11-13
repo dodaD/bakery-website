@@ -2,6 +2,8 @@
 import { ref, computed, watch } from "vue";
 import { useMobileStore } from "@/stores/isMobileStore.js";
 import { useShoppingCartStore } from "@/stores/shoppingCartStore.js";
+import { useBoughtItemStore } from "@/stores/boughtItem.js";
+const boughtItemStore = useBoughtItemStore();
 
 const mobileStore = useMobileStore();
 const shoppingCart = useShoppingCartStore();
@@ -30,7 +32,7 @@ const totalPrice = computed(() => {
 function buyCart() {
   showCart.value = false;
   shoppingCart.cartItems = [];
-  //emit("buyNow");
+  boughtItemStore.boughtItem = "";
 }
 </script>
 
@@ -66,12 +68,12 @@ function buyCart() {
     <div
       class="cart-item"
       v-if="shoppingCart.cartItems.length !== 0"
-      v-for="(item, index) in shoppingCart.cartItems"
+      v-for="item in shoppingCart.cartItems"
       :key="item.id"
     >
       <img :src="item.image" :alt="item.title" class="cake-cart-image" />
       <div class="cart-items-wrapper">
-        <div class="cake-cart-title">{{ item.name }}</div>
+        <div class="cake-cart-title">{{ item.title }}</div>
         <div class="cake-cart-description">{{ item.description }}</div>
         <div class="cake-cart-price">${{ item.price }}</div>
 

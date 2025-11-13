@@ -1,13 +1,12 @@
 <script setup>
 import HeroSwiper from "./HeroSwiper.vue";
 import ReviewComponent from "./ReviewComponent.vue";
-import TrendyCakesComponent from "./TrendyCakesComponent.vue";
 import { useCommentsStore } from "@/stores/commentsStore.js";
 import { useMobileStore } from "@/stores/isMobileStore.js";
+import { scrollUtils } from "@/scrollToSection.js";
 
 const commentsStore = useCommentsStore();
 const mobileStore = useMobileStore();
-const emit = defineEmits(["exploreClicked", "buyNow"]);
 </script>
 
 <template>
@@ -33,14 +32,14 @@ const emit = defineEmits(["exploreClicked", "buyNow"]);
         </div>
         <button
           class="rectangle-rounded-button"
-          @click="emit('exploreClicked')"
+          @click="scrollUtils.scrollToSection('bestSellers')"
         >
           Explore
         </button>
       </div>
 
       <div class="product-scroll-wrapper" v-if="!mobileStore.isMobile">
-        <HeroSwiper @buyNow="emit('buyNow', $event)" />
+        <HeroSwiper />
       </div>
 
       <div
@@ -55,9 +54,6 @@ const emit = defineEmits(["exploreClicked", "buyNow"]);
       </div>
     </div>
     <img src="/CakePicture.jpg" class="photo" />
-
-    <div class="hero-title">Our Trendy Cakes</div>
-    <TrendyCakesComponent @buyNow="emit('buyNow', $event)" />
   </div>
 </template>
 

@@ -18,7 +18,6 @@ export const useShoppingCartStore = defineStore("shoppingCart", () => {
   }
 
   function increaseQuantity(itemId) {
-    console.log("Increasing quantity for item ID:", itemId);
     const cartId = cartItems.value.findIndex((item) => item.id === itemId);
     if (cartId === -1) {
       return;

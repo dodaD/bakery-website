@@ -44,7 +44,6 @@ function quantityInCart(itemId) {
     >
       <img
         :src="cake.image"
-        :alt="cake.name"
         class="cake-image"
         :class="{ 'cake-image-mobile': mobileStore.isMobile }"
       />
@@ -53,7 +52,7 @@ function quantityInCart(itemId) {
         class="cake-info pseudo-glass-background cut-out-border"
         :class="{ 'cake-info-mobile': mobileStore.isMobile }"
       >
-        <div class="cake-name">{{ cake.name }}</div>
+        <div class="cake-name">{{ cake.title }}</div>
         <div class="cake-description">{{ cake.description }}</div>
 
         <div class="pay-button-container">
