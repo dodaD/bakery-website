@@ -1,5 +1,4 @@
 <script setup>
-import { useShoppingCartStore } from "@/stores/shoppingCartStore.js";
 import { useAlertMessageStore } from "@/stores/alertMessage";
 import { useMobileStore } from "@/stores/isMobileStore.js";
 
@@ -39,6 +38,11 @@ const mobileStore = useMobileStore();
 @import "@/styles/common-styles.scss";
 
 .answer-button {
-  margin-left: 15px;
+  margin: 0 5px;
+}
+
+.alert-buttons-container {
+  display: flex;
+  justify-content: center;
 }
 </style>

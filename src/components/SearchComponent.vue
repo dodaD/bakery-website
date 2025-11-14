@@ -2,13 +2,14 @@
 import { useTemplateRef, ref } from "vue";
 import { useCakeSlicesStore } from "@/stores/cakeSlicesStore.js";
 import { useMobileStore } from "@/stores/isMobileStore.js";
+import { useAlertMessageStore } from "@/stores/alertMessage";
 
 const cakeSlicesStore = useCakeSlicesStore();
 const mobileStore = useMobileStore();
+const alertStore = useAlertMessageStore();
 
 const showSearchInput = ref(false);
 const searchValue = ref("");
-const searchFailedMessage = ref(false);
 const searchInput = useTemplateRef("search-input");
 
 function findCake() {
@@ -26,14 +27,12 @@ function findCake() {
       return;
     }
 
-    searchFailedMessage.value = true;
-    setTimeout(() => {
-      searchFailedMessage.value = false;
-    }, 1500);
+    alertStore.message = "Cake not found. Please try another search.";
+    alertStore.showMessage = true;
   }
 }
 
-function scrollToCakebutton(id) {
+function scrollToCake(id) {
   const el = document.getElementById(`cake-${id}`);
   if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
 }
@@ -51,16 +50,6 @@ function scrollToCakebutton(id) {
     <button @click="findCake">
       <font-awesome-icon :icon="['fas', 'magnifying-glass']" class="icon" />
     </button>
-  </div>
-
-  <div
-    :class="{
-      'hide-message': !searchFailedMessage,
-      'alert-message-mobile': mobileStore.isMobile,
-    }"
-    class="alert-message"
-  >
-    Cake not found. Please try again.
   </div>
 </template>
 

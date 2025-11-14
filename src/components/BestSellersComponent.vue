@@ -28,8 +28,6 @@ const showAddedToCartMessage = ref(false);
       <CakeCardComponent :cake="cake" />
     </div>
   </div>
-
-  <AlertMessageComponent />
 </template>
 
 <style lang="scss" scoped>

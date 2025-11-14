@@ -1,8 +1,11 @@
 <script setup>
 import { ref, watch } from "vue";
 import { useMobileStore } from "@/stores/isMobileStore.js";
+import { useAlertMessageStore } from "@/stores/alertMessage";
 
 const mobileStore = useMobileStore();
+const alertStore = useAlertMessageStore();
+
 const email = ref("");
 const emailValidity = ref(true);
 const subscribedStatus = ref(false);
@@ -12,11 +15,9 @@ function validateEmail() {
   emailValidity.value = emailPattern.test(email.value);
 
   if (emailValidity.value) {
-    subscribedStatus.value = true;
+    alertStore.message = "Congratulations! You have successfully subscribed.";
+    alertStore.showMessage = true;
     email.value = "";
-    setTimeout(() => {
-      subscribedStatus.value = false;
-    }, 3000);
   }
 }
 
@@ -66,16 +67,6 @@ watch(email, () => {
         </button>
       </div>
     </div>
-  </div>
-
-  <div
-    :class="{
-      'hide-message': !subscribedStatus,
-      'alert-message-mobile': mobileStore.isMobile,
-    }"
-    class="alert-message"
-  >
-    Congratulations! You have successfully subscribed.
   </div>
 </template>
 

@@ -2,6 +2,7 @@
 import { useShoppingCartStore } from "@/stores/shoppingCartStore.js";
 import { useMobileStore } from "@/stores/isMobileStore.js";
 import { useAlertMessageStore } from "@/stores/alertMessage";
+import ChangeQuantityComponent from "./ChangeQuantityComponent.vue";
 const mobileStore = useMobileStore();
 const shoppingCart = useShoppingCartStore();
 const alertStore = useAlertMessageStore();
@@ -14,8 +15,10 @@ defineProps({
 });
 
 function addItemToCart(item) {
-  shoppingCart.cartItems.push(item);
-  shoppingCart.cartItems[shoppingCart.cartItems.length - 1].quantity = 1;
+  if (!checkIfItemInCart(item.id)) {
+    shoppingCart.cartItems.push(item);
+    shoppingCart.cartItems[shoppingCart.cartItems.length - 1].quantity = 1;
+  }
 
   alertStore.message = "Item added to cart! Do you want to open cart?";
   alertStore.showButtons = true;
@@ -26,13 +29,6 @@ function addItemToCart(item) {
 function checkIfItemInCart(itemId) {
   return shoppingCart.cartItems.some((item) => item.id === itemId);
 }
-
-function quantityInCart(itemId) {
-  const item = shoppingCart.cartItems.find((item) => item.id === itemId);
-  return item ? item.quantity : 0;
-}
-
-//Item added to cart! Do you want to open cart?
 </script>
 
 <template>
@@ -53,9 +49,11 @@ function quantityInCart(itemId) {
       <button
         class="rectangle-rounded-button bag-button"
         @click="addItemToCart(cake)"
+        v-if="!checkIfItemInCart(cake.id)"
       >
         <font-awesome-icon icon="fa-solid fa-bag-shopping" />
       </button>
+      <ChangeQuantityComponent :id="cake.id" />
     </div>
   </div>
 </template>
@@ -142,13 +140,6 @@ function quantityInCart(itemId) {
 }
 
 .bag-button {
-  z-index: 2;
-}
-
-.quantity-selector-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 15px;
   z-index: 2;
 }
 </style>

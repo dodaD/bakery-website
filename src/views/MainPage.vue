@@ -5,18 +5,18 @@ import BestSellersComponent from "../components/BestSellersComponent.vue";
 import ReviewComponent from "../components/ReviewComponent.vue";
 import TopPicksSwiper from "../components/TopPicksSwiper.vue";
 import FooterComponent from "../components/FooterComponent.vue";
-import ShoppingCart from "../components/ShoppingCart.vue";
-import SearchComponent from "../components/SearchComponent.vue";
+import BuyNowMessage from "../components/BuyNowMessage.vue";
+import AlertMessageComponent from "../components/AlertMessageComponent.vue";
 import TrendyCakesComponent from "../components/TrendyCakesComponent.vue";
 import { useMobileStore } from "@/stores/isMobileStore.js";
 import { useCommentsStore } from "@/stores/commentsStore.js";
-import BuyNowMessage from "../components/BuyNowMessage.vue";
 
 const mobileStore = useMobileStore();
 const commentsStore = useCommentsStore();
 </script>
 
 <template>
+  <AlertMessageComponent />
   <BuyNowMessage />
 
   <div

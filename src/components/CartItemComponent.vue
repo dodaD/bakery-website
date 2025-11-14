@@ -1,5 +1,6 @@
 <script setup>
 import { useShoppingCartStore } from "@/stores/shoppingCartStore.js";
+import ChangeQuantityComponent from "./ChangeQuantityComponent.vue";
 
 const shoppingCart = useShoppingCartStore();
 
@@ -18,24 +19,12 @@ defineProps({
     <div class="cake-cart-description">{{ cartItem.description }}</div>
     <div class="cake-cart-price">${{ cartItem.price }}</div>
 
-    <div class="quantity-selector-wrapper">
+    <div class="buttons-wrapper">
       <div class="icon trashcan" @click="shoppingCart.removeItem(cartItem.id)">
         <font-awesome-icon icon="fa-solid fa-trash" />
       </div>
 
-      <button
-        class="quantity-button circle-button"
-        @click="shoppingCart.decreaseQuantity(cartItem.id)"
-      >
-        <font-awesome-icon icon="fa-solid fa-minus" />
-      </button>
-      <div class="quantity-number">{{ cartItem.quantity }}</div>
-      <button
-        class="quantity-button circle-button"
-        @click="shoppingCart.increaseQuantity(cartItem.id)"
-      >
-        <font-awesome-icon icon="fa-solid fa-plus" />
-      </button>
+      <ChangeQuantityComponent :id="cartItem.id" />
     </div>
   </div>
 </template>
@@ -75,11 +64,11 @@ defineProps({
   margin-bottom: 30px;
 }
 
-.quantity-selector-wrapper {
+.buttons-wrapper {
   display: flex;
   align-items: center;
   font-size: 14px;
-  margin-top: 10px;
+  margin: 5px 0 20px;
 }
 
 .quantity-number {
