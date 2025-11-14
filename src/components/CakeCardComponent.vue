@@ -32,28 +32,30 @@ function checkIfItemInCart(itemId) {
 </script>
 
 <template>
-  <img
-    :src="cake.image"
-    class="cake-image"
-    :class="{ 'cake-image-mobile': mobileStore.isMobile }"
-  />
-  <div
-    class="cake-info pseudo-glass-background cut-out-border"
-    :class="{ 'cake-info-mobile': mobileStore.isMobile }"
-  >
-    <div class="cake-name">{{ cake.title }}</div>
-    <div class="cake-description">{{ cake.description }}</div>
+  <div class="cake-card" :class="{ 'cake-card-mobile': mobileStore.isMobile }">
+    <img
+      :src="cake.image"
+      class="cake-image"
+      :class="{ 'cake-image-mobile': mobileStore.isMobile }"
+    />
+    <div
+      class="cake-info pseudo-glass-background cut-out-border"
+      :class="{ 'cake-info-mobile': mobileStore.isMobile }"
+    >
+      <div class="cake-name">{{ cake.title }}</div>
+      <div class="cake-description">{{ cake.description }}</div>
 
-    <div class="pay-button-container">
-      <div class="cake-price">${{ cake.price }}</div>
-      <button
-        class="rectangle-rounded-button bag-button"
-        @click="addItemToCart(cake)"
-        v-if="!checkIfItemInCart(cake.id)"
-      >
-        <font-awesome-icon icon="fa-solid fa-bag-shopping" />
-      </button>
-      <ChangeQuantityComponent :id="cake.id" />
+      <div class="pay-button-container">
+        <div class="cake-price">${{ cake.price }}</div>
+        <button
+          class="rectangle-rounded-button bag-button"
+          @click="addItemToCart(cake)"
+          v-if="!checkIfItemInCart(cake.id)"
+        >
+          <font-awesome-icon icon="fa-solid fa-bag-shopping" />
+        </button>
+        <ChangeQuantityComponent :id="cake.id" />
+      </div>
     </div>
   </div>
 </template>
@@ -141,5 +143,24 @@ function checkIfItemInCart(itemId) {
 
 .bag-button {
   z-index: 2;
+}
+
+.cake-card {
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  width: 100%;
+  max-width: 350px;
+}
+
+.cake-card:hover {
+  transform: translateY(-25px);
+}
+
+.cake-card-mobile:hover {
+  transform: translateY(0);
 }
 </style>

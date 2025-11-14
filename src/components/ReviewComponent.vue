@@ -4,18 +4,9 @@ import { useMobileStore } from "@/stores/isMobileStore.js";
 const mobileStore = useMobileStore();
 
 defineProps({
-  name: {
-    type: String,
+  review: {
+    type: Object,
     required: true,
-  },
-  text: {
-    type: String,
-    required: true,
-  },
-  rating: {
-    type: Number,
-    required: true,
-    validator: (value) => value >= 0 && value <= 5,
   },
 });
 </script>
@@ -29,16 +20,16 @@ defineProps({
       <div class="review-icon"></div>
 
       <div class="review-name-container">
-        <div class="review-name">{{ name }}</div>
+        <div class="review-name">{{ review.author }}</div>
         <div class="stars-rating">
           <font-awesome-icon
-            v-for="star in Math.floor(rating)"
+            v-for="star in Math.floor(review.rating)"
             :icon="'fa-solid fa-star'"
             class="star"
           />
 
           <font-awesome-icon
-            v-if="rating % 1 !== 0"
+            v-if="review.rating % 1 !== 0"
             :icon="'fa-solid fa-star-half-stroke'"
             class="half-star"
           />
@@ -46,7 +37,7 @@ defineProps({
       </div>
     </div>
 
-    <div class="review-text">{{ text }}</div>
+    <div class="review-text">{{ review.text }}</div>
   </div>
 </template>
 
@@ -55,7 +46,7 @@ defineProps({
 @import "@/styles/common-styles.scss";
 
 .cut-out-border {
-  -webkit-mask-image: url("/commentSolid.svg");
+  -webkit-mask-image: url("/reviewSolid.svg");
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-size: contain;
   mask-repeat: no-repeat;
@@ -71,7 +62,7 @@ defineProps({
     rgba(var(--glass-border-in-normal-way), 0.1),
     var(--glass-border)
   );
-  -webkit-mask-image: url("/commentSolid.svg"), url("/commentBorder.svg");
+  -webkit-mask-image: url("/reviewSolid.svg"), url("/reviewBorder.svg");
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-size: contain;
   -webkit-mask-composite: xor;

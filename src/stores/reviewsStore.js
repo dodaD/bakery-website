@@ -1,5 +1,5 @@
-export const useCommentsStore = () => {
-  const comments = [
+export const useReviewsStore = () => {
+  const reviews = [
     {
       id: 1,
       author: "John Doe",
@@ -31,6 +31,6 @@ export const useCommentsStore = () => {
   ];
 
   return {
-    comments,
+    reviews,
   };
 };

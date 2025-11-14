@@ -22,7 +22,6 @@ const showAddedToCartMessage = ref(false);
     <div
       v-for="cake in cakeSlicesStore.cakeSlices"
       :key="cake.id"
-      class="cake-card"
       :id="`cake-${cake.id}`"
     >
       <CakeCardComponent :cake="cake" />
@@ -67,20 +66,5 @@ const showAddedToCartMessage = ref(false);
 .grid-mobile {
   grid-template-columns: repeat(1, 1fr);
   row-gap: 35px;
-}
-
-.cake-card {
-  border-radius: 15px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  position: relative;
-  width: 100%;
-  max-width: 350px;
-}
-
-.cake-card:hover {
-  transform: translateY(-25px);
 }
 </style>

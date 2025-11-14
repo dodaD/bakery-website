@@ -6,7 +6,11 @@ const mobileStore = useMobileStore();
 </script>
 
 <template>
-  <div class="background-tint" v-if="boughtItemStore.boughtItem !== null" />
+  <div
+    class="background-tint"
+    v-if="boughtItemStore.boughtItem !== null"
+    @click="boughtItemStore.boughtItem = null"
+  />
   <div
     class="buy-message glass-border"
     v-if="boughtItemStore.boughtItem !== null"

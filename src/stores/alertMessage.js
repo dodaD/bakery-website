@@ -13,6 +13,8 @@ export const useAlertMessageStore = defineStore("alertMessage", () => {
     if (newValue) {
       setTimeout(() => {
         showMessage.value = false;
+        showButtons.value = false;
+        buttonsFunction.value = null;
       }, 2500);
     }
   });

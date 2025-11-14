@@ -57,7 +57,11 @@ function buyCart() {
       'shopping-cart-container-mobile': mobileStore.isMobile,
     }"
   >
-    <button class="close-cart-button" @click="shoppingCart.showCart = false">
+    <button
+      class="close-cart-button"
+      :class="{ 'close-cart-button-mobile': mobileStore.isMobile }"
+      @click="shoppingCart.showCart = false"
+    >
       <font-awesome-icon icon="fa-solid fa-circle-xmark" />
     </button>
     <div class="cart-title">Your shopping Cart</div>
@@ -99,7 +103,7 @@ function buyCart() {
   width: 380px;
   background-color: var(--footer-accent);
   right: -100%;
-  z-index: 100;
+  z-index: 10;
   height: 100%;
   border-top-left-radius: 50px;
   border-bottom-left-radius: 50px;
@@ -128,6 +132,10 @@ function buyCart() {
   border: none;
   cursor: pointer;
   font-size: 20px;
+}
+
+.close-cart-button-mobile {
+  font-size: 30px;
 }
 
 .cart-title {

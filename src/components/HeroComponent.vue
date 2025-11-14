@@ -1,11 +1,11 @@
 <script setup>
 import HeroSwiper from "./HeroSwiper.vue";
 import ReviewComponent from "./ReviewComponent.vue";
-import { useCommentsStore } from "@/stores/commentsStore.js";
+import { useReviewsStore } from "@/stores/reviewsStore.js";
 import { useMobileStore } from "@/stores/isMobileStore.js";
 import { scrollUtils } from "@/globalObjects/scrollToSection.js";
 
-const commentsStore = useCommentsStore();
+const reviewsStore = useReviewsStore();
 const mobileStore = useMobileStore();
 </script>
 
@@ -46,11 +46,7 @@ const mobileStore = useMobileStore();
         class="review-container"
         :class="{ 'review-container-mobile': mobileStore.isMobile }"
       >
-        <ReviewComponent
-          :name="commentsStore.comments[0].author"
-          :text="commentsStore.comments[0].text"
-          :rating="commentsStore.comments[0].rating"
-        />
+        <ReviewComponent :review="reviewsStore.reviews[0]" />
       </div>
     </div>
     <img src="/CakePicture.jpg" class="photo" />
@@ -68,7 +64,7 @@ const mobileStore = useMobileStore();
   min-height: 800px;
   flex-direction: column;
   background-image: radial-gradient(
-    circle 600px at center,
+    circle 300px at center,
     /* circle radius & position */ var(--background-dark-accent) 0%,
     var(--background-accent) 70%,
     var(--background) 100%
