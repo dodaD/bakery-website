@@ -1,8 +1,7 @@
-import { defineStore } from "pinia";
 import { ref } from "vue";
 
-export const useMobileStore = defineStore("isMobile", () => {
+export function useOrientationState() {
   const isMobile = ref(window.screen.width < 500);
 
   return { isMobile };
-});
+}

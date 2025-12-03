@@ -1,80 +1,57 @@
 <script setup>
-import { ref } from "vue";
-import { Swiper, SwiperSlide } from "swiper/vue";
-import { Navigation } from "swiper/modules";
-import { useTopPicksStore } from "@/stores/topPicksStore.js";
-import { useMobileStore } from "@/stores/isMobileStore.js";
-import { useBoughtItemStore } from "@/stores/boughtItem.js";
 import "swiper/css";
-import "swiper/css/navigation";
+import { ref, computed } from "vue";
+import { Swiper, SwiperSlide } from "swiper/vue";
+import { useTopPicksStore } from "@/topPicksStore.js";
+import { useOrientationState } from "@/components/composables/isMobileStore.js";
+import BorderTitleComponent from "./reusabaleComponents/BorderTitleComponent.vue";
+import TopPicksSlideComponent from "./TopPicksSlideComponent.vue";
 
-const modules = [Navigation];
 const swiperRef = ref(null);
-
 const topPicksStore = useTopPicksStore();
-const mobileStore = useMobileStore();
-const boughtItemStore = useBoughtItemStore();
+const mobileStore = useOrientationState();
 
 function goToNextSlide() {
-  swiperRef.value?.$el.swiper.slideNext();
+  swiperRef.value?.slideNext();
 }
 
 function goToPrevSlide() {
-  swiperRef.value?.$el.swiper.slidePrev();
+  swiperRef.value?.slidePrev();
 }
+
+const swiperIndex = computed(() => {
+  return swiperRef.value ? swiperRef.value.activeIndex : 1;
+});
 </script>
 
 <template>
+  <BorderTitleComponent>Our Top Picks</BorderTitleComponent>
   <Swiper
-    :modules="modules"
     :slides-per-view="1"
     :speed="400"
-    ref="swiperRef"
     :loop="true"
+    @swiper="swiperRef = $event"
   >
     <SwiperSlide
       v-for="(item, index) in topPicksStore.topPicks"
       :key="index"
       class="slide-wrapper"
       :class="{
-        'slide-wrapper-mobile': mobileStore.isMobile,
-        'pseudo-glass-background': !mobileStore.isMobile,
-        'glass-border': !mobileStore.isMobile,
+        'pseudo-glass-background': !mobileStore.isMobile.value,
+        'glass-border': !mobileStore.isMobile.value,
+        'slide-wrapper-mobile': mobileStore.isMobile.value,
       }"
     >
-      <img
-        :src="item.image"
-        class="slide-image"
-        :class="{ 'slide-image-mobile': mobileStore.isMobile }"
-      />
+      <TopPicksSlideComponent :item="item" />
 
-      <div
-        class="slide-content"
-        :class="{
-          'slide-content-mobile': mobileStore.isMobile,
-          'pseudo-glass-background': mobileStore.isMobile,
-          'glass-border': mobileStore.isMobile,
-        }"
-      >
-        <div class="slide-title">{{ item.title }}</div>
-        <div class="slide-description">{{ item.description }}</div>
-        <div class="slide-funny-part">{{ item.funnyPart }}</div>
-
-        <div class="navigation-area">
-          <button
-            class="rectangle-rounded-button buy-button"
-            @click="boughtItemStore.boughtItem = item.title"
-          >
-            Buy now
-          </button>
-          <button @click="goToPrevSlide" class="prev-button circle-button">
-            <font-awesome-icon icon="fa-solid fa-arrow-left" />
-          </button>
-          <div class="slide-counter">{{ index + 1 }} / 4</div>
-          <button @click="goToNextSlide" class="next-button circle-button">
-            <font-awesome-icon icon="fa-solid fa-arrow-right" />
-          </button>
-        </div>
+      <div class="navigation-area">
+        <button @click="goToPrevSlide" class="prev-button circle-button">
+          <font-awesome-icon icon="fa-solid fa-arrow-left" />
+        </button>
+        <div class="slide-counter">{{ swiperIndex + 1 }} / 4</div>
+        <button @click="goToNextSlide" class="next-button circle-button">
+          <font-awesome-icon icon="fa-solid fa-arrow-right" />
+        </button>
       </div>
     </SwiperSlide>
   </Swiper>
@@ -90,63 +67,16 @@ function goToPrevSlide() {
   width: 100%;
   border-radius: 50px;
   display: flex;
-  padding: 20px 30px;
+  flex-direction: column;
+  padding: 20px 30px 50px;
   box-sizing: border-box;
 }
 
 .slide-wrapper-mobile {
   height: auto;
-  flex-direction: column;
   padding: 0;
   justify-content: center;
   margin-top: 170px;
-}
-
-.slide-content {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  width: 100%;
-}
-
-.slide-content-mobile {
-  position: relative;
-  border-radius: 50px;
-  padding: 90px 30px 25px;
-  box-sizing: border-box;
-  min-height: 380px;
-}
-
-.slide-image {
-  height: 400px;
-  object-fit: fill;
-  transform: translateY(-90px);
-  margin-right: 80px;
-}
-
-.slide-image-mobile {
-  height: auto;
-  width: 65%;
-  transform: translateX(50%) translateY(-50%) rotate(240deg);
-  margin: auto;
-  margin-bottom: 10px;
-  z-index: 3;
-  position: absolute;
-  top: 0;
-  right: 50%;
-}
-
-.slide-title {
-  font-size: 28px;
-  font-weight: 700;
-}
-
-.slide-description {
-  margin-top: 20px;
-}
-
-.slide-funny-part {
-  margin-bottom: 20px;
 }
 
 .slide-wrapper:hover {
@@ -154,10 +84,10 @@ function goToPrevSlide() {
     0 0 10px rgba(255, 255, 255, 0.2);
   transition: all 0.3s ease;
 }
-
 .navigation-area {
   display: flex;
   align-items: center;
+  margin-left: auto;
 }
 
 .slide-counter {

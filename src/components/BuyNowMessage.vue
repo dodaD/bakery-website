@@ -1,32 +1,33 @@
 <script setup>
-import { useMobileStore } from "@/stores/isMobileStore.js";
-import { useBoughtItemStore } from "@/stores/boughtItem.js";
-const boughtItemStore = useBoughtItemStore();
-const mobileStore = useMobileStore();
+import { useOrientationState } from "@/components/composables/isMobileStore.js";
+import { useAlertMessage } from "@/components/composables/alertMessage.js";
+
+const mobileStore = useOrientationState();
+const popUpInfo = useAlertMessage();
 </script>
 
 <template>
   <div
     class="background-tint"
-    v-if="boughtItemStore.boughtItem !== null"
-    @click="boughtItemStore.boughtItem = null"
+    v-if="popUpInfo.boughtItem.value !== null"
+    @click="popUpInfo.boughtItem.value = null"
   />
   <div
     class="buy-message glass-border"
-    v-if="boughtItemStore.boughtItem !== null"
-    :class="{ 'buy-message-mobile': mobileStore.isMobile }"
+    v-if="popUpInfo.boughtItem.value !== null"
+    :class="{ 'buy-message-mobile': mobileStore.isMobile.value }"
   >
     This function is not available yet! The payment system is still in
     development. Thank you for your your constant support and understanding!
-    <div class="bought-item" v-if="boughtItemStore.boughtItem != ''">
-      The {{ boughtItemStore.boughtItem }} will be waiting for you once it's
+    <div class="bought-item" v-if="popUpInfo.boughtItem.value != ''">
+      The {{ popUpInfo.boughtItem.value }} will be waiting for you once it's
       ready.
     </div>
   </div>
   <button
     class="close-buy-button"
-    @click="boughtItemStore.boughtItem = null"
-    v-if="boughtItemStore.boughtItem !== null"
+    @click="popUpInfo.boughtItem.value = null"
+    v-if="popUpInfo.boughtItem.value !== null"
   >
     <font-awesome-icon icon="fa-solid fa-circle-xmark" />
   </button>

@@ -1,37 +1,32 @@
 <script setup>
 import { ref, watch } from "vue";
-import { useMobileStore } from "@/stores/isMobileStore.js";
-import { useAlertMessageStore } from "@/stores/alertMessage";
+import { useOrientationState } from "@/components/composables/isMobileStore.js";
+import { useAlertMessage } from "@/components/composables/alertMessage";
 
-const mobileStore = useMobileStore();
-const alertStore = useAlertMessageStore();
+const mobileStore = useOrientationState();
+const popUpInfo = useAlertMessage();
 
 const email = ref("");
 const emailValidity = ref(true);
-const subscribedStatus = ref(false);
 
 function validateEmail() {
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   emailValidity.value = emailPattern.test(email.value);
 
   if (emailValidity.value) {
-    alertStore.message = "Congratulations! You have successfully subscribed.";
-    alertStore.showMessage = true;
+    popUpInfo.showPopUpWindow(
+      "Congratulations! You have successfully subscribed.",
+      null
+    );
     email.value = "";
   }
 }
-
-watch(email, () => {
-  if (email.value == "") {
-    emailValidity.value = true;
-  }
-});
 </script>
 
 <template>
   <div
     class="footer-container"
-    :class="{ 'footer-container-mobile': mobileStore.isMobile }"
+    :class="{ 'footer-container-mobile': mobileStore.isMobile.value }"
   >
     <div class="footer-left-section section">
       <div class="logo section-title">Bakery</div>
@@ -61,6 +56,7 @@ watch(email, () => {
           class="subscribe-input"
           v-model="email"
           :class="{ invalid: !emailValidity }"
+          @click="emailValidity = true"
         />
         <button class="subscribe-button" @click="validateEmail">
           Subscribe

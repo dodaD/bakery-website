@@ -1,10 +1,10 @@
 <script setup>
 import { computed, ref, watch } from "vue";
 import { useShoppingCartStore } from "@/stores/shoppingCartStore.js";
-import { useAlertMessageStore } from "@/stores/alertMessage";
+import { useAlertMessage } from "@/components/composables/alertMessage";
 
 const shoppingCart = useShoppingCartStore();
-const alertStore = useAlertMessageStore();
+const popUpInfo = useAlertMessage();
 const errorInput = ref(false);
 
 const props = defineProps({
@@ -18,31 +18,24 @@ const cartItem = computed(() =>
   shoppingCart.cartItems.find((item) => item.id === props.id)
 );
 
-const localQuantity = ref(cartItem.value ? cartItem.value.quantity : 1);
-
-watch(
-  () => cartItem.value?.quantity,
-  (newQuantity) => {
-    if (newQuantity !== undefined) {
-      localQuantity.value = newQuantity;
-    }
-  }
-);
-
 function updateQuantity() {
-  if (localQuantity.value < 1 || localQuantity.value > 100) {
-    alertStore.message = "Quantity must be between 1 and 100";
-    alertStore.showMessage = true;
+  if (cartItem.value.quantity === 0 || cartItem.value.quantity === "") {
+    shoppingCart.removeItem(props.id);
+    return;
+  }
+
+  if (cartItem.value.quantity > 100) {
+    popUpInfo.showPopUpWindow("Quantity must be less than a 100", null);
+
     errorInput.value = true;
     return;
   }
-  cartItem.value.quantity = localQuantity.value;
   errorInput.value = false;
 }
 </script>
 
 <template>
-  <div class="quantity-selector-wrapper" v-if="cartItem">
+  <div class="quantity-selector-wrapper">
     <button
       class="quantity-button circle-button"
       @click="shoppingCart.decreaseQuantity(id)"
@@ -52,9 +45,9 @@ function updateQuantity() {
     <input
       type="number"
       @change="updateQuantity"
-      v-model="localQuantity"
+      v-model="cartItem.quantity"
       max="100"
-      min="1"
+      min="0"
       :class="{ 'error-input': errorInput }"
     />
     <button
@@ -77,14 +70,21 @@ input {
   outline: none;
   font-size: 18px;
   font-family: "Inter", sans-serif;
-  padding-left: 15px;
-  width: 35px;
-  margin: 0 8px;
+  width: 50px;
+  margin: 0 10px;
   z-index: 3;
+  text-align: center;
+  padding: 0;
 }
 
-.error-input {
+input:invalid {
   border-bottom: 2px solid red;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .quantity-selector-wrapper {

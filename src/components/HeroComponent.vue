@@ -1,51 +1,43 @@
 <script setup>
 import HeroSwiper from "./HeroSwiper.vue";
 import ReviewComponent from "./ReviewComponent.vue";
-import { useReviewsStore } from "@/stores/reviewsStore.js";
-import { useMobileStore } from "@/stores/isMobileStore.js";
-import { scrollUtils } from "@/globalObjects/scrollToSection.js";
+import { useReviewsStore } from "@/reviewsStore.js";
+import { useOrientationState } from "@/components/composables/isMobileStore.js";
 
 const reviewsStore = useReviewsStore();
-const mobileStore = useMobileStore();
+const mobileStore = useOrientationState();
+
+function scrollToSection(id) {
+  const section = document.getElementById(id);
+  section?.scrollIntoView({ behavior: "smooth" });
+}
 </script>
 
 <template>
   <div
     class="hero-wrapper"
-    :class="{ 'hero-wrapper-mobile': mobileStore.isMobile }"
+    :class="{ 'hero-wrapper-mobile': mobileStore.isMobile.value }"
   >
-    <div
-      class="hero-grid"
-      :class="{ 'hero-grid-mobile': mobileStore.isMobile }"
-    >
-      <div
-        class="title-wrapper"
-        :class="{ 'title-wrapper-mobile': mobileStore.isMobile }"
-      >
+    <div class="hero-grid">
+      <div class="title-wrapper">
         <div class="title">Buy Local</div>
-        <div
-          class="description"
-          :class="{ 'description-mobile': mobileStore.isMobile }"
-        >
+        <div class="description">
           Discover our artisanal bakery, where every cake is crafted with
           passion, using premium ingredients for unforgettable flavors.
         </div>
         <button
           class="rectangle-rounded-button"
-          @click="scrollUtils.scrollToSection('bestSellers')"
+          @click="scrollToSection('bestSellers')"
         >
           Explore
         </button>
       </div>
 
-      <div class="product-scroll-wrapper" v-if="!mobileStore.isMobile">
+      <div class="product-scroll-wrapper" v-if="!mobileStore.isMobile.value">
         <HeroSwiper />
       </div>
 
-      <div
-        class="review-container"
-        :class="{ 'review-container-mobile': mobileStore.isMobile }"
-      >
+      <div class="review-container">
         <ReviewComponent :review="reviewsStore.reviews[0]" />
       </div>
     </div>
@@ -73,6 +65,30 @@ const mobileStore = useMobileStore();
 
 .hero-wrapper-mobile {
   background-image: unset;
+
+  .hero-grid {
+    display: flex;
+    flex-direction: column;
+    height: unset;
+    margin-bottom: 50px;
+  }
+
+  .title-wrapper {
+    padding: 0;
+  }
+
+  .description {
+    box-shadow: var(--footer-accent) -10px 15px 0px;
+    backdrop-filter: blur(6px);
+    padding: 15px;
+    border-radius: 10px;
+    margin: 25px 0;
+  }
+
+  .review-container {
+    transform: translateY(0%);
+    margin-top: 40px;
+  }
 }
 
 .hero-grid {
@@ -85,10 +101,6 @@ const mobileStore = useMobileStore();
 }
 
 .hero-grid-mobile {
-  display: flex;
-  flex-direction: column;
-  height: unset;
-  margin-bottom: 50px;
 }
 
 .title-wrapper {
@@ -100,10 +112,6 @@ const mobileStore = useMobileStore();
   max-width: 670px;
 }
 
-.title-wrapper-mobile {
-  padding: 0;
-}
-
 .title {
   font-weight: 600;
   font-size: 90px;
@@ -111,14 +119,6 @@ const mobileStore = useMobileStore();
 
 .description {
   margin-bottom: 20px;
-}
-
-.description-mobile {
-  box-shadow: var(--footer-accent) -10px 15px 0px;
-  backdrop-filter: blur(6px);
-  padding: 15px;
-  border-radius: 10px;
-  margin: 25px 0;
 }
 
 .product-scroll-wrapper {
@@ -134,11 +134,6 @@ const mobileStore = useMobileStore();
   grid-column: 1;
   grid-row: 2;
   transform: translateY(-30%);
-}
-
-.review-container-mobile {
-  transform: translateY(0%);
-  margin-top: 40px;
 }
 
 .photo {

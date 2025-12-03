@@ -1,11 +1,11 @@
 <script setup>
 import { useShoppingCartStore } from "@/stores/shoppingCartStore.js";
-import { useMobileStore } from "@/stores/isMobileStore.js";
-import { useAlertMessageStore } from "@/stores/alertMessage";
-import ChangeQuantityComponent from "./ChangeQuantityComponent.vue";
-const mobileStore = useMobileStore();
+import { useOrientationState } from "@/components/composables/isMobileStore.js";
+import { useAlertMessage } from "@/components/composables/alertMessage";
+import ChangeQuantityComponent from "./reusabaleComponents/ChangeQuantityComponent.vue";
+const mobileStore = useOrientationState();
 const shoppingCart = useShoppingCartStore();
-const alertStore = useAlertMessageStore();
+const popUpInfo = useAlertMessage();
 
 defineProps({
   cake: {
@@ -15,15 +15,15 @@ defineProps({
 });
 
 function addItemToCart(item) {
-  if (!checkIfItemInCart(item.id)) {
-    shoppingCart.cartItems.push(item);
-    shoppingCart.cartItems[shoppingCart.cartItems.length - 1].quantity = 1;
-  }
+  shoppingCart.addItemToCart(item);
 
-  alertStore.message = "Item added to cart! Do you want to open cart?";
-  alertStore.showButtons = true;
-  alertStore.buttonsFunction = "addedToCart";
-  alertStore.showMessage = true;
+  popUpInfo.showPopUpWindow(
+    "Item added to cart! Do you want to open cart?",
+    () => {
+      shoppingCart.switchCartVisibility();
+      popUpInfo.showMessage.value = false;
+    }
+  );
 }
 
 function checkIfItemInCart(itemId) {
@@ -32,16 +32,12 @@ function checkIfItemInCart(itemId) {
 </script>
 
 <template>
-  <div class="cake-card" :class="{ 'cake-card-mobile': mobileStore.isMobile }">
-    <img
-      :src="cake.image"
-      class="cake-image"
-      :class="{ 'cake-image-mobile': mobileStore.isMobile }"
-    />
-    <div
-      class="cake-info pseudo-glass-background cut-out-border"
-      :class="{ 'cake-info-mobile': mobileStore.isMobile }"
-    >
+  <div
+    class="cake-card"
+    :class="{ 'cake-card-mobile': mobileStore.isMobile.value }"
+  >
+    <img :src="cake.image" class="cake-image" />
+    <div class="cake-info pseudo-glass-background cut-out-border">
       <div class="cake-name">{{ cake.title }}</div>
       <div class="cake-description">{{ cake.description }}</div>
 
@@ -54,7 +50,7 @@ function checkIfItemInCart(itemId) {
         >
           <font-awesome-icon icon="fa-solid fa-bag-shopping" />
         </button>
-        <ChangeQuantityComponent :id="cake.id" />
+        <ChangeQuantityComponent :id="cake.id" v-else />
       </div>
     </div>
   </div>
@@ -99,11 +95,6 @@ function checkIfItemInCart(itemId) {
   z-index: 1;
 }
 
-.cake-image-mobile {
-  width: 220px;
-  transform: translateY(-80%) rotate(240deg) translateX(-100%);
-}
-
 .cake-info {
   padding: 60px;
   box-sizing: border-box;
@@ -113,10 +104,6 @@ function checkIfItemInCart(itemId) {
   justify-content: flex-end;
   align-items: flex-start;
   flex-direction: column;
-}
-
-.cake-info-mobile {
-  padding: 70px 60px;
 }
 
 .cake-info:hover {
@@ -162,5 +149,14 @@ function checkIfItemInCart(itemId) {
 
 .cake-card-mobile:hover {
   transform: translateY(0);
+
+  .cake-image {
+    width: 220px;
+    transform: translateY(-80%) rotate(240deg) translateX(-100%);
+  }
+
+  .cake-info {
+    padding: 70px 60px;
+  }
 }
 </style>

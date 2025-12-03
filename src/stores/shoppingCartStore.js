@@ -5,17 +5,21 @@ export const useShoppingCartStore = defineStore("shoppingCart", () => {
   const cartItems = ref([]);
   const showCart = ref(false);
 
+  function switchCartVisibility() {
+    showCart.value = !showCart.value;
+  }
+
   function decreaseQuantity(itemId) {
     const cartId = cartItems.value.findIndex((item) => item.id === itemId);
     if (cartId === -1) {
       return;
     }
 
-    if (cartItems.value[cartId].quantity > 1) {
-      cartItems.value[cartId].quantity--;
+    if (cartItems.value[cartId].quantity === 1) {
+      cartItems.value.splice(cartId, 1);
       return;
     }
-    cartItems.value.splice(cartId, 1);
+    cartItems.value[cartId].quantity--;
   }
 
   function increaseQuantity(itemId) {
@@ -31,11 +35,23 @@ export const useShoppingCartStore = defineStore("shoppingCart", () => {
     cartItems.value = cartItems.value.filter((item) => item.id !== itemId);
   }
 
+  function addItemToCart(newItem) {
+    const cartId = cartItems.value.findIndex((item) => item.id === newItem.id);
+    if (cartId === -1) {
+      cartItems.value.push({ ...newItem, quantity: 1 });
+      return;
+    }
+
+    cartItems.value[cartId].quantity++;
+  }
+
   return {
     cartItems,
     decreaseQuantity,
     increaseQuantity,
     removeItem,
     showCart,
+    switchCartVisibility,
+    addItemToCart,
   };
 });

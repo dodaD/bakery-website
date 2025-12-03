@@ -1,14 +1,12 @@
 <script setup>
 import { onMounted } from "vue";
-import MainPage from "./views/MainPage.vue";
-import { useMobileStore } from "@/stores/isMobileStore.js";
-import router from "./router";
+import { useOrientationState } from "@/components/composables/isMobileStore.js";
 
-const mobileStore = useMobileStore();
+const mobileStore = useOrientationState();
 
 onMounted(() => {
   window.addEventListener("resize", () => {
-    mobileStore.isMobile = window.screen.width < 500;
+    mobileStore.isMobile.value = window.screen.width < 500;
   });
 });
 </script>

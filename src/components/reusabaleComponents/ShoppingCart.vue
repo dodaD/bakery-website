@@ -1,12 +1,12 @@
 <script setup>
-import { ref, computed, watch } from "vue";
-import { useMobileStore } from "@/stores/isMobileStore.js";
+import { computed, watch } from "vue";
+import { useOrientationState } from "@/components/composables/isMobileStore.js";
 import { useShoppingCartStore } from "@/stores/shoppingCartStore.js";
-import { useBoughtItemStore } from "@/stores/boughtItem.js";
-import CartItemComponent from "./CartItemComponent.vue";
-const boughtItemStore = useBoughtItemStore();
+import { useAlertMessage } from "@/components/composables/alertMessage.js";
+import CartItemComponent from "../CartItemComponent.vue";
+const popUpInfo = useAlertMessage();
 
-const mobileStore = useMobileStore();
+const mobileStore = useOrientationState();
 const shoppingCart = useShoppingCartStore();
 
 watch(
@@ -29,10 +29,10 @@ const totalPrice = computed(() => {
   return total.toFixed(2);
 });
 
-function buyCart() {
-  shoppingCart.showCart = false;
+function proceedToCheckout() {
+  shoppingCart.switchCartVisibility();
   shoppingCart.cartItems = [];
-  boughtItemStore.boughtItem = "";
+  popUpInfo.boughtItem.value = "";
 }
 </script>
 
@@ -40,7 +40,7 @@ function buyCart() {
   <div class="background-tint" v-if="shoppingCart.showCart" />
 
   <button
-    @click="shoppingCart.showCart = true"
+    @click="shoppingCart.switchCartVisibility()"
     v-if="!shoppingCart.showCart"
     class="shopping-cart-button"
   >
@@ -54,13 +54,12 @@ function buyCart() {
     class="shopping-cart-container"
     :class="{
       'show-cart': shoppingCart.showCart,
-      'shopping-cart-container-mobile': mobileStore.isMobile,
+      'shopping-cart-container-mobile': mobileStore.isMobile.value,
     }"
   >
     <button
       class="close-cart-button"
-      :class="{ 'close-cart-button-mobile': mobileStore.isMobile }"
-      @click="shoppingCart.showCart = false"
+      @click="shoppingCart.switchCartVisibility()"
     >
       <font-awesome-icon icon="fa-solid fa-circle-xmark" />
     </button>
@@ -86,7 +85,7 @@ function buyCart() {
     <button
       v-if="shoppingCart.cartItems.length !== 0"
       class="rectangle-rounded-button"
-      @click="buyCart"
+      @click="proceedToCheckout"
     >
       Proceed to Checkout
     </button>
@@ -117,6 +116,10 @@ function buyCart() {
 .shopping-cart-container-mobile {
   width: 100%;
   right: -300%;
+
+  .close-cart-button {
+    font-size: 30px;
+  }
 }
 
 .show-cart {
@@ -132,10 +135,6 @@ function buyCart() {
   border: none;
   cursor: pointer;
   font-size: 20px;
-}
-
-.close-cart-button-mobile {
-  font-size: 30px;
 }
 
 .cart-title {

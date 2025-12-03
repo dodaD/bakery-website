@@ -1,18 +1,9 @@
-<script setup>
-import { defineProps } from "vue";
-
-const props = defineProps({
-  title: {
-    type: String,
-    required: true,
-  },
-});
-</script>
+<script setup></script>
 
 <template>
   <div class="border-wrapper">
     <div class="title cornered-border">
-      {{ title }}
+      <slot />
     </div>
   </div>
 </template>

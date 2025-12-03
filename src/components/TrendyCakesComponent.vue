@@ -1,13 +1,11 @@
 <script setup>
-import { useCakeSlicesStore } from "@/stores/cakeSlicesStore.js";
-import { useMobileStore } from "@/stores/isMobileStore.js";
-import { useBoughtItemStore } from "@/stores/boughtItem.js";
+import { useCakeSlicesStore } from "@/cakeSlicesStore.js";
+import { useOrientationState } from "@/components/composables/isMobileStore.js";
+import { useAlertMessage } from "@/components/composables/alertMessage.js";
 
-const mobileStore = useMobileStore();
+const mobileStore = useOrientationState();
 const cakeSlicesStore = useCakeSlicesStore();
-const boughtItemStore = useBoughtItemStore();
-
-//TODO ask if changing the value of boughtItemStore.boughtItem in template is okay
+const popUpInfo = useAlertMessage();
 </script>
 
 <template>
@@ -17,19 +15,14 @@ const boughtItemStore = useBoughtItemStore();
     :key="n"
     class="cake-container glass-background glass-border"
     :class="{
-      'cake-container-mobile': mobileStore.isMobile,
-      'reverse-column': n % 2 == 1 && mobileStore.isMobile,
+      'cake-container-mobile': mobileStore.isMobile.value,
+      'reverse-column': n % 2 == 1,
     }"
   >
     <img
-      v-if="n % 2 == 0"
       :src="cakeSlicesStore.cakeSlices[n].image"
       :alt="cakeSlicesStore.cakeSlices[n].title"
-      class="cake-image cake-on-the-left"
-      :class="{
-        'cake-on-the-left-mobile': mobileStore.isMobile,
-        'cake-image-mobile': mobileStore.isMobile,
-      }"
+      class="cake-image"
     />
 
     <div class="cake-content">
@@ -41,23 +34,12 @@ const boughtItemStore = useBoughtItemStore();
       <button
         class="rectangle-rounded-button"
         @click="
-          boughtItemStore.boughtItem = cakeSlicesStore.cakeSlices[n].title
+          popUpInfo.boughtItem.value = cakeSlicesStore.cakeSlices[n].title
         "
       >
         Buy now
       </button>
     </div>
-
-    <img
-      v-if="n % 2 == 1"
-      :src="cakeSlicesStore.cakeSlices[n].image"
-      :alt="cakeSlicesStore.cakeSlices[n].title"
-      class="cake-image cake-on-the-right"
-      :class="{
-        'cake-on-the-right-mobile': mobileStore.isMobile,
-        'cake-image-mobile': mobileStore.isMobile,
-      }"
-    />
   </div>
 </template>
 
@@ -80,23 +62,27 @@ const boughtItemStore = useBoughtItemStore();
 }
 
 .cake-container-mobile {
-  flex-direction: column;
+  flex-direction: column !important;
   height: auto;
   padding: 10px 25px 40px;
+
+  .cake-image {
+    transform: rotate(240deg);
+  }
 }
 
 .reverse-column {
-  flex-direction: column-reverse;
+  flex-direction: row-reverse;
+
+  .cake-image {
+    margin-left: auto;
+  }
 }
 
 .cake-image {
   width: 200px;
   transform: translateY(-25px);
   margin: 0 50px;
-}
-
-.cake-image-mobile {
-  transform: rotate(240deg);
 }
 
 .cake-title {

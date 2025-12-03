@@ -1,34 +1,31 @@
 <script setup>
-import { useAlertMessageStore } from "@/stores/alertMessage";
-import { useMobileStore } from "@/stores/isMobileStore.js";
+import { useAlertMessage } from "@/components/composables/alertMessage";
+import { useOrientationState } from "@/components/composables/isMobileStore.js";
 
-const alertStore = useAlertMessageStore();
-const mobileStore = useMobileStore();
+const popUpInfo = useAlertMessage();
+const mobileStore = useOrientationState();
+
+console.log(popUpInfo.showMessage.value);
 </script>
 
 <template>
   <div
     class="alert-message"
     :class="{
-      'hide-message': !alertStore.showMessage,
-      'alert-message-mobile': mobileStore.isMobile,
+      'hide-message': !popUpInfo.showMessage.value,
+      'alert-message-mobile': mobileStore.isMobile.value,
     }"
   >
-    <div>{{ alertStore.message }}</div>
+    <div>{{ popUpInfo.message.value }}</div>
 
-    <div class="alert-buttons-container" v-if="alertStore.showButtons">
+    <div class="alert-buttons-container" v-if="popUpInfo.showButtons.value">
       <button
-        @click="alertStore.confirmAlert(true)"
+        @click="popUpInfo.buttonFunction.value"
         class="rectangle-rounded-button answer-button"
       >
         Yes
       </button>
-      <button
-        @click="alertStore.confirmAlert(false)"
-        class="rectangle-rounded-button answer-button"
-      >
-        No
-      </button>
+      <button class="rectangle-rounded-button answer-button">No</button>
     </div>
   </div>
 </template>

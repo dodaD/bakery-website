@@ -1,6 +1,6 @@
 <script setup>
 import { useShoppingCartStore } from "@/stores/shoppingCartStore.js";
-import ChangeQuantityComponent from "./ChangeQuantityComponent.vue";
+import ChangeQuantityComponent from "./reusabaleComponents/ChangeQuantityComponent.vue";
 
 const shoppingCart = useShoppingCartStore();
 

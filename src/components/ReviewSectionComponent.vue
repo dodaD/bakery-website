@@ -1,18 +1,19 @@
 <script setup>
-import BorderTitleComponent from "./BorderTitleComponent.vue";
+import BorderTitleComponent from "./reusabaleComponents/BorderTitleComponent.vue";
 import ReviewComponent from "../components/ReviewComponent.vue";
-import { useReviewsStore } from "@/stores/reviewsStore.js";
-import { useMobileStore } from "@/stores/isMobileStore.js";
+import { useReviewsStore } from "@/reviewsStore.js";
+import { useOrientationState } from "@/components/composables/isMobileStore.js";
 
 const reviewsStore = useReviewsStore();
-const mobileStore = useMobileStore();
+const mobileStore = useOrientationState();
 </script>
 
 <template>
-  <BorderTitleComponent title="Customer Reviews" />
+  <BorderTitleComponent>Customer Reviews</BorderTitleComponent>
+
   <div
     class="customer-reviews-container"
-    :class="{ 'customer-reviews-container-mobile': mobileStore.isMobile }"
+    :class="{ 'customer-reviews-container-mobile': mobileStore.isMobile.value }"
   >
     <ReviewComponent
       v-for="n in 3"

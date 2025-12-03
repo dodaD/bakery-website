@@ -1,24 +1,20 @@
 <script setup>
-import { ref } from "vue";
-import { useCakeSlicesStore } from "@/stores/cakeSlicesStore.js";
-import { useMobileStore } from "@/stores/isMobileStore.js";
-import { useShoppingCartStore } from "@/stores/shoppingCartStore.js";
+import { useCakeSlicesStore } from "@/cakeSlicesStore.js";
+import { useOrientationState } from "@/components/composables/isMobileStore.js";
 import CakeCardComponent from "./CakeCardComponent.vue";
-import AlertMessageComponent from "./AlertMessageComponent.vue";
+import BorderTitleComponent from "./reusabaleComponents/BorderTitleComponent.vue";
 
 const cakeSlicesStore = useCakeSlicesStore();
-const mobileStore = useMobileStore();
-const shoppingCart = useShoppingCartStore();
-
-const showAddedToCartMessage = ref(false);
+const mobileStore = useOrientationState();
 </script>
 
 <template>
-  <div class="best-sellers-container">
-    <div class="best-sellers-title cornered-border">Best Sellers</div>
-  </div>
+  <BorderTitleComponent>Best Sellers</BorderTitleComponent>
 
-  <div class="grid-container" :class="{ 'grid-mobile': mobileStore.isMobile }">
+  <div
+    class="grid-container"
+    :class="{ 'grid-mobile': mobileStore.isMobile.value }"
+  >
     <div
       v-for="cake in cakeSlicesStore.cakeSlices"
       :key="cake.id"
@@ -65,6 +61,6 @@ const showAddedToCartMessage = ref(false);
 
 .grid-mobile {
   grid-template-columns: repeat(1, 1fr);
-  row-gap: 35px;
+  row-gap: 60px;
 }
 </style>

@@ -1,12 +1,10 @@
 <script setup>
 import { useTemplateRef, ref } from "vue";
-import { useCakeSlicesStore } from "@/stores/cakeSlicesStore.js";
-import { useMobileStore } from "@/stores/isMobileStore.js";
-import { useAlertMessageStore } from "@/stores/alertMessage";
+import { useCakeSlicesStore } from "@/cakeSlicesStore.js";
+import { useAlertMessage } from "@/components/composables/alertMessage";
 
 const cakeSlicesStore = useCakeSlicesStore();
-const mobileStore = useMobileStore();
-const alertStore = useAlertMessageStore();
+const popUpInfo = useAlertMessage();
 
 const showSearchInput = ref(false);
 const searchValue = ref("");
@@ -16,20 +14,22 @@ function findCake() {
   showSearchInput.value = !showSearchInput.value;
   searchInput.value.focus();
 
-  if (searchValue.value !== "") {
-    const result = cakeSlicesStore.cakeSlices.filter(({ title }) =>
-      title.toLowerCase().includes(searchValue.value.toLowerCase())
-    );
-
-    searchValue.value = "";
-    if (result[0] != undefined) {
-      scrollToCake(result[0].id);
-      return;
-    }
-
-    alertStore.message = "Cake not found. Please try another search.";
-    alertStore.showMessage = true;
+  if (searchValue.value === "") {
+    return;
   }
+
+  const result = cakeSlicesStore.cakeSlices.filter(({ title }) =>
+    title.toLowerCase().includes(searchValue.value.toLowerCase())
+  );
+
+  if (result[0] != undefined) {
+    searchValue.value = "";
+    showSearchInput.value = false;
+    scrollToCake(result[0].id);
+    return;
+  }
+
+  popUpInfo.showPopUpWindow("Cake not found. Please try another search", null);
 }
 
 function scrollToCake(id) {

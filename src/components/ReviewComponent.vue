@@ -1,7 +1,7 @@
 <script setup>
-import { useMobileStore } from "@/stores/isMobileStore.js";
+import { useOrientationState } from "@/components/composables/isMobileStore.js";
 
-const mobileStore = useMobileStore();
+const mobileStore = useOrientationState();
 
 defineProps({
   review: {
@@ -14,7 +14,7 @@ defineProps({
 <template>
   <div
     class="review glass-background review-border cut-out-border"
-    :class="{ 'review-mobile': mobileStore.isMobile }"
+    :class="{ 'review-mobile': mobileStore.isMobile.value }"
   >
     <div class="review-header">
       <div class="review-icon"></div>

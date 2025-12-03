@@ -1,14 +1,14 @@
 <script setup>
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { Navigation, Autoplay } from "swiper/modules";
-import { useCakeSlicesStore } from "@/stores/cakeSlicesStore.js";
-import { useBoughtItemStore } from "@/stores/boughtItem";
+import { useCakeSlicesStore } from "@/cakeSlicesStore.js";
+
+import HeroSlideComponent from "./HeroSlideComponent.vue";
 import "swiper/css";
 
 const modules = [Navigation, Autoplay];
 
 const cakeSlicesStore = useCakeSlicesStore();
-const boughtItemStore = useBoughtItemStore();
 </script>
 
 <template>
@@ -24,22 +24,7 @@ const boughtItemStore = useBoughtItemStore();
     }"
   >
     <SwiperSlide v-for="n in 3" :key="n" class="swiper-slide-wrapper">
-      <div class="glass-background cut-out-border swiper-slide">
-        <div class="slide-title">Trendy Cake Slices</div>
-        <div class="cake-description">
-          {{ cakeSlicesStore.cakeSlices[n].name }}
-        </div>
-        <button
-          class="rectangle-rounded-button buy-button"
-          @click="
-            boughtItemStore.boughtItem = cakeSlicesStore.cakeSlices[n].title
-          "
-        >
-          Buy now
-        </button>
-      </div>
-
-      <img :src="cakeSlicesStore.cakeSlices[n].image" class="cake-image" />
+      <HeroSlideComponent :cake="cakeSlicesStore.cakeSlices[n]" />
     </SwiperSlide>
   </Swiper>
 </template>
@@ -47,37 +32,6 @@ const boughtItemStore = useBoughtItemStore();
 <style lang="scss" scoped>
 @import "@/styles/colours.scss";
 @import "@/styles/common-styles.scss";
-.cut-out-border {
-  -webkit-mask-image: url("/heroSolid.svg");
-  -webkit-mask-repeat: no-repeat;
-  -webkit-mask-size: cover;
-  mask-repeat: no-repeat;
-}
-
-.cut-out-border::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    12deg,
-    var(--glass-border),
-    rgba(var(--glass-border-in-normal-way), 0.1),
-    var(--glass-border)
-  );
-  -webkit-mask-image: url("/heroSolid.svg"), url("/heroBorder.svg");
-  -webkit-mask-repeat: no-repeat;
-  -webkit-mask-size: cover;
-  -webkit-mask-composite: xor;
-  mask-composite: intersect;
-}
-
-.swiper-slide {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: center;
-}
 
 .product-swiper :deep(.swiper-wrapper) {
   width: 310px;
@@ -94,59 +48,6 @@ const boughtItemStore = useBoughtItemStore();
   border-radius: 46px;
 
   box-sizing: border-box;
-}
-
-.swiper-slide:hover .buy-button {
-  box-shadow: 0 0 5px rgba(255, 255, 255, 0.6),
-    0 0 10px rgba(255, 255, 255, 0.4), inset 0 0 10px rgba(255, 255, 255, 0.2);
-}
-
-.buy-button {
-  z-index: 2;
-}
-
-.swiper-slide:hover {
-  /* inset = inside the box,
-      offset-x(if both x and y 0, the shadow is right behind the box),
-      offset-y, blur-radius, spread-radius */
-  box-shadow: inset 0 -35px 20px rgba(255, 255, 255, 0.4),
-    0 0 5px rgba(255, 255, 255, 0.2);
-  transition: all 0.3s ease;
-}
-
-.slide-title {
-  font-size: 20px;
-  font-weight: 600;
-  margin-top: 25px;
-  margin-bottom: 10px;
-  transition: all 0.3s ease;
-}
-
-.cake-description {
-  margin-bottom: 10px;
-  transition: all 0.3s ease;
-}
-
-.cake-image {
-  width: 150px;
-  height: 280px;
-  object-fit: fill;
-  transform: translateY(-20%) rotate(242deg);
-  user-select: none;
-  position: absolute;
-  top: 0;
-  z-index: 2;
-}
-
-.glass-background {
-  background: var(--glass-background);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-}
-
-.buy-button {
-  margin-bottom: 85px;
-  transition: all 0.3s ease;
 }
 
 /* Custom Swiper Navigation Arrows */
@@ -176,10 +77,17 @@ const boughtItemStore = useBoughtItemStore();
 
 /* Position arrows */
 .product-swiper :deep(.swiper-button-next) {
+  position: absolute;
   right: 10px;
+  top: 50%;
+  z-index: 1;
 }
 
 .product-swiper :deep(.swiper-button-prev) {
+  position: absolute;
   left: 10px;
+  top: 50%;
+  z-index: 1;
+  transform: translateY(50%) rotateY(180deg);
 }
 </style>

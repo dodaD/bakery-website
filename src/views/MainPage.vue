@@ -1,18 +1,16 @@
 <script setup>
-import NavigationComponent from "../components/NavigationComponent.vue";
+import NavigationComponent from "../components/HeaderComponent.vue";
 import HeroComponent from "../components/HeroComponent.vue";
 import BestSellersComponent from "../components/BestSellersComponent.vue";
 import ReviewSectionComponent from "@/components/ReviewSectionComponent.vue";
-import TopPicksComponent from "../components/TopPicksComponent.vue";
+import TopPicksSwiper from "../components/TopPicksSwiper.vue";
 import FooterComponent from "../components/FooterComponent.vue";
 import BuyNowMessage from "../components/BuyNowMessage.vue";
-import AlertMessageComponent from "../components/AlertMessageComponent.vue";
+import AlertMessageComponent from "../components/PopUpWindow.vue";
 import TrendyCakesComponent from "../components/TrendyCakesComponent.vue";
-import { useMobileStore } from "@/stores/isMobileStore.js";
-import { useReviewsStore } from "@/stores/reviewsStore.js";
+import { useOrientationState } from "@/components/composables/isMobileStore.js";
 
-const mobileStore = useMobileStore();
-const reviewsStore = useReviewsStore();
+const mobileStore = useOrientationState();
 </script>
 
 <template>
@@ -21,7 +19,7 @@ const reviewsStore = useReviewsStore();
 
   <div
     class="content-wrapper"
-    :class="{ 'content-wrapper-mobile': mobileStore.isMobile }"
+    :class="{ 'content-wrapper-mobile': mobileStore.isMobile.value }"
   >
     <NavigationComponent />
 
@@ -34,7 +32,7 @@ const reviewsStore = useReviewsStore();
 
     <ReviewSectionComponent />
 
-    <TopPicksComponent />
+    <TopPicksSwiper />
 
     <div class="footer-container" id="footer">
       <FooterComponent />
