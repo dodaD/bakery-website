@@ -1,9 +1,9 @@
 <script setup>
-import { useOrientationState } from "@/components/composables/isMobileStore.js";
-import { useAlertMessage } from "@/components/composables/alertMessage.js";
+import { useScreenSizeComposable } from "@/components/screenSizeComposable/isMobileStore.js";
+import { usePopUpWindowComposable } from "@/components/screenSizeComposable/popUpWindowComposable.js";
 
-const mobileStore = useOrientationState();
-const popUpInfo = useAlertMessage();
+const mobileStore = useScreenSizeComposable();
+const popUpInfo = usePopUpWindowComposable();
 
 const props = defineProps({
   item: {

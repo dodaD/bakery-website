@@ -1,11 +1,11 @@
 <script setup>
 import { useCakeSlicesStore } from "@/cakeSlicesStore.js";
-import { useOrientationState } from "@/components/composables/isMobileStore.js";
-import { useAlertMessage } from "@/components/composables/alertMessage.js";
+import { useScreenSizeComposable } from "@/components/screenSizeComposable/isMobileStore.js";
+import { usePopUpWindowComposable } from "@/components/screenSizeComposable/popUpWindowComposable.js";
 
-const mobileStore = useOrientationState();
+const mobileStore = useScreenSizeComposable();
 const cakeSlicesStore = useCakeSlicesStore();
-const popUpInfo = useAlertMessage();
+const popUpInfo = usePopUpWindowComposable();
 </script>
 
 <template>

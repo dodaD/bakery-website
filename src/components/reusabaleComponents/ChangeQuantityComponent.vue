@@ -1,10 +1,10 @@
 <script setup>
 import { computed, ref, watch } from "vue";
 import { useShoppingCartStore } from "@/stores/shoppingCartStore.js";
-import { useAlertMessage } from "@/components/composables/alertMessage";
+import { usePopUpWindowComposable } from "@/components/screenSizeComposable/popUpWindowComposable";
 
 const shoppingCart = useShoppingCartStore();
-const popUpInfo = useAlertMessage();
+const popUpInfo = usePopUpWindowComposable();
 const errorInput = ref(false);
 
 const props = defineProps({

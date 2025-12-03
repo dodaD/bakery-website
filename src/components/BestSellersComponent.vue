@@ -1,11 +1,11 @@
 <script setup>
 import { useCakeSlicesStore } from "@/cakeSlicesStore.js";
-import { useOrientationState } from "@/components/composables/isMobileStore.js";
+import { useScreenSizeComposable } from "@/components/screenSizeComposable/isMobileStore.js";
 import CakeCardComponent from "./CakeCardComponent.vue";
 import BorderTitleComponent from "./reusabaleComponents/BorderTitleComponent.vue";
 
 const cakeSlicesStore = useCakeSlicesStore();
-const mobileStore = useOrientationState();
+const mobileStore = useScreenSizeComposable();
 </script>
 
 <template>

@@ -3,13 +3,13 @@ import "swiper/css";
 import { ref, computed } from "vue";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { useTopPicksStore } from "@/topPicksStore.js";
-import { useOrientationState } from "@/components/composables/isMobileStore.js";
+import { useScreenSizeComposable } from "@/components/screenSizeComposable/isMobileStore.js";
 import BorderTitleComponent from "./reusabaleComponents/BorderTitleComponent.vue";
 import TopPicksSlideComponent from "./TopPicksSlideComponent.vue";
 
 const swiperRef = ref(null);
 const topPicksStore = useTopPicksStore();
-const mobileStore = useOrientationState();
+const mobileStore = useScreenSizeComposable();
 
 function goToNextSlide() {
   swiperRef.value?.slideNext();

@@ -1,8 +1,8 @@
 <script setup>
 import { onMounted } from "vue";
-import { useOrientationState } from "@/components/composables/isMobileStore.js";
+import { useScreenSizeComposable } from "@/components/screenSizeComposable/isMobileStore.js";
 
-const mobileStore = useOrientationState();
+const mobileStore = useScreenSizeComposable();
 
 onMounted(() => {
   window.addEventListener("resize", () => {
@@ -25,6 +25,7 @@ html {
   padding: 0;
   font-family: "Inter", sans-serif;
   background-color: var(--background);
+  scrollbar-gutter: stable;
 }
 
 .no-scroll {

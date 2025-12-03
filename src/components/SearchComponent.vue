@@ -1,10 +1,10 @@
 <script setup>
 import { useTemplateRef, ref } from "vue";
 import { useCakeSlicesStore } from "@/cakeSlicesStore.js";
-import { useAlertMessage } from "@/components/composables/alertMessage";
+import { usePopUpWindowComposable } from "@/components/screenSizeComposable/popUpWindowComposable";
 
 const cakeSlicesStore = useCakeSlicesStore();
-const popUpInfo = useAlertMessage();
+const popUpInfo = usePopUpWindowComposable();
 
 const showSearchInput = ref(false);
 const searchValue = ref("");

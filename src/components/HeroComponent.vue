@@ -2,10 +2,10 @@
 import HeroSwiper from "./HeroSwiper.vue";
 import ReviewComponent from "./ReviewComponent.vue";
 import { useReviewsStore } from "@/reviewsStore.js";
-import { useOrientationState } from "@/components/composables/isMobileStore.js";
+import { useScreenSizeComposable } from "@/components/screenSizeComposable/isMobileStore.js";
 
 const reviewsStore = useReviewsStore();
-const mobileStore = useOrientationState();
+const mobileStore = useScreenSizeComposable();
 
 function scrollToSection(id) {
   const section = document.getElementById(id);

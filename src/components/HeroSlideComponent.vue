@@ -1,6 +1,6 @@
 <script setup>
-import { useAlertMessage } from "@/components/composables/alertMessage.js";
-const popUpInfo = useAlertMessage();
+import { usePopUpWindowComposable } from "@/components/screenSizeComposable/popUpWindowComposable.js";
+const popUpInfo = usePopUpWindowComposable();
 
 const props = defineProps({
   cake: {

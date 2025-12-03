@@ -1,7 +1,7 @@
 <script setup>
-import { useOrientationState } from "@/components/composables/isMobileStore.js";
+import { useScreenSizeComposable } from "@/components/screenSizeComposable/isMobileStore.js";
 
-const mobileStore = useOrientationState();
+const mobileStore = useScreenSizeComposable();
 
 defineProps({
   review: {

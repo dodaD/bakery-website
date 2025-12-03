@@ -1,10 +1,10 @@
 <script setup>
 import { ref, watch } from "vue";
-import { useOrientationState } from "@/components/composables/isMobileStore.js";
-import { useAlertMessage } from "@/components/composables/alertMessage";
+import { useScreenSizeComposable } from "@/components/screenSizeComposable/isMobileStore.js";
+import { usePopUpWindowComposable } from "@/components/screenSizeComposable/popUpWindowComposable";
 
-const mobileStore = useOrientationState();
-const popUpInfo = useAlertMessage();
+const mobileStore = useScreenSizeComposable();
+const popUpInfo = usePopUpWindowComposable();
 
 const email = ref("");
 const emailValidity = ref(true);

@@ -1,11 +1,11 @@
 <script setup>
 import { useShoppingCartStore } from "@/stores/shoppingCartStore.js";
-import { useOrientationState } from "@/components/composables/isMobileStore.js";
-import { useAlertMessage } from "@/components/composables/alertMessage";
+import { useScreenSizeComposable } from "@/components/screenSizeComposable/isMobileStore.js";
+import { usePopUpWindowComposable } from "@/components/screenSizeComposable/popUpWindowComposable";
 import ChangeQuantityComponent from "./reusabaleComponents/ChangeQuantityComponent.vue";
-const mobileStore = useOrientationState();
+const mobileStore = useScreenSizeComposable();
 const shoppingCart = useShoppingCartStore();
-const popUpInfo = useAlertMessage();
+const popUpInfo = usePopUpWindowComposable();
 
 defineProps({
   cake: {

@@ -1,12 +1,12 @@
 <script setup>
 import { computed, watch } from "vue";
-import { useOrientationState } from "@/components/composables/isMobileStore.js";
+import { useScreenSizeComposable } from "@/components/screenSizeComposable/isMobileStore.js";
 import { useShoppingCartStore } from "@/stores/shoppingCartStore.js";
-import { useAlertMessage } from "@/components/composables/alertMessage.js";
+import { usePopUpWindowComposable } from "@/components/screenSizeComposable/popUpWindowComposable.js";
 import CartItemComponent from "../CartItemComponent.vue";
-const popUpInfo = useAlertMessage();
+const popUpInfo = usePopUpWindowComposable();
 
-const mobileStore = useOrientationState();
+const mobileStore = useScreenSizeComposable();
 const shoppingCart = useShoppingCartStore();
 
 watch(

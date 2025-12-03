@@ -1,9 +1,9 @@
 <script setup>
-import { useAlertMessage } from "@/components/composables/alertMessage";
-import { useOrientationState } from "@/components/composables/isMobileStore.js";
+import { usePopUpWindowComposable } from "@/components/screenSizeComposable/popUpWindowComposable";
+import { useScreenSizeComposable } from "@/components/screenSizeComposable/isMobileStore.js";
 
-const popUpInfo = useAlertMessage();
-const mobileStore = useOrientationState();
+const popUpInfo = usePopUpWindowComposable();
+const mobileStore = useScreenSizeComposable();
 
 console.log(popUpInfo.showMessage.value);
 </script>

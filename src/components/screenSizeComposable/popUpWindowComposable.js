@@ -6,7 +6,7 @@ const message = ref("");
 const showButtons = ref(false);
 const buttonFunction = ref(null);
 
-export function useAlertMessage() {
+export function usePopUpWindowComposable() {
   function showPopUpWindow(messageText, callback) {
     showMessage.value = true;
     message.value = messageText;

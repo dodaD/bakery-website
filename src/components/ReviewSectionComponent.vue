@@ -2,10 +2,10 @@
 import BorderTitleComponent from "./reusabaleComponents/BorderTitleComponent.vue";
 import ReviewComponent from "../components/ReviewComponent.vue";
 import { useReviewsStore } from "@/reviewsStore.js";
-import { useOrientationState } from "@/components/composables/isMobileStore.js";
+import { useScreenSizeComposable } from "@/components/screenSizeComposable/isMobileStore.js";
 
 const reviewsStore = useReviewsStore();
-const mobileStore = useOrientationState();
+const mobileStore = useScreenSizeComposable();
 </script>
 
 <template>

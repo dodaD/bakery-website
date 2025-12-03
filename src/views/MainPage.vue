@@ -8,9 +8,9 @@ import FooterComponent from "../components/FooterComponent.vue";
 import BuyNowMessage from "../components/BuyNowMessage.vue";
 import AlertMessageComponent from "../components/PopUpWindow.vue";
 import TrendyCakesComponent from "../components/TrendyCakesComponent.vue";
-import { useOrientationState } from "@/components/composables/isMobileStore.js";
+import { useScreenSizeComposable } from "@/components/screenSizeComposable/isMobileStore.js";
 
-const mobileStore = useOrientationState();
+const mobileStore = useScreenSizeComposable();
 </script>
 
 <template>
