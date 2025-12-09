@@ -1,10 +1,10 @@
 <script setup>
 import { computed, watch } from "vue";
-import { useScreenSizeComposable } from "@/components/screenSizeComposable/isMobileStore.js";
+import { useScreenSizeComposable } from "@/composables/screenSizeComposable.js";
 import { useShoppingCartStore } from "@/stores/shoppingCartStore.js";
-import { usePopUpWindowComposable } from "@/components/screenSizeComposable/popUpWindowComposable.js";
-import CartItemComponent from "../CartItemComponent.vue";
-const popUpInfo = usePopUpWindowComposable();
+import { usePopupWindowStore } from "@/stores/popUpWindowStore.js";
+import CartItemComponent from "@/components/CartItemComponent.vue";
+const popupInfo = usePopupWindowStore();
 
 const mobileStore = useScreenSizeComposable();
 const shoppingCart = useShoppingCartStore();
@@ -32,7 +32,7 @@ const totalPrice = computed(() => {
 function proceedToCheckout() {
   shoppingCart.switchCartVisibility();
   shoppingCart.cartItems = [];
-  popUpInfo.boughtItem.value = "";
+  popupInfo.openBuyNowMessage("");
 }
 </script>
 

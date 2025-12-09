@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted } from "vue";
-import { useScreenSizeComposable } from "@/components/screenSizeComposable/isMobileStore.js";
+import { useScreenSizeComposable } from "@/composables/screenSizeComposable.js";
 
 const mobileStore = useScreenSizeComposable();
 

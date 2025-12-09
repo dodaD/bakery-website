@@ -1,6 +1,6 @@
 <script setup>
-import { usePopUpWindowComposable } from "@/components/screenSizeComposable/popUpWindowComposable.js";
-const popUpInfo = usePopUpWindowComposable();
+import { usePopupWindowStore } from "@/stores/popUpWindowStore.js";
+const popupInfo = usePopupWindowStore();
 
 const props = defineProps({
   cake: {
@@ -18,7 +18,7 @@ const props = defineProps({
     </div>
     <button
       class="rectangle-rounded-button buy-button"
-      @click="popUpInfo.boughtItem.value = props.cake.title"
+      @click="popupInfo.openBuyNowMessage(props.cake.title)"
     >
       Buy now
     </button>
@@ -32,9 +32,8 @@ const props = defineProps({
 @import "@/styles/common-styles.scss";
 
 .cut-out-border {
-  -webkit-mask-image: url("/heroSolid.svg");
-  -webkit-mask-repeat: no-repeat;
-  -webkit-mask-size: cover;
+  mask-image: url("src/assets/heroSolid.svg");
+  mask-size: cover;
   mask-repeat: no-repeat;
 }
 
@@ -48,10 +47,9 @@ const props = defineProps({
     rgba(var(--glass-border-in-normal-way), 0.1),
     var(--glass-border)
   );
-  -webkit-mask-image: url("/heroSolid.svg"), url("/heroBorder.svg");
-  -webkit-mask-repeat: no-repeat;
-  -webkit-mask-size: cover;
-  -webkit-mask-composite: xor;
+  mask-image: url("src/assets/heroSolid.svg"), url("src/assets/heroBorder.svg");
+  mask-repeat: no-repeat;
+  mask-size: cover;
   mask-composite: intersect;
 }
 

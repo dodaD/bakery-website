@@ -2,7 +2,7 @@
 import HeroSwiper from "./HeroSwiper.vue";
 import ReviewComponent from "./ReviewComponent.vue";
 import { useReviewsStore } from "@/reviewsStore.js";
-import { useScreenSizeComposable } from "@/components/screenSizeComposable/isMobileStore.js";
+import { useScreenSizeComposable } from "@/composables/screenSizeComposable.js";
 
 const reviewsStore = useReviewsStore();
 const mobileStore = useScreenSizeComposable();
@@ -41,7 +41,7 @@ function scrollToSection(id) {
         <ReviewComponent :review="reviewsStore.reviews[0]" />
       </div>
     </div>
-    <img src="/CakePicture.jpg" class="photo" />
+    <img src="../assets/CakePicture.jpg" class="photo" />
   </div>
 </template>
 

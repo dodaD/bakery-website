@@ -2,7 +2,7 @@
 import BorderTitleComponent from "./reusabaleComponents/BorderTitleComponent.vue";
 import ReviewComponent from "../components/ReviewComponent.vue";
 import { useReviewsStore } from "@/reviewsStore.js";
-import { useScreenSizeComposable } from "@/components/screenSizeComposable/isMobileStore.js";
+import { useScreenSizeComposable } from "@/composables/screenSizeComposable.js";
 
 const reviewsStore = useReviewsStore();
 const mobileStore = useScreenSizeComposable();

@@ -3,7 +3,7 @@ import "swiper/css";
 import { ref, computed } from "vue";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { useTopPicksStore } from "@/topPicksStore.js";
-import { useScreenSizeComposable } from "@/components/screenSizeComposable/isMobileStore.js";
+import { useScreenSizeComposable } from "@/composables/screenSizeComposable.js";
 import BorderTitleComponent from "./reusabaleComponents/BorderTitleComponent.vue";
 import TopPicksSlideComponent from "./TopPicksSlideComponent.vue";
 

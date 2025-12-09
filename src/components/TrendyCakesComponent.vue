@@ -1,11 +1,11 @@
 <script setup>
 import { useCakeSlicesStore } from "@/cakeSlicesStore.js";
-import { useScreenSizeComposable } from "@/components/screenSizeComposable/isMobileStore.js";
-import { usePopUpWindowComposable } from "@/components/screenSizeComposable/popUpWindowComposable.js";
+import { useScreenSizeComposable } from "@/composables/screenSizeComposable.js";
+import { usePopupWindowStore } from "@/stores/popUpWindowStore.js";
 
 const mobileStore = useScreenSizeComposable();
 const cakeSlicesStore = useCakeSlicesStore();
-const popUpInfo = usePopUpWindowComposable();
+const popupInfo = usePopupWindowStore();
 </script>
 
 <template>
@@ -34,7 +34,7 @@ const popUpInfo = usePopUpWindowComposable();
       <button
         class="rectangle-rounded-button"
         @click="
-          popUpInfo.boughtItem.value = cakeSlicesStore.cakeSlices[n].title
+          popupInfo.openBuyNowMessage(cakeSlicesStore.cakeSlices[n].title)
         "
       >
         Buy now
@@ -58,7 +58,7 @@ const popUpInfo = usePopUpWindowComposable();
   align-items: center;
   border-radius: 50px;
   backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
 }
 
 .cake-container-mobile {

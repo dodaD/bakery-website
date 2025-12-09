@@ -6,9 +6,9 @@ import ReviewSectionComponent from "@/components/ReviewSectionComponent.vue";
 import TopPicksSwiper from "../components/TopPicksSwiper.vue";
 import FooterComponent from "../components/FooterComponent.vue";
 import BuyNowMessage from "../components/BuyNowMessage.vue";
-import AlertMessageComponent from "../components/PopUpWindow.vue";
+import AlertMessageComponent from "../components/PopupWindow.vue";
 import TrendyCakesComponent from "../components/TrendyCakesComponent.vue";
-import { useScreenSizeComposable } from "@/components/screenSizeComposable/isMobileStore.js";
+import { useScreenSizeComposable } from "@/composables/screenSizeComposable.js";
 
 const mobileStore = useScreenSizeComposable();
 </script>

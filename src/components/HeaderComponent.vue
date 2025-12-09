@@ -1,7 +1,7 @@
 <script setup>
 import SearchComponent from "./SearchComponent.vue";
 import ShoppingCart from "./reusabaleComponents/ShoppingCart.vue";
-import { useScreenSizeComposable } from "@/components/screenSizeComposable/isMobileStore.js";
+import { useScreenSizeComposable } from "@/composables/screenSizeComposable.js";
 
 const mobileStore = useScreenSizeComposable();
 

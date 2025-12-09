@@ -1,11 +1,11 @@
 <script setup>
 import { useShoppingCartStore } from "@/stores/shoppingCartStore.js";
-import { useScreenSizeComposable } from "@/components/screenSizeComposable/isMobileStore.js";
-import { usePopUpWindowComposable } from "@/components/screenSizeComposable/popUpWindowComposable";
+import { useScreenSizeComposable } from "@/composables/screenSizeComposable.js";
+import { usePopupWindowStore } from "@/stores/popUpWindowStore";
 import ChangeQuantityComponent from "./reusabaleComponents/ChangeQuantityComponent.vue";
 const mobileStore = useScreenSizeComposable();
 const shoppingCart = useShoppingCartStore();
-const popUpInfo = usePopUpWindowComposable();
+const popupInfo = usePopupWindowStore();
 
 defineProps({
   cake: {
@@ -17,12 +17,13 @@ defineProps({
 function addItemToCart(item) {
   shoppingCart.addItemToCart(item);
 
-  popUpInfo.showPopUpWindow(
-    "Item added to cart! Do you want to open cart?",
+  popupInfo.showPopupWindow(
+    "Item added to cart!",
     () => {
       shoppingCart.switchCartVisibility();
-      popUpInfo.showMessage.value = false;
-    }
+      popupInfo.showMessage = false;
+    },
+    "Open Cart"
   );
 }
 
@@ -61,9 +62,9 @@ function checkIfItemInCart(itemId) {
 @import "@/styles/common-styles.scss";
 
 .cut-out-border {
-  -webkit-mask-image: url("/productSolid.svg");
-  -webkit-mask-repeat: no-repeat;
-  -webkit-mask-size: contain;
+  mask-image: url("src/assets/productSolid.svg");
+  mask-repeat: no-repeat;
+  mask-size: contain;
   mask-repeat: no-repeat;
 }
 
@@ -77,10 +78,11 @@ function checkIfItemInCart(itemId) {
     rgba(var(--glass-border-in-normal-way), 0.1),
     var(--glass-border)
   );
-  -webkit-mask-image: url("/productSolid.svg"), url("/productBorder.svg");
-  -webkit-mask-repeat: no-repeat;
-  -webkit-mask-size: contain;
-  -webkit-mask-composite: xor;
+  mask-image: url("src/assets/productSolid.svg"),
+    url("src/assets/productBorder.svg");
+  mask-repeat: no-repeat;
+  mask-size: contain;
+  mask-composite: xor;
   mask-composite: intersect;
 }
 

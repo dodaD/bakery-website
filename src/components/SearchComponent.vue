@@ -1,17 +1,17 @@
 <script setup>
 import { useTemplateRef, ref } from "vue";
 import { useCakeSlicesStore } from "@/cakeSlicesStore.js";
-import { usePopUpWindowComposable } from "@/components/screenSizeComposable/popUpWindowComposable";
+import { usePopupWindowStore } from "@/stores/popUpWindowStore";
 
 const cakeSlicesStore = useCakeSlicesStore();
-const popUpInfo = usePopUpWindowComposable();
+const popupInfo = usePopupWindowStore();
 
 const showSearchInput = ref(false);
 const searchValue = ref("");
 const searchInput = useTemplateRef("search-input");
 
 function findCake() {
-  showSearchInput.value = !showSearchInput.value;
+  showSearchInput.value = true;
   searchInput.value.focus();
 
   if (searchValue.value === "") {
@@ -22,14 +22,14 @@ function findCake() {
     title.toLowerCase().includes(searchValue.value.toLowerCase())
   );
 
-  if (result[0] != undefined) {
+  if (result[0] !== undefined) {
     searchValue.value = "";
     showSearchInput.value = false;
     scrollToCake(result[0].id);
     return;
   }
 
-  popUpInfo.showPopUpWindow("Cake not found. Please try another search", null);
+  popupInfo.showPopupWindow("Cake not found. Please try another search", null);
 }
 
 function scrollToCake(id) {
@@ -46,6 +46,7 @@ function scrollToCake(id) {
       :class="{ 'show-search-input': showSearchInput }"
       ref="search-input"
       @keyup.enter="findCake"
+      @blur="showSearchInput = false"
     />
     <button @click="findCake">
       <font-awesome-icon :icon="['fas', 'magnifying-glass']" class="icon" />

@@ -1,33 +1,32 @@
 <script setup>
-import { useScreenSizeComposable } from "@/components/screenSizeComposable/isMobileStore.js";
-import { usePopUpWindowComposable } from "@/components/screenSizeComposable/popUpWindowComposable.js";
+import { useScreenSizeComposable } from "@/composables/screenSizeComposable.js";
+import { usePopupWindowStore } from "@/stores/popUpWindowStore.js";
 
 const mobileStore = useScreenSizeComposable();
-const popUpInfo = usePopUpWindowComposable();
+const popupInfo = usePopupWindowStore();
 </script>
 
 <template>
   <div
     class="background-tint"
-    v-if="popUpInfo.boughtItem.value !== null"
-    @click="popUpInfo.boughtItem.value = null"
+    v-if="popupInfo.showBuyNowMessage"
+    @click="popupInfo.closeBuyNowMessage"
   />
   <div
     class="buy-message glass-border"
-    v-if="popUpInfo.boughtItem.value !== null"
+    v-if="popupInfo.showBuyNowMessage"
     :class="{ 'buy-message-mobile': mobileStore.isMobile.value }"
   >
     This function is not available yet! The payment system is still in
     development. Thank you for your your constant support and understanding!
-    <div class="bought-item" v-if="popUpInfo.boughtItem.value != ''">
-      The {{ popUpInfo.boughtItem.value }} will be waiting for you once it's
-      ready.
+    <div class="bought-item" v-if="popupInfo.boughtItem != ''">
+      The {{ popupInfo.boughtItem }} will be waiting for you once it's ready.
     </div>
   </div>
   <button
     class="close-buy-button"
-    @click="popUpInfo.boughtItem.value = null"
-    v-if="popUpInfo.boughtItem.value !== null"
+    @click="popupInfo.closeBuyNowMessage"
+    v-if="popupInfo.showBuyNowMessage"
   >
     <font-awesome-icon icon="fa-solid fa-circle-xmark" />
   </button>

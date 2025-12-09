@@ -1,6 +1,6 @@
 <script setup>
 import { useCakeSlicesStore } from "@/cakeSlicesStore.js";
-import { useScreenSizeComposable } from "@/components/screenSizeComposable/isMobileStore.js";
+import { useScreenSizeComposable } from "@/composables/screenSizeComposable.js";
 import CakeCardComponent from "./CakeCardComponent.vue";
 import BorderTitleComponent from "./reusabaleComponents/BorderTitleComponent.vue";
 

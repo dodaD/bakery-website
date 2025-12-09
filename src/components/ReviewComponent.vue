@@ -1,5 +1,5 @@
 <script setup>
-import { useScreenSizeComposable } from "@/components/screenSizeComposable/isMobileStore.js";
+import { useScreenSizeComposable } from "@/composables/screenSizeComposable.js";
 
 const mobileStore = useScreenSizeComposable();
 
@@ -46,9 +46,9 @@ defineProps({
 @import "@/styles/common-styles.scss";
 
 .cut-out-border {
-  -webkit-mask-image: url("/reviewSolid.svg");
-  -webkit-mask-repeat: no-repeat;
-  -webkit-mask-size: contain;
+  mask-image: url("src/assets/reviewSolid.svg");
+  mask-repeat: no-repeat;
+  mask-size: contain;
   mask-repeat: no-repeat;
 }
 
@@ -62,10 +62,10 @@ defineProps({
     rgba(var(--glass-border-in-normal-way), 0.1),
     var(--glass-border)
   );
-  -webkit-mask-image: url("/reviewSolid.svg"), url("/reviewBorder.svg");
-  -webkit-mask-repeat: no-repeat;
-  -webkit-mask-size: contain;
-  -webkit-mask-composite: xor;
+  mask-image: url("/reviewSolid.svg"), url("src/assets/reviewBorder.svg");
+  mask-repeat: no-repeat;
+  mask-size: contain;
+  mask-composite: xor;
   mask-composite: intersect;
 }
 
@@ -144,7 +144,7 @@ defineProps({
 
 .half-star {
   color: var(--star-colour);
-  -webkit-text-stroke: 0px transparent;
+  text-stroke: 0px transparent;
   filter: drop-shadow(0 0 0 transparent);
 }
 

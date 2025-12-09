@@ -1,9 +1,9 @@
 <script setup>
-import { useScreenSizeComposable } from "@/components/screenSizeComposable/isMobileStore.js";
-import { usePopUpWindowComposable } from "@/components/screenSizeComposable/popUpWindowComposable.js";
+import { useScreenSizeComposable } from "@/composables/screenSizeComposable.js";
+import { usePopupWindowStore } from "@/stores/popUpWindowStore.js";
 
 const mobileStore = useScreenSizeComposable();
-const popUpInfo = usePopUpWindowComposable();
+const popupInfo = usePopupWindowStore();
 
 const props = defineProps({
   item: {
@@ -27,7 +27,7 @@ const props = defineProps({
 
       <button
         class="rectangle-rounded-button buy-button"
-        @click="popUpInfo.boughtItem.value = item.title"
+        @click="popupInfo.openBuyNowMessage(item.title)"
       >
         Buy now
       </button>

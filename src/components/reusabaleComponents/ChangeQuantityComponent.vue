@@ -1,11 +1,11 @@
 <script setup>
-import { computed, ref, watch } from "vue";
+import { computed, ref } from "vue";
 import { useShoppingCartStore } from "@/stores/shoppingCartStore.js";
-import { usePopUpWindowComposable } from "@/components/screenSizeComposable/popUpWindowComposable";
+import { usePopupWindowStore } from "@/stores/popUpWindowStore";
 
 const shoppingCart = useShoppingCartStore();
-const popUpInfo = usePopUpWindowComposable();
-const errorInput = ref(false);
+const popupInfo = usePopupWindowStore();
+const showError = ref(false);
 
 const props = defineProps({
   id: {
@@ -24,13 +24,13 @@ function updateQuantity() {
     return;
   }
 
-  if (cartItem.value.quantity > 100) {
-    popUpInfo.showPopUpWindow("Quantity must be less than a 100", null);
+  if (cartItem.value.quantity > 100 || cartItem.value.quantity < 0) {
+    popupInfo.showPopupWindow("Quantity must be between 1 and 100", null);
 
-    errorInput.value = true;
+    showError.value = true;
     return;
   }
-  errorInput.value = false;
+  showError.value = false;
 }
 </script>
 
@@ -48,7 +48,7 @@ function updateQuantity() {
       v-model="cartItem.quantity"
       max="100"
       min="0"
-      :class="{ 'error-input': errorInput }"
+      :class="{ 'error-input': showError }"
     />
     <button
       class="quantity-button circle-button"
@@ -81,9 +81,9 @@ input:invalid {
   border-bottom: 2px solid red;
 }
 
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
+input::outer-spin-button,
+input::inner-spin-button {
+  appearance: none;
   margin: 0;
 }
 

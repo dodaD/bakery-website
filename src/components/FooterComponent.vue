@@ -1,10 +1,10 @@
 <script setup>
 import { ref, watch } from "vue";
-import { useScreenSizeComposable } from "@/components/screenSizeComposable/isMobileStore.js";
-import { usePopUpWindowComposable } from "@/components/screenSizeComposable/popUpWindowComposable";
+import { useScreenSizeComposable } from "@/composables/screenSizeComposable.js";
+import { usePopupWindowStore } from "@/stores/popUpWindowStore";
 
 const mobileStore = useScreenSizeComposable();
-const popUpInfo = usePopUpWindowComposable();
+const popupInfo = usePopupWindowStore();
 
 const email = ref("");
 const emailValidity = ref(true);
@@ -14,7 +14,7 @@ function validateEmail() {
   emailValidity.value = emailPattern.test(email.value);
 
   if (emailValidity.value) {
-    popUpInfo.showPopUpWindow(
+    popupInfo.showPopupWindow(
       "Congratulations! You have successfully subscribed.",
       null
     );
