@@ -13,15 +13,16 @@ const mobileStore = useScreenSizeComposable();
       'hide-message': !popupInfo.showMessage,
       'alert-message-mobile': mobileStore.isMobile.value,
     }"
+    v-for="popup in popupInfo.popupWindows"
   >
-    <div>{{ popupInfo.message }}</div>
+    <div>{{ popup.message }}</div>
 
-    <div class="alert-buttons-container" v-if="popupInfo.showButtons">
+    <div class="alert-buttons-container" v-if="popup.showButton">
       <button
-        @click="popupInfo.buttonFunction"
+        @click="popup.buttonFunction"
         class="rectangle-rounded-button answer-button"
       >
-        {{ popupInfo.buttonText }}
+        {{ popup.buttonLabel }}
       </button>
     </div>
   </div>
