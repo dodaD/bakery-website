@@ -20,41 +20,45 @@ function goToPrevSlide() {
 }
 
 const swiperIndex = computed(() => {
-  return swiperRef.value ? swiperRef.value.activeIndex : 1;
+  return swiperRef.value ? swiperRef.value.realIndex : 1;
 });
 </script>
 
 <template>
   <BorderTitleComponent>Our Top Picks</BorderTitleComponent>
-  <Swiper
-    :slides-per-view="1"
-    :speed="400"
-    :loop="true"
-    @swiper="swiperRef = $event"
-  >
-    <SwiperSlide
-      v-for="(item, index) in topPicksStore.topPicks"
-      :key="index"
-      class="slide-wrapper"
-      :class="{
-        'pseudo-glass-background': !mobileStore.isMobile.value,
-        'glass-border': !mobileStore.isMobile.value,
-        'slide-wrapper-mobile': mobileStore.isMobile.value,
-      }"
-    >
-      <TopPicksSlideComponent :item="item" />
 
-      <div class="navigation-area">
-        <button @click="goToPrevSlide" class="prev-button circle-button">
-          <font-awesome-icon icon="fa-solid fa-arrow-left" />
-        </button>
-        <div class="slide-counter">{{ swiperIndex + 1 }} / 4</div>
-        <button @click="goToNextSlide" class="next-button circle-button">
-          <font-awesome-icon icon="fa-solid fa-arrow-right" />
-        </button>
-      </div>
-    </SwiperSlide>
-  </Swiper>
+  <div class="content-wrapper">
+    <Swiper
+      :slides-per-view="1"
+      :speed="400"
+      :loop="true"
+      @swiper="swiperRef = $event"
+      class="swiper"
+    >
+      <SwiperSlide
+        v-for="(item, index) in topPicksStore.topPicks"
+        :key="index"
+        class="slide-wrapper"
+        :class="{
+          'pseudo-glass-background': !mobileStore.isMobile.value,
+          'glass-border': !mobileStore.isMobile.value,
+          'slide-wrapper-mobile': mobileStore.isMobile.value,
+        }"
+      >
+        <TopPicksSlideComponent :item="item" />
+      </SwiperSlide>
+    </Swiper>
+
+    <div class="navigation-area">
+      <button @click="goToPrevSlide" class="prev-button circle-button">
+        <font-awesome-icon icon="fa-solid fa-arrow-left" />
+      </button>
+      <div class="slide-counter">{{ swiperIndex + 1 }} / 4</div>
+      <button @click="goToNextSlide" class="next-button circle-button">
+        <font-awesome-icon icon="fa-solid fa-arrow-right" />
+      </button>
+    </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>
@@ -70,6 +74,10 @@ const swiperIndex = computed(() => {
   flex-direction: column;
   padding: 20px 30px 50px;
   box-sizing: border-box;
+}
+
+.content-wrapper {
+  position: relative;
 }
 
 .slide-wrapper-mobile {
@@ -88,6 +96,10 @@ const swiperIndex = computed(() => {
   display: flex;
   align-items: center;
   margin-left: auto;
+  position: absolute;
+  bottom: 35px;
+  right: 50px;
+  z-index: 3;
 }
 
 .slide-counter {

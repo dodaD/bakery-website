@@ -17,6 +17,8 @@ defineProps({
 function addItemToCart(item) {
   shoppingCart.addItemToCart(item);
 
+  // TODO: popup window closes too fast
+
   popupInfo.showPopupWindow(
     "Item added to cart!",
     () => {

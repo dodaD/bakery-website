@@ -60,6 +60,7 @@ const cakeSlicesStore = useCakeSlicesStore();
   font-size: 12px;
   font-weight: bold;
   transform: translateY(50%);
+  cursor: pointer;
 }
 
 .product-swiper :deep(.swiper-button-next):after,
