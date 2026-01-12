@@ -1,23 +1,32 @@
 <script setup>
+import { ref, computed } from "vue";
 import { Swiper, SwiperSlide } from "swiper/vue";
-import { Navigation, Autoplay } from "swiper/modules";
+import { Autoplay } from "swiper/modules";
 import { useCakeSlicesStore } from "@/cakeSlicesStore.js";
 
 import HeroSlideComponent from "./HeroSlideComponent.vue";
 import "swiper/css";
 
-const modules = [Navigation, Autoplay];
+const modules = [Autoplay];
 
 const cakeSlicesStore = useCakeSlicesStore();
+
+const swiperRef = ref(null);
+function goToNextSlide() {
+  swiperRef.value?.slideNext();
+}
+function goToPrevSlide() {
+  swiperRef.value?.slidePrev();
+}
 </script>
 
 <template>
   <Swiper
     :modules="modules"
     :slides-per-view="1"
-    :navigation="true"
-    direction="horizontal"
     class="product-swiper"
+    @swiper="swiperRef = $event"
+    :loop="true"
     :autoplay="{
       delay: 4500,
       disableOnInteraction: false,
@@ -26,6 +35,13 @@ const cakeSlicesStore = useCakeSlicesStore();
     <SwiperSlide v-for="n in 3" :key="n" class="swiper-slide-wrapper">
       <HeroSlideComponent :cake="cakeSlicesStore.cakeSlices[n]" />
     </SwiperSlide>
+
+    <button @click="goToPrevSlide" class="angle-bracket-button prev-button">
+      <font-awesome-icon icon="fa-solid fa-chevron-left" />
+    </button>
+    <button @click="goToNextSlide" class="angle-bracket-button next-button">
+      <font-awesome-icon icon="fa-solid fa-chevron-right" />
+    </button>
   </Swiper>
 </template>
 
@@ -50,45 +66,45 @@ const cakeSlicesStore = useCakeSlicesStore();
   box-sizing: border-box;
 }
 
-/* Custom Swiper Navigation Arrows */
-.product-swiper :deep(.swiper-button-next),
-.product-swiper :deep(.swiper-button-prev) {
+.angle-bracket-button {
   color: var(--font-colour);
-  width: 20px;
-  height: 20px;
-  margin-top: -10px;
-  font-size: 12px;
-  font-weight: bold;
   transform: translateY(50%);
   cursor: pointer;
-}
-
-.product-swiper :deep(.swiper-button-next):after,
-.product-swiper :deep(.swiper-button-prev):after {
-  font-size: 12px;
-  font-weight: bold;
-}
-
-/* Hide arrows when disabled */
-.product-swiper :deep(.swiper-button-disabled) {
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
-}
-
-/* Position arrows */
-.product-swiper :deep(.swiper-button-next) {
   position: absolute;
-  right: 10px;
   top: 50%;
-  z-index: 1;
+  z-index: 2;
+  font-size: 14px;
+  background: none;
+  border: none;
+  font-size: 25px;
 }
 
-.product-swiper :deep(.swiper-button-prev) {
-  position: absolute;
+.prev-button {
   left: 10px;
-  top: 50%;
-  z-index: 1;
-  transform: translateY(50%) rotateY(180deg);
+}
+
+.next-button {
+  right: 10px;
+}
+
+.angle-bracket-button::before {
+  content: "";
+  position: absolute;
+  width: 35px;
+  height: 35px;
+  inset: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.6),
+    0 0 10px rgba(255, 255, 255, 0.4), inset 0 0 10px rgba(255, 255, 255, 0.2);
+
+  transition: opacity 0.2s ease;
+}
+
+.angle-bracket-button:hover::before {
+  opacity: 1;
 }
 </style>
