@@ -108,9 +108,11 @@ function checkIfItemInCart(itemId) {
   justify-content: flex-end;
   align-items: flex-start;
   flex-direction: column;
+  transition: all 0.3s ease;
 }
 
-.cake-info:hover {
+.cake-info:hover,
+.is-hovered .cake-card .cake-info {
   box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.4),
     0 0 5px rgba(255, 255, 255, 0.2);
 }
