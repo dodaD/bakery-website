@@ -9,6 +9,7 @@ const popupInfo = usePopupWindowStore();
 const showSearchInput = ref(false);
 const searchValue = ref("");
 const searchInput = useTemplateRef("search-input");
+const foundCakes = ref([]);
 
 function findCake() {
   showSearchInput.value = true;
@@ -22,14 +23,21 @@ function findCake() {
     title.toLowerCase().includes(searchValue.value.toLowerCase())
   );
 
-  if (result[0] !== undefined) {
-    searchValue.value = "";
-    showSearchInput.value = false;
-    scrollToCake(result[0].id);
-    return;
+  if (result[0] == undefined) {
   }
 
-  popupInfo.showPopupWindow("Cake not found. Please try another search", null);
+  console.log(result);
+  foundCakes.value = result;
+}
+
+function checkIfCakeFound() {
+  if (foundCakes[0] == undefined) {
+    popupInfo.showPopupWindow(
+      "Cake not found. Please try another search",
+      null
+    );
+    return;
+  }
 }
 
 function scrollToCake(id) {
@@ -39,18 +47,31 @@ function scrollToCake(id) {
 </script>
 
 <template>
-  <div class="input-wrapper">
-    <input
-      v-model="searchValue"
-      class="search-input"
-      :class="{ 'show-search-input': showSearchInput }"
-      ref="search-input"
-      @keyup.enter="findCake"
-      @blur="showSearchInput = false"
-    />
-    <button @click="findCake">
-      <font-awesome-icon :icon="['fas', 'magnifying-glass']" class="icon" />
-    </button>
+  <div class="search-wrapper">
+    <div class="input-wrapper">
+      <input
+        v-model="searchValue"
+        class="search-input"
+        :class="{ 'show-search-input': showSearchInput }"
+        ref="search-input"
+        @keyup.enter="checkIfCakeFound"
+        @input="findCake"
+      />
+      <button @click="findCake">
+        <font-awesome-icon :icon="['fas', 'magnifying-glass']" class="icon" />
+      </button>
+    </div>
+
+    <div class="drop-down-menu">
+      <div
+        class="found-cake-wrapper"
+        v-if="foundCakes != []"
+        v-for="foundCake in foundCakes"
+        @click="scrollToCake(foundCake.id)"
+      >
+        {{ foundCake.title }}
+      </div>
+    </div>
   </div>
 </template>
 
@@ -89,5 +110,19 @@ function scrollToCake(id) {
 .icon {
   height: 20px;
   width: 20px;
+}
+
+.search-wrapper {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.drop-down-menu {
+  position: absolute;
+  top: 40px;
+  z-index: 2;
+  height: 120px;
+  overflow-y: scroll;
 }
 </style>
