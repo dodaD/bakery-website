@@ -10,7 +10,11 @@ const router = createRouter({
       name: "Home",
       component: MainPage,
     },
-    { path: "/cakes/:title", component: CakePage },
+    {
+      path: "/cakes/:id",
+      name: "CakePage",
+      component: CakePage,
+    },
   ],
 });
 

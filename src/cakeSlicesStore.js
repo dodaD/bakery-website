@@ -1,9 +1,16 @@
+import carrotCake from "@/assets/CakeSlices/CarrotCakeSlice.png";
+import chocolateCake from "@/assets/CakeSlices/ChocolateCakeSlice.png";
+import coffeeCake from "@/assets/CakeSlices/CoffeeCakeSlice.png";
+import orangeCake from "@/assets/CakeSlices/OrangeCakeSlice.png";
+import pecanCake from "@/assets/CakeSlices/PecanCakeSlice.png";
+import strawberryCake from "@/assets/CakeSlices/StrawberryCakeSlice.png";
+
 export const useCakeSlicesStore = () => {
   const cakeSlices = [
     {
       id: 1,
       title: "Carrot Cake",
-      image: "src/assets/CakeSlices/CarrotCakeSlice.png",
+      image: carrotCake,
       description: "Moist carrot cake with cream cheese frosting.",
       pageDescription:
         "Our Carrot Cake is baked with freshly grated carrots and warm spices to create a perfectly moist and flavorful crumb. Each slice is studded with crunchy walnuts and layered with a smooth, tangy cream cheese frosting that balances sweetness with richness. This classic cake is comforting, indulgent, and ideal for those who enjoy traditional bakery flavors with depth and texture.",
@@ -34,7 +41,7 @@ export const useCakeSlicesStore = () => {
     {
       id: 2,
       title: "Chocolate Cake",
-      image: "src/assets/CakeSlices/ChocolateCakeSlice.png",
+      image: chocolateCake,
       description: "Rich chocolate cake with chocolate ganache.",
       pageDescription:
         "This Chocolate Cake is crafted for true chocolate lovers. A soft and deeply cocoa-infused sponge is layered with a luxurious chocolate ganache made from real dark chocolate and cream. The result is an intensely rich yet balanced dessert that melts in your mouth with every bite.",
@@ -64,7 +71,7 @@ export const useCakeSlicesStore = () => {
     {
       id: 3,
       title: "Coffee Cake",
-      image: "src/assets/CakeSlices/CoffeeCakeSlice.png",
+      image: coffeeCake,
       description: "Aromatic coffee-flavored sponge cake.",
       pageDescription:
         "Our Coffee Cake features a tender sponge infused with high-quality coffee extract, delivering a smooth and aromatic flavor without bitterness. Finished with a light vanilla glaze, this cake pairs beautifully with a hot cup of coffee or espresso.",
@@ -93,7 +100,7 @@ export const useCakeSlicesStore = () => {
     {
       id: 4,
       title: "Orange Cake",
-      image: "src/assets/CakeSlices/OrangeCakeSlice.png",
+      image: orangeCake,
       description: "Fresh orange cake with citrus glaze.",
       pageDescription:
         "This Orange Cake is light, fragrant, and refreshing. Made with real orange juice and zest, it delivers a natural citrus flavor that is both bright and balanced. A glossy orange glaze adds sweetness and enhances the fresh, sunny character of this cake.",
@@ -121,7 +128,7 @@ export const useCakeSlicesStore = () => {
     {
       id: 5,
       title: "Pecan Cake",
-      image: "src/assets/CakeSlices/PecanCakeSlice.png",
+      image: pecanCake,
       description: "Nutty pecan cake with caramel drizzle.",
       pageDescription:
         "Our Pecan Cake is rich, buttery, and packed with toasted pecans for a satisfying crunch. The cake is finished with a smooth caramel drizzle that enhances the nutty flavors and adds a touch of indulgent sweetness. Perfect for those who enjoy deep, warm dessert profiles.",
@@ -150,7 +157,7 @@ export const useCakeSlicesStore = () => {
     {
       id: 6,
       title: "Strawberry Cake",
-      image: "src/assets/CakeSlices/StrawberryCakeSlice.png",
+      image: strawberryCake,
       description: "Light strawberry cake with fresh berries.",
       pageDescription:
         "This Strawberry Cake combines a soft vanilla sponge with layers of fresh strawberries and lightly whipped strawberry cream. The result is a delicate, fruity cake that is refreshing, not overly sweet, and perfect for spring and summer desserts.",

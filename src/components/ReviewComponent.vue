@@ -50,6 +50,7 @@ defineProps({
   mask-repeat: no-repeat;
   mask-size: contain;
   mask-repeat: no-repeat;
+  position: relative;
 }
 
 .cut-out-border::before {
@@ -135,11 +136,12 @@ defineProps({
   justify-content: flex-end;
   gap: 3px;
   align-items: center;
+  --font-colour: var(--star-colour);
 }
 
 .star {
   font-size: 15px;
-  color: var(--star-colour);
+  font-colour: var(--star-colour);
 }
 
 .half-star {

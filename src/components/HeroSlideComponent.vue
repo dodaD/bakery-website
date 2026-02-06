@@ -35,6 +35,7 @@ const props = defineProps({
   mask-image: url("src/assets/heroSolid.svg");
   mask-size: cover;
   mask-repeat: no-repeat;
+  position: relative;
 }
 
 .cut-out-border::before {

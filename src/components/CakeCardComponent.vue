@@ -2,10 +2,13 @@
 import { useShoppingCartStore } from "@/stores/shoppingCartStore.js";
 import { useScreenSizeComposable } from "@/composables/screenSizeComposable.js";
 import { usePopupWindowStore } from "@/stores/popUpWindowStore";
+import { useRouter } from "vue-router";
 import ChangeQuantityComponent from "./reusabaleComponents/ChangeQuantityComponent.vue";
+
 const mobileStore = useScreenSizeComposable();
 const shoppingCart = useShoppingCartStore();
 const popupInfo = usePopupWindowStore();
+const router = useRouter();
 
 defineProps({
   cake: {
@@ -38,6 +41,7 @@ function checkIfItemInCart(itemId) {
   <div
     class="cake-card"
     :class="{ 'cake-card-mobile': mobileStore.isMobile.value }"
+    @click="router.push({ name: 'CakePage', params: { id: cake.id } })"
   >
     <img :src="cake.image" class="cake-image" />
     <div class="cake-info pseudo-glass-background cut-out-border">
@@ -68,6 +72,7 @@ function checkIfItemInCart(itemId) {
   mask-repeat: no-repeat;
   mask-size: contain;
   mask-repeat: no-repeat;
+  position: relative;
 }
 
 .cut-out-border::before {
