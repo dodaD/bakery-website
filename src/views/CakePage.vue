@@ -3,16 +3,18 @@ import { ref } from "vue";
 import { useRoute } from "vue-router";
 import { useCakeSlicesStore } from "@/cakeSlicesStore";
 import CakePageHero from "@/components/CakePageHero.vue";
+import BuyNowMessage from "@/components/BuyNowMessage.vue";
 
 const route = useRoute();
 const cakeSlicesStore = useCakeSlicesStore();
 
 const cake = cakeSlicesStore.cakeSlices.find(
-  (cake) => cake.id == route?.params.id
+  (cake) => cake.id == route?.params.id,
 );
 </script>
 
 <template>
+  <BuyNowMessage />
   <div class="content-wrapper">
     <CakePageHero :cake="cake" />
   </div>

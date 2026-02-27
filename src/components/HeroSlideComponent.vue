@@ -63,8 +63,10 @@ const props = defineProps({
 }
 
 .swiper-slide:hover .buy-button {
-  box-shadow: 0 0 5px rgba(255, 255, 255, 0.6),
-    0 0 10px rgba(255, 255, 255, 0.4), inset 0 0 10px rgba(255, 255, 255, 0.2);
+  box-shadow:
+    0 0 5px rgba(255, 255, 255, 0.6),
+    0 0 10px rgba(255, 255, 255, 0.4),
+    inset 0 0 10px rgba(255, 255, 255, 0.2);
 }
 
 .buy-button {
@@ -75,7 +77,8 @@ const props = defineProps({
   /* inset = inside the box,
       offset-x(if both x and y 0, the shadow is right behind the box),
       offset-y, blur-radius, spread-radius */
-  box-shadow: inset 0 -35px 20px rgba(255, 255, 255, 0.4),
+  box-shadow:
+    inset 0 -35px 20px rgba(255, 255, 255, 0.4),
     0 0 5px rgba(255, 255, 255, 0.2);
   transition: all 0.3s ease;
 }

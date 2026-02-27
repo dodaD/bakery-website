@@ -1,6 +1,8 @@
 <script setup>
+import { usePopupWindowStore } from "../stores/popUpWindowStore.js";
 import { ref, defineProps } from "vue";
 
+const popupInfo = usePopupWindowStore();
 const props = defineProps({
   cake: { Object, required: true },
 });
@@ -31,6 +33,7 @@ function switchToSection(section) {
 
     <div class="cake-page-info-wrapper">
       <h4 class="cake-page-title">{{ cake.title }}</h4>
+
       <div class="cake-hero-buttons">
         <button
           class="cake-hero-button"
@@ -55,20 +58,32 @@ function switchToSection(section) {
         </button>
       </div>
 
-      <div v-if="isDescriptionShowing" class="cake-page-description cake-info">
-        {{ cake.pageDescription }}
-      </div>
-      <div v-if="isNutritionShowing" class="cake-nutrition cake-info">
-        <div>Calories: {{ cake.nutrition.calories }}</div>
-        <div>Fat: {{ cake.nutrition.fat }}</div>
-        <div>Saturated Fat: {{ cake.nutrition.saturatedFat }}</div>
-        <div>Carbohydrates: {{ cake.nutrition.carbohydrates }}</div>
-        <div>Sugar: {{ cake.nutrition.sugar }}</div>
-        <div>Protein: {{ cake.nutrition.protein }}</div>
-        <div>Sodium: {{ cake.nutrition.sodium }}</div>
-      </div>
-      <div v-if="isIngredientsShowing" class="cake-ingredients cake-info">
-        {{ cake.ingredients }}
+      <div class="cake-info">
+        <div v-if="isDescriptionShowing" class="cake-page-description">
+          {{ cake.pageDescription }}
+        </div>
+
+        <div v-if="isNutritionShowing" class="cake-nutritions">
+          <div
+            v-for="(value, nutrition) in cake.nutrition"
+            class="cake-nutrition"
+          >
+            {{ nutrition }}: {{ value }}
+          </div>
+        </div>
+
+        <div v-if="isIngredientsShowing" class="cake-ingredients">
+          <div v-for="ingredient in cake.ingredients" class="ingredient">
+            <font-awesome-icon icon="fa-regular fa-circle-dot" />
+            {{ ingredient }}
+          </div>
+        </div>
+        <button
+          class="rectangle-rounded-button cake-page-button"
+          @click="popupInfo.openBuyNowMessage(cake.title)"
+        >
+          Buy Now
+        </button>
       </div>
     </div>
   </div>
@@ -122,20 +137,32 @@ function switchToSection(section) {
   border-bottom: 2px solid var(--font-colour);
 }
 
-.cake-nutrition {
+.cake-nutritions {
   min-width: 100%;
-  display: flex;
-  flex-direction: column;
+  column-count: 2;
+  column-gap: 0;
+}
+
+.cake-nutritions {
+  text-transform: capitalize;
 }
 
 .cake-info {
   width: 100%;
   background-color: var(--footer-accent);
   padding: 25px 40px;
-  height: 250px;
+  min-height: 250px;
   box-sizing: border-box;
   border-radius: 50px;
-  line-height: 25px;
-  font-weight: 500;
+  line-height: 30px;
+}
+
+.cake-ingredients {
+  column-count: 2;
+  column-gap: 0;
+}
+
+.cake-page-button {
+  margin-top: 40px;
 }
 </style>
