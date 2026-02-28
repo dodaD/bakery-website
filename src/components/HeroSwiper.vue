@@ -98,8 +98,10 @@ function goToPrevSlide() {
   opacity: 0;
   pointer-events: none;
 
-  box-shadow: 0 0 5px rgba(255, 255, 255, 0.6),
-    0 0 10px rgba(255, 255, 255, 0.4), inset 0 0 10px rgba(255, 255, 255, 0.2);
+  box-shadow:
+    0 0 5px rgba(255, 255, 255, 0.6),
+    0 0 10px rgba(255, 255, 255, 0.4),
+    inset 0 0 10px rgba(255, 255, 255, 0.2);
 
   transition: opacity 0.2s ease;
 }

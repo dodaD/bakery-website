@@ -1,5 +1,5 @@
 <script setup>
-import { usePopupWindowStore } from "../stores/popUpWindowStore.js";
+import { usePopupWindowStore } from "../../stores/popUpWindowStore.js";
 import { ref, defineProps } from "vue";
 
 const popupInfo = usePopupWindowStore();
@@ -100,8 +100,8 @@ function switchToSection(section) {
 }
 
 .cake-page-image {
-  height: 500px;
-  width: fit-content;
+  height: auto;
+  width: 350px;
   margin-right: 50px;
 }
 
