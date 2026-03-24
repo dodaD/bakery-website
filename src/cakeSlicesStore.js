@@ -12,7 +12,7 @@ export const useCakeSlicesStore = () => {
       title: "Carrot Cake",
       image: carrotCake,
       description: "Moist carrot cake with cream cheese frosting.",
-      pageDescription:
+      full_description:
         "Our Carrot Cake is baked with freshly grated carrots and warm spices to create a perfectly moist and flavorful crumb. Each slice is studded with crunchy walnuts and layered with a smooth, tangy cream cheese frosting that balances sweetness with richness. This classic cake is comforting, indulgent, and ideal for those who enjoy traditional bakery flavors with depth and texture.",
       price: "13.99",
       ingredients: [
@@ -28,22 +28,19 @@ export const useCakeSlicesStore = () => {
         "Baking powder",
         "Salt",
       ],
-      nutrition: {
-        calories: 420,
-        fat: "24 g",
-        saturatedFat: "8 g",
-        carbohydrates: "46 g",
-        sugar: "32 g",
-        protein: "6 g",
-        sodium: "310 mg",
-      },
+      calories: 420,
+      fat: "24 g",
+      carbohydrates: "46 g",
+      cholesterol: "32 g",
+      protein: "6 g",
+      sodium: "310 mg",
     },
     {
       id: 2,
       title: "Chocolate Cake",
       image: chocolateCake,
       description: "Rich chocolate cake with chocolate ganache.",
-      pageDescription:
+      full_description:
         "This Chocolate Cake is crafted for true chocolate lovers. A soft and deeply cocoa-infused sponge is layered with a luxurious chocolate ganache made from real dark chocolate and cream. The result is an intensely rich yet balanced dessert that melts in your mouth with every bite.",
       price: "14.99",
       ingredients: [
@@ -58,22 +55,19 @@ export const useCakeSlicesStore = () => {
         "Salt",
         "Vanilla extract",
       ],
-      nutrition: {
-        calories: 460,
-        fat: "28 g",
-        saturatedFat: "14 g",
-        carbohydrates: "48 g",
-        sugar: "34 g",
-        protein: "6 g",
-        sodium: "290 mg",
-      },
+      calories: 460,
+      fat: "28 g",
+      carbohydrates: "48 g",
+      cholesterol: "34 g",
+      protein: "6 g",
+      sodium: "290 mg",
     },
     {
       id: 3,
       title: "Coffee Cake",
       image: coffeeCake,
       description: "Aromatic coffee-flavored sponge cake.",
-      pageDescription:
+      full_description:
         "Our Coffee Cake features a tender sponge infused with high-quality coffee extract, delivering a smooth and aromatic flavor without bitterness. Finished with a light vanilla glaze, this cake pairs beautifully with a hot cup of coffee or espresso.",
       price: "12.99",
       ingredients: [
@@ -87,22 +81,19 @@ export const useCakeSlicesStore = () => {
         "Vanilla",
         "Salt",
       ],
-      nutrition: {
-        calories: 390,
-        fat: "20 g",
-        saturatedFat: "9 g",
-        carbohydrates: "44 g",
-        sugar: "26 g",
-        protein: "5 g",
-        sodium: "270 mg",
-      },
+      calories: 390,
+      fat: "20 g",
+      carbohydrates: "44 g",
+      cholesterol: "26 g",
+      protein: "5 g",
+      sodium: "270 mg",
     },
     {
       id: 4,
       title: "Orange Cake",
       image: orangeCake,
       description: "Fresh orange cake with citrus glaze.",
-      pageDescription:
+      full_description:
         "This Orange Cake is light, fragrant, and refreshing. Made with real orange juice and zest, it delivers a natural citrus flavor that is both bright and balanced. A glossy orange glaze adds sweetness and enhances the fresh, sunny character of this cake.",
       price: "12.99",
       ingredients: [
@@ -115,28 +106,25 @@ export const useCakeSlicesStore = () => {
         "Baking powder",
         "Salt",
       ],
-      nutrition: {
-        calories: 380,
-        fat: "18 g",
-        saturatedFat: "8 g",
-        carbohydrates: "45 g",
-        sugar: "27 g",
-        protein: "5 g",
-        sodium: "260 mg",
-      },
+      calories: 380,
+      fat: "18 g",
+      carbohydrates: "45 g",
+      cholesterol: "27 g",
+      protein: "5 g",
+      sodium: "260 mg",
     },
     {
       id: 5,
       title: "Pecan Cake",
       image: pecanCake,
       description: "Nutty pecan cake with caramel drizzle.",
-      pageDescription:
+      full_description:
         "Our Pecan Cake is rich, buttery, and packed with toasted pecans for a satisfying crunch. The cake is finished with a smooth caramel drizzle that enhances the nutty flavors and adds a touch of indulgent sweetness. Perfect for those who enjoy deep, warm dessert profiles.",
       price: "14.99",
       ingredients: [
         "Wheat flour",
         "Pecans",
-        "Brown sugar",
+        "Brown cholesterol",
         "Eggs",
         "Butter",
         "Cream",
@@ -144,22 +132,19 @@ export const useCakeSlicesStore = () => {
         "Baking powder",
         "Salt",
       ],
-      nutrition: {
-        calories: 480,
-        fat: "30 g",
-        saturatedFat: "10 g",
-        carbohydrates: "44 g",
-        sugar: "29 g",
-        protein: "6 g",
-        sodium: "300 mg",
-      },
+      calories: 480,
+      fat: "30 g",
+      carbohydrates: "44 g",
+      cholesterol: "29 g",
+      protein: "6 g",
+      sodium: "300 mg",
     },
     {
       id: 6,
       title: "Strawberry Cake",
       image: strawberryCake,
       description: "Light strawberry cake with fresh berries.",
-      pageDescription:
+      full_description:
         "This Strawberry Cake combines a soft vanilla sponge with layers of fresh strawberries and lightly whipped strawberry cream. The result is a delicate, fruity cake that is refreshing, not overly sweet, and perfect for spring and summer desserts.",
       price: "14.99",
       ingredients: [
@@ -173,15 +158,12 @@ export const useCakeSlicesStore = () => {
         "Baking powder",
         "Salt",
       ],
-      nutrition: {
-        calories: 400,
-        fat: "22 g",
-        saturatedFat: "10 g",
-        carbohydrates: "42 g",
-        sugar: "28 g",
-        protein: "5 g",
-        sodium: "250 mg",
-      },
+      calories: 400,
+      fat: "22 g",
+      carbohydrates: "42 g",
+      cholesterol: "28 g",
+      protein: "5 g",
+      sodium: "250 mg",
     },
   ];
 

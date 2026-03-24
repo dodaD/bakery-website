@@ -28,7 +28,7 @@ function addItemToCart(item) {
       shoppingCart.switchCartVisibility();
       popupInfo.showMessage = false;
     },
-    "Open Cart"
+    "Open Cart",
   );
 }
 
@@ -41,11 +41,16 @@ function checkIfItemInCart(itemId) {
   <div
     class="cake-card"
     :class="{ 'cake-card-mobile': mobileStore.isMobile.value }"
-    @click="router.push({ name: 'CakePage', params: { id: cake.id } })"
   >
-    <img :src="cake.image" class="cake-image" />
+    <img
+      :src="cake.image"
+      class="cake-image"
+      @click="router.push({ name: 'CakePage', params: { id: cake.id } })"
+    />
     <div class="cake-info pseudo-glass-background cut-out-border">
-      <div class="cake-name">{{ cake.title }}</div>
+      <div class="cake-name">
+        {{ cake.title }}
+      </div>
       <div class="cake-description">{{ cake.description }}</div>
 
       <div class="pay-button-container">
@@ -85,8 +90,8 @@ function checkIfItemInCart(itemId) {
     rgba(var(--glass-border-in-normal-way), 0.1),
     var(--glass-border)
   );
-  mask-image: url("src/assets/productSolid.svg"),
-    url("src/assets/productBorder.svg");
+  mask-image:
+    url("src/assets/productSolid.svg"), url("src/assets/productBorder.svg");
   mask-repeat: no-repeat;
   mask-size: contain;
   mask-composite: xor;
@@ -102,6 +107,7 @@ function checkIfItemInCart(itemId) {
   right: 50%;
   top: 0;
   z-index: 1;
+  cursor: pointer;
 }
 
 .cake-info {
@@ -118,7 +124,8 @@ function checkIfItemInCart(itemId) {
 
 .cake-info:hover,
 .is-hovered .cake-card .cake-info {
-  box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.4),
+  box-shadow:
+    inset 0 0 50px rgba(255, 255, 255, 0.4),
     0 0 5px rgba(255, 255, 255, 0.2);
 }
 
@@ -148,7 +155,9 @@ function checkIfItemInCart(itemId) {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
   position: relative;
   width: 100%;
   max-width: 350px;

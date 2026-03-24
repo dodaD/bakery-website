@@ -1,4 +1,5 @@
 <script setup>
+import NutritionSelector from "./NutritionSelector.vue";
 import { usePopupWindowStore } from "../../stores/popUpWindowStore.js";
 import { ref, defineProps } from "vue";
 
@@ -60,16 +61,11 @@ function switchToSection(section) {
 
       <div class="cake-info">
         <div v-if="isDescriptionShowing" class="cake-page-description">
-          {{ cake.pageDescription }}
+          {{ cake.full_description }}
         </div>
 
         <div v-if="isNutritionShowing" class="cake-nutritions">
-          <div
-            v-for="(value, nutrition) in cake.nutrition"
-            class="cake-nutrition"
-          >
-            {{ nutrition }}: {{ value }}
-          </div>
+          <NutritionSelector :cake="cake" />
         </div>
 
         <div v-if="isIngredientsShowing" class="cake-ingredients">
@@ -96,12 +92,13 @@ function switchToSection(section) {
 .cake-page-hero-wrapper {
   display: flex;
   flex-direction: row;
-  height: 500px;
+  height: 700px;
+  margin-bottom: 50px;
 }
 
 .cake-page-image {
-  height: auto;
-  width: 350px;
+  height: 500px;
+  width: auto;
   margin-right: 50px;
 }
 
@@ -137,16 +134,6 @@ function switchToSection(section) {
   border-bottom: 2px solid var(--font-colour);
 }
 
-.cake-nutritions {
-  min-width: 100%;
-  column-count: 2;
-  column-gap: 0;
-}
-
-.cake-nutritions {
-  text-transform: capitalize;
-}
-
 .cake-info {
   width: 100%;
   background-color: var(--footer-accent);
@@ -164,5 +151,9 @@ function switchToSection(section) {
 
 .cake-page-button {
   margin-top: 40px;
+}
+
+.cake-page-button {
+  margin: 10px 0;
 }
 </style>
